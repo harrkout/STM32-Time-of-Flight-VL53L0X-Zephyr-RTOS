@@ -1,6 +1,6 @@
 .. _vl53l0x:
 
- - Implementation of the VL53L0X: Time Of Flight Sensor from ST on the ST Disco L475 IOT01 board with Zephyr RTOS and Golioth Database.
+ Implementation of the VL53L0X: Time Of Flight Sensor from ST on the ST Disco L475 IOT01 board with Zephyr RTOS and Golioth Database.
 
  - Build with `west build -b disco_l475_iot1 -p -- -DSHIELD=esp_8266_arduino`
  - Flash with `west flash`
