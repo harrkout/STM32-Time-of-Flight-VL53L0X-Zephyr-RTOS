@@ -24,17 +24,18 @@ LOG_MODULE_REGISTER(golioth_lightdb_stream, LOG_LEVEL_DBG);
 //Enables Golioth client
 static struct golioth_client *client = GOLIOTH_SYSTEM_CLIENT_GET();			
 
+
 void main(void)
 {
 
 	const struct device *dev = device_get_binding(DT_LABEL(DT_INST(0, st_vl53l0x)));
 	//struct for reading the sensor values (universal library in zephyr, I think?).
-	struct sensor_value value;
+	struct sensor_value dist, prox;
 
 	//strings are used to save the data, because Golioth uses CoAP Protocol and can send only Plain Text.
-	char str_distance[32];
+	char str_distance[64];
 	char str_proximity[32];
-	int err;
+	int ret;
 
 	//Message at the beginning of project (in UART).
 	LOG_DBG("Starting LightDB Stream of Time-of-Flight Sensor");
@@ -55,29 +56,34 @@ void main(void)
 
 	//Checks whether the VL53L0X sensor is available.
 	while (true) {
-		err = sensor_sample_fetch(dev);
-		if (err) {
-			printk("sensor_sample_fetch failed ret %d\n", err);
+		ret = sensor_sample_fetch(dev);
+		if (ret) {
+			printk("sensor_sample_fetch failed ret %d\n", ret);
 			return;
 			k_sleep(K_SECONDS(1));
 			continue;
 		}
 
-		str_distance[sizeof(sensor_value_to_double(&value)) - 1] = '\0';
-		str_proximity[sizeof(value.val1)] = '\0';
+		str_distance[sizeof(sensor_value_to_double(&dist)) - 1] = '\0';
+		str_proximity[sizeof(prox)] = '\0';
 
 
 		//Proximity
 
-		//Variable err saves the state of the data taken from the sensor.
-		err = sensor_channel_get(dev, SENSOR_CHAN_PROX, &value);
+		//Variable ret saves the state of the data taken from the sensor.
+		ret = sensor_channel_get(dev, SENSOR_CHAN_PROX, &prox);
 		//Prints in UART the received data.
-		printk("Proximity is %d\n", value.val1);
+		printk("========================================================================================\n");
+		printk("\n					    ST_VL53L0X Data: \n\n");
+		printk("					-------------------------\n", prox);
+		printk("					|  Proximity is %d       |\n", prox);
 		
 		//Distance
 
-		err = sensor_channel_get(dev, SENSOR_CHAN_DISTANCE, &value);
-		printf("Distance is %.3fm\n", sensor_value_to_double(&value));
+		ret = sensor_channel_get(dev, SENSOR_CHAN_DISTANCE, &dist);
+		printf("					|  Distance is %.3fm   |\n", sensor_value_to_double(&dist));
+		printk("					-------------------------\n", prox);
+
 
 		//snprintk && snprintf(same usage in Zephyr, I think?) are necessary to send log to LightDB Stream.
 
@@ -89,34 +95,34 @@ void main(void)
 		*/
 
 		snprintf(str_proximity, sizeof(str_proximity),
-			 "%d", value.val1);
+			 "%d", prox);
 
 		str_proximity[sizeof(str_proximity) -1 ] = '\0';
 
 		snprintf(str_distance, sizeof(str_distance),
 
-			 "%.3fm", sensor_value_to_double(&value));
+			 "%.3fm", sensor_value_to_double(&dist));
 		str_distance[sizeof(str_distance) - 1] = '\0';
 
 		//Message the is shown in UART if Golioth Client is correctly sending data.
-		LOG_DBG("Sending Distance %sm\ /|  Proximity %s\n", log_strdup(str_distance), log_strdup(str_proximity));
-        //LOG_DBG("Proximity: %d;", sensor_value_to_double(&value.val1));
+		LOG_DBG("Sending Distance %sm\  /|  Proximity %s\n", log_strdup(str_distance), log_strdup(str_proximity));
+		printk("================================================================================================\n");
 
 
-		err = golioth_lightdb_set(client,
+		ret = golioth_lightdb_set(client,
 					  GOLIOTH_LIGHTDB_STREAM_PATH("Time-of-Flight: Distance"),
 					  COAP_CONTENT_FORMAT_TEXT_PLAIN,
 					  str_distance,
 					  strlen(str_distance));
 
-		err = golioth_lightdb_set(client,
+		ret = golioth_lightdb_set(client,
 					  GOLIOTH_LIGHTDB_STREAM_PATH("Time-of-Flight: Proximity"),
 					  COAP_CONTENT_FORMAT_TEXT_PLAIN,
 					  str_proximity,
 					  strlen(str_proximity));
 
-		if (err) {
-			LOG_WRN("Failed to send data: %d", err);
+		if (ret) {
+			LOG_WRN("Failed to send data: %d", ret);
 		}
 
 		k_sleep(K_MSEC(1000));
