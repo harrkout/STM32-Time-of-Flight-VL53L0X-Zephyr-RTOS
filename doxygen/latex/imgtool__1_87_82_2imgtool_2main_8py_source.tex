@@ -1,0 +1,395 @@
+\doxysection{main.\+py}
+\hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source}{}\label{imgtool__1_87_82_2imgtool_2main_8py_source}\index{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/imgtool\_1.7.2/imgtool/main.py@{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/imgtool\_1.7.2/imgtool/main.py}}
+\mbox{\hyperlink{imgtool__1_87_82_2imgtool_2main_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00001}00001\ \textcolor{comment}{\#!\ /usr/bin/env\ python3}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00003}00003\ \textcolor{comment}{\#\ Copyright\ 2017-\/2020\ Linaro\ Limited}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00004}00004\ \textcolor{comment}{\#\ Copyright\ 2019-\/2020\ Arm\ Limited}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00005}00005\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00006}00006\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00007}00007\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00008}00008\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00009}00009\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00010}00010\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00011}00011\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00012}00012\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00013}00013\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00014}00014\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00015}00015\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00016}00016\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00018}00018\ \textcolor{keyword}{import}\ re}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00019}00019\ \textcolor{keyword}{import}\ click}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00020}00020\ \textcolor{keyword}{import}\ getpass}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00021}00021\ \textcolor{keyword}{import}\ \mbox{\hyperlink{namespaceimgtool_1_1keys}{imgtool.keys}}\ \textcolor{keyword}{as}\ keys}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00022}00022\ \textcolor{keyword}{import}\ sys}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00023}00023\ \textcolor{keyword}{from}\ imgtool\ \textcolor{keyword}{import}\ image,\ imgtool\_version}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00024}00024\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespaceimgtool_1_1version}{imgtool.version}}\ \textcolor{keyword}{import}\ decode\_version}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00025}00025\ \textcolor{keyword}{from}\ .keys\ \textcolor{keyword}{import}\ (}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00026}00026\ \ \ \ \ RSAUsageError,\ ECDSAUsageError,\ Ed25519UsageError,\ X25519UsageError)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00028}00028\ MIN\_PYTHON\_VERSION\ =\ (3,\ 6)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00029}00029\ \textcolor{keywordflow}{if}\ sys.version\_info\ <\ MIN\_PYTHON\_VERSION:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00030}00030\ \ \ \ \ sys.exit(\textcolor{stringliteral}{"{}Python\ \%s.\%s\ or\ newer\ is\ required\ by\ imgtool."{}}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \%\ MIN\_PYTHON\_VERSION)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00034}00034\ \textcolor{keyword}{def\ }gen\_rsa2048(keyfile,\ passwd):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00035}00035\ \ \ \ \ keys.RSA.generate().export\_private(path=keyfile,\ passwd=passwd)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00038}00038\ \textcolor{keyword}{def\ }gen\_rsa3072(keyfile,\ passwd):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00039}00039\ \ \ \ \ keys.RSA.generate(key\_size=3072).export\_private(path=keyfile,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ passwd=passwd)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00043}00043\ \textcolor{keyword}{def\ }gen\_ecdsa\_p256(keyfile,\ passwd):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00044}00044\ \ \ \ \ keys.ECDSA256P1.generate().export\_private(keyfile,\ passwd=passwd)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00047}00047\ \textcolor{keyword}{def\ }gen\_ecdsa\_p224(keyfile,\ passwd):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00048}00048\ \ \ \ \ print(\textcolor{stringliteral}{"{}TODO:\ p-\/224\ not\ yet\ implemented"{}})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00051}00051\ \textcolor{keyword}{def\ }gen\_ed25519(keyfile,\ passwd):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00052}00052\ \ \ \ \ keys.Ed25519.generate().export\_private(path=keyfile,\ passwd=passwd)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00055}00055\ \textcolor{keyword}{def\ }gen\_x25519(keyfile,\ passwd):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00056}00056\ \ \ \ \ keys.X25519.generate().export\_private(path=keyfile,\ passwd=passwd)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00059}00059\ valid\_langs\ =\ [\textcolor{stringliteral}{'c'},\ \textcolor{stringliteral}{'rust'}]}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00060}00060\ keygens\ =\ \{}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00061}00061\ \ \ \ \ \textcolor{stringliteral}{'rsa-\/2048'}:\ \ \ gen\_rsa2048,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00062}00062\ \ \ \ \ \textcolor{stringliteral}{'rsa-\/3072'}:\ \ \ gen\_rsa3072,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00063}00063\ \ \ \ \ \textcolor{stringliteral}{'ecdsa-\/p256'}:\ gen\_ecdsa\_p256,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00064}00064\ \ \ \ \ \textcolor{stringliteral}{'ecdsa-\/p224'}:\ gen\_ecdsa\_p224,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00065}00065\ \ \ \ \ \textcolor{stringliteral}{'ed25519'}:\ \ \ \ gen\_ed25519,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00066}00066\ \ \ \ \ \textcolor{stringliteral}{'x25519'}:\ \ \ \ \ gen\_x25519,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00067}00067\ \}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00070}00070\ \textcolor{keyword}{def\ }load\_key(keyfile):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00071}00071\ \ \ \ \ \textcolor{comment}{\#\ TODO:\ better\ handling\ of\ invalid\ pass-\/phrase}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00072}00072\ \ \ \ \ key\ =\ keys.load(keyfile)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00073}00073\ \ \ \ \ \textcolor{keywordflow}{if}\ key\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ key}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00075}00075\ \ \ \ \ passwd\ =\ getpass.getpass(\textcolor{stringliteral}{"{}Enter\ key\ passphrase:\ "{}}).encode(\textcolor{stringliteral}{'utf-\/8'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{return}\ keys.load(keyfile,\ passwd)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00079}00079\ \textcolor{keyword}{def\ }get\_password():}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{while}\ \textcolor{keyword}{True}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ passwd\ =\ getpass.getpass(\textcolor{stringliteral}{"{}Enter\ key\ passphrase:\ "{}})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ passwd2\ =\ getpass.getpass(\textcolor{stringliteral}{"{}Reenter\ passphrase:\ "{}})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ passwd\ ==\ passwd2:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Passwords\ do\ not\ match,\ try\ again"{}})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00087}00087\ \ \ \ \ \textcolor{comment}{\#\ Password\ must\ be\ bytes,\ always\ use\ UTF-\/8\ for\ consistent}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00088}00088\ \ \ \ \ \textcolor{comment}{\#\ encoding.}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00089}00089\ \ \ \ \ \textcolor{keywordflow}{return}\ passwd.encode(\textcolor{stringliteral}{'utf-\/8'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00092}00092\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/p'},\ \textcolor{stringliteral}{'-\/-\/password'},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Prompt\ for\ password\ to\ protect\ key'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00094}00094\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/t'},\ \textcolor{stringliteral}{'-\/-\/type'},\ metavar=\textcolor{stringliteral}{'type'},\ required=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ type=click.Choice(keygens.keys()),\ prompt=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'\{\}'}.format(\textcolor{stringliteral}{'One\ of:\ \{\}'}.format(\textcolor{stringliteral}{',\ '}.join(keygens.keys()))))}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00097}00097\ \textcolor{preprocessor}{@click.option('-\/k',\ '-\/-\/key',\ metavar='filename',\ required=True)}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00098}00098\ \textcolor{preprocessor}{@click.command(help='Generate\ pub/private\ keypair')}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00099}00099\ \textcolor{keyword}{def\ }keygen(type,\ key,\ password):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00100}00100\ \ \ \ \ password\ =\ get\_password()\ \textcolor{keywordflow}{if}\ password\ \textcolor{keywordflow}{else}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00101}00101\ \ \ \ \ keygens[type](key,\ password)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00104}00104\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/l'},\ \textcolor{stringliteral}{'-\/-\/lang'},\ metavar=\textcolor{stringliteral}{'lang'},\ default=valid\_langs[0],}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ type=click.Choice(valid\_langs))}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00106}00106\ \textcolor{preprocessor}{@click.option('-\/k',\ '-\/-\/key',\ metavar='filename',\ required=True)}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00107}00107\ \textcolor{preprocessor}{@click.command(help='Dump\ public\ key\ from\ keypair')}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00108}00108\ \textcolor{keyword}{def\ }getpub(key,\ lang):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00109}00109\ \ \ \ \ key\ =\ load\_key(key)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00110}00110\ \ \ \ \ \textcolor{keywordflow}{if}\ key\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Invalid\ passphrase"{}})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00112}00112\ \ \ \ \ \textcolor{keywordflow}{elif}\ lang\ ==\ \textcolor{stringliteral}{'c'}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ key.emit\_c\_public()}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00114}00114\ \ \ \ \ \textcolor{keywordflow}{elif}\ lang\ ==\ \textcolor{stringliteral}{'rust'}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ key.emit\_rust\_public()}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00116}00116\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}BUG:\ should\ never\ get\ here!"{}})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00120}00120\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/minimal'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Reduce\ the\ size\ of\ the\ dumped\ private\ key\ to\ include\ only\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'the\ minimum\ amount\ of\ data\ required\ to\ decrypt.\ This\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'might\ require\ changes\ to\ the\ build\ config.\ Check\ the\ docs!'}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00125}00125\ \textcolor{preprocessor}{@click.option('-\/k',\ '-\/-\/key',\ metavar='filename',\ required=True)}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00126}00126\ \textcolor{preprocessor}{@click.command(help='Dump\ private\ key\ from\ keypair')}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00127}00127\ \textcolor{keyword}{def\ }getpriv(key,\ minimal):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00128}00128\ \ \ \ \ key\ =\ load\_key(key)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00129}00129\ \ \ \ \ \textcolor{keywordflow}{if}\ key\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Invalid\ passphrase"{}})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00131}00131\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ key.emit\_private(minimal)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00133}00133\ \ \ \ \ \textcolor{keywordflow}{except}\ (RSAUsageError,\ ECDSAUsageError,\ Ed25519UsageError,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ X25519UsageError)\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.UsageError(e)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00138}00138\ \textcolor{preprocessor}{@click.argument('imgfile')}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00139}00139\ \textcolor{preprocessor}{@click.option('-\/k',\ '-\/-\/key',\ metavar='filename')}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00140}00140\ \textcolor{preprocessor}{@click.command(help="{}Check\ that\ signed\ image\ can\ be\ verified\ by\ given\ key"{})}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00141}00141\ \textcolor{keyword}{def\ }verify(key,\ imgfile):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00142}00142\ \ \ \ \ key\ =\ load\_key(key)\ \textcolor{keywordflow}{if}\ key\ \textcolor{keywordflow}{else}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00143}00143\ \ \ \ \ ret,\ version,\ digest\ =\ image.Image.verify(imgfile,\ key)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00144}00144\ \ \ \ \ \textcolor{keywordflow}{if}\ ret\ ==\ image.VerifyResult.OK:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Image\ was\ correctly\ validated"{}})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Image\ version:\ \{\}.\{\}.\{\}+\{\}"{}}.format(*version))}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Image\ digest:\ \{\}"{}}.format(digest.hex()))}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00149}00149\ \ \ \ \ \textcolor{keywordflow}{elif}\ ret\ ==\ image.VerifyResult.INVALID\_MAGIC:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Invalid\ image\ magic;\ is\ this\ an\ MCUboot\ image?"{}})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00151}00151\ \ \ \ \ \textcolor{keywordflow}{elif}\ ret\ ==\ image.VerifyResult.INVALID\_TLV\_INFO\_MAGIC:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00152}00152\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Invalid\ TLV\ info\ magic;\ is\ this\ an\ MCUboot\ image?"{}})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00153}00153\ \ \ \ \ \textcolor{keywordflow}{elif}\ ret\ ==\ image.VerifyResult.INVALID\_HASH:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00154}00154\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Image\ has\ an\ invalid\ sha256\ digest"{}})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00155}00155\ \ \ \ \ \textcolor{keywordflow}{elif}\ ret\ ==\ image.VerifyResult.INVALID\_SIGNATURE:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}No\ signature\ found\ for\ the\ given\ key"{}})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00157}00157\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00158}00158\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Unknown\ return\ code:\ \{\}"{}}.format(ret))}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00159}00159\ \ \ \ \ sys.exit(1)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00162}00162\ \textcolor{keyword}{def\ }validate\_version(ctx,\ param,\ value):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00163}00163\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ decode\_version(value)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00166}00166\ \ \ \ \ \textcolor{keywordflow}{except}\ ValueError\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.BadParameter(\textcolor{stringliteral}{"{}\{\}"{}}.format(e))}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00170}00170\ \textcolor{keyword}{def\ }validate\_security\_counter(ctx,\ param,\ value):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00171}00171\ \ \ \ \ \textcolor{keywordflow}{if}\ value\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00172}00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ value.lower()\ ==\ \textcolor{stringliteral}{'auto'}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{'auto'}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ int(value,\ 0)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ ValueError:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.BadParameter(}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\{\}\ is\ not\ a\ valid\ integer.\ Please\ use\ code\ literals\ "{}}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}prefixed\ with\ 0b/0B,\ 0o/0O,\ or\ 0x/0X\ as\ necessary."{}}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .format(value))}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00184}00184\ \textcolor{keyword}{def\ }validate\_header\_size(ctx,\ param,\ value):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00185}00185\ \ \ \ \ min\_hdr\_size\ =\ image.IMAGE\_HEADER\_SIZE}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00186}00186\ \ \ \ \ \textcolor{keywordflow}{if}\ value\ <\ min\_hdr\_size:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00187}00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.BadParameter(}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Minimum\ value\ for\ -\/H/-\/-\/header-\/size\ is\ \{\}"{}}.format(min\_hdr\_size))}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00189}00189\ \ \ \ \ \textcolor{keywordflow}{return}\ value}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00192}00192\ \textcolor{keyword}{def\ }get\_dependencies(ctx,\ param,\ value):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00193}00193\ \ \ \ \ \textcolor{keywordflow}{if}\ value\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ versions\ =\ []}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ images\ =\ re.findall(\textcolor{stringliteral}{r"{}\(\backslash\)((\(\backslash\)d+)"{}},\ value)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00196}00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(images)\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.BadParameter(}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Image\ dependency\ format\ is\ invalid:\ \{\}"{}}.format(value))}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ raw\_versions\ =\ re.findall(\textcolor{stringliteral}{r"{},\(\backslash\)s*([0-\/9.+]+)\(\backslash\))"{}},\ value)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00200}00200\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(images)\ !=\ len(raw\_versions):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.BadParameter(}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'''There's\ a\ mismatch\ between\ the\ number\ of\ dependency\ images}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00203}00203\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ and\ versions\ in:\ \{\}'''}.format(value))}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ raw\_version\ \textcolor{keywordflow}{in}\ raw\_versions:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ versions.append(decode\_version(raw\_version))}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ ValueError\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.BadParameter(\textcolor{stringliteral}{"{}\{\}"{}}.format(e))}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00209}00209\ \ \ \ \ \ \ \ \ dependencies\ =\ dict()}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00210}00210\ \ \ \ \ \ \ \ \ dependencies[image.DEP\_IMAGES\_KEY]\ =\ images}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00211}00211\ \ \ \ \ \ \ \ \ dependencies[image.DEP\_VERSIONS\_KEY]\ =\ versions}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00212}00212\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dependencies}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00213}00213\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00215}00215\ \textcolor{keyword}{class\ }BasedIntParamType(click.ParamType):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00216}00216\ \ \ \ \ name\ =\ \textcolor{stringliteral}{'integer'}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00217}00217\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00218}\mbox{\hyperlink{classimgtool_1_1main_1_1BasedIntParamType_a2d21608d693f3ea37f79a26e2fbe8855}{00218}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1main_1_1BasedIntParamType_a2d21608d693f3ea37f79a26e2fbe8855}{convert}}(self,\ value,\ param,\ ctx):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00219}00219\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ int(value,\ 0)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00221}00221\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ ValueError:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ self.fail(\textcolor{stringliteral}{'\%s\ is\ not\ a\ valid\ integer.\ Please\ use\ code\ literals\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'prefixed\ with\ 0b/0B,\ 0o/0O,\ or\ 0x/0X\ as\ necessary.'}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \%\ value,\ param,\ ctx)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00225}00225\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00227}00227\ \textcolor{preprocessor}{@click.argument('outfile')}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00228}00228\ \textcolor{preprocessor}{@click.argument('infile')}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00229}00229\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/custom-\/tlv'},\ required=\textcolor{keyword}{False},\ nargs=2,\ default=[],}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ multiple=\textcolor{keyword}{True},\ metavar=\textcolor{stringliteral}{'[tag]\ [value]'},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Custom\ TLV\ that\ will\ be\ placed\ into\ protected\ area.\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Add\ "{}0x"{}\ prefix\ if\ the\ value\ should\ be\ interpreted\ as\ an\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'integer,\ otherwise\ it\ will\ be\ interpreted\ as\ a\ string.\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Specify\ the\ option\ multiple\ times\ to\ add\ multiple\ TLVs.'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00235}00235\ \textcolor{preprocessor}{@click.option('-\/R',\ '-\/-\/erased-\/val',\ type=click.Choice(['0',\ '0xff'])},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ required=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'The\ value\ that\ is\ read\ back\ from\ erased\ flash.'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00238}00238\ \textcolor{preprocessor}{@click.option('-\/x',\ '-\/-\/hex-\/addr',\ type=BasedIntParamType()},\ required=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Adjust\ address\ in\ hex\ output\ file.'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00240}00240\ \textcolor{preprocessor}{@click.option('-\/L',\ '-\/-\/load-\/addr',\ type=BasedIntParamType()},\ required=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Load\ address\ for\ image\ when\ it\ should\ run\ from\ RAM.'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00242}00242\ \textcolor{preprocessor}{@click.option('-\/F',\ '-\/-\/rom-\/fixed',\ type=BasedIntParamType()},\ required=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Set\ flash\ address\ the\ image\ is\ built\ for.'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00244}00244\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/save-\/enctlv'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'When\ upgrading,\ save\ encrypted\ key\ TLVs\ instead\ of\ plain\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'keys.\ Enable\ when\ BOOT\_SWAP\_SAVE\_ENCTLV\ config\ option\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'was\ set.'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00248}00248\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/E'},\ \textcolor{stringliteral}{'-\/-\/encrypt'},\ metavar=\textcolor{stringliteral}{'filename'},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Encrypt\ image\ using\ the\ provided\ public\ key.\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'(Not\ supported\ in\ direct-\/xip\ or\ ram-\/load\ mode.)'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00251}00251\ \textcolor{preprocessor}{@click.option('-\/e',\ '-\/-\/endian',\ type=click.Choice(['little',\ 'big'])},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ default=\textcolor{stringliteral}{'little'},\ help=\textcolor{stringliteral}{"{}Select\ little\ or\ big\ endian"{}})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00253}00253\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/overwrite-\/only'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Use\ overwrite-\/only\ instead\ of\ swap\ upgrades'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00255}00255\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/boot-\/record'},\ metavar=\textcolor{stringliteral}{'sw\_type'},\ help=\textcolor{stringliteral}{'Create\ CBOR\ encoded\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'boot\ record\ TLV.\ The\ sw\_type\ represents\ the\ role\ of\ the\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'software\ component\ (e.g.\ CoFM\ for\ coprocessor\ firmware).\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'[max.\ 12\ characters]'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00259}00259\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/M'},\ \textcolor{stringliteral}{'-\/-\/max-\/sectors'},\ type=int,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'When\ padding\ allow\ for\ this\ amount\ of\ sectors\ (defaults\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00261}00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'to\ 128)'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00262}00262\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/confirm'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00263}00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'When\ padding\ the\ image,\ mark\ it\ as\ confirmed\ (implies\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'-\/-\/pad)'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00265}00265\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/pad'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Pad\ image\ to\ -\/-\/slot-\/size\ bytes,\ adding\ trailer\ magic'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00267}00267\ \textcolor{preprocessor}{@click.option('-\/S',\ '-\/-\/slot-\/size',\ type=BasedIntParamType()},\ required=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Size\ of\ the\ slot.\ If\ the\ slots\ have\ different\ sizes,\ use\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'the\ size\ of\ the\ secondary\ slot.'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00270}00270\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/pad-\/header'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Add\ -\/-\/header-\/size\ zeroed\ bytes\ at\ the\ beginning\ of\ the\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'image'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00273}00273\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/H'},\ \textcolor{stringliteral}{'-\/-\/header-\/size'},\ callback=validate\_header\_size,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ type=\mbox{\hyperlink{classimgtool_1_1main_1_1BasedIntParamType}{BasedIntParamType}}(),\ required=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00275}00275\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/pad-\/sig'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Add\ 0-\/2\ bytes\ of\ padding\ to\ ECDSA\ signature\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00277}00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'(for\ mcuboot\ <1.5)'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00278}00278\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/d'},\ \textcolor{stringliteral}{'-\/-\/dependencies'},\ callback=get\_dependencies,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ required=\textcolor{keyword}{False},\ help=\textcolor{stringliteral}{'''Add\ dependence\ on\ another\ image,\ format:}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00280}00280\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}(<image\_ID>,<image\_version>),\ ...\ "{}'''})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00281}00281\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/s'},\ \textcolor{stringliteral}{'-\/-\/security-\/counter'},\ callback=validate\_security\_counter,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Specify\ the\ value\ of\ security\ counter.\ Use\ the\ \`{}auto`\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'keyword\ to\ automatically\ generate\ it\ from\ the\ image\ version.'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00284}00284\ \textcolor{preprocessor}{@click.option('-\/v',\ '-\/-\/version',\ callback=validate\_version,\ \ required=True)}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00285}00285\ \textcolor{preprocessor}{@click.option('-\/-\/align',\ type=click.Choice(['1',\ '2',\ '4',\ '8'])},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ required=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00287}00287\ \textcolor{preprocessor}{@click.option('-\/-\/public-\/key-\/format',\ type=click.Choice(['hash',\ 'full'])},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ default=\textcolor{stringliteral}{'hash'},\ help=\textcolor{stringliteral}{'In\ what\ format\ to\ add\ the\ public\ key\ to\ '}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'the\ image\ manifest:\ full\ key\ or\ hash\ of\ the\ key.'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00290}00290\ \textcolor{preprocessor}{@click.option('-\/k',\ '-\/-\/key',\ metavar='filename')}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00291}00291\ \textcolor{preprocessor}{@click.command}(help=\textcolor{stringliteral}{'''Create\ a\ signed\ or\ unsigned\ image\(\backslash\)n}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00292}00292\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ INFILE\ and\ OUTFILE\ are\ parsed\ as\ Intel\ HEX\ if\ the\ params\ have}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00293}00293\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .hex\ extension,\ otherwise\ binary\ format\ is\ used'''})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00294}\mbox{\hyperlink{namespaceimgtool_1_1main_a5d319663c2f7b0e4c27e42f3c7c15516}{00294}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceimgtool_1_1main_a185b883318f3188d9c36dd9c0f3d9a03}{sign}}(key,\ public\_key\_format,\ align,\ version,\ pad\_sig,\ header\_size,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00295}00295\ \ \ \ \ \ \ \ \ \ pad\_header,\ slot\_size,\ pad,\ confirm,\ max\_sectors,\ overwrite\_only,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00296}00296\ \ \ \ \ \ \ \ \ \ endian,\ encrypt,\ infile,\ outfile,\ dependencies,\ load\_addr,\ hex\_addr,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00297}00297\ \ \ \ \ \ \ \ \ \ erased\_val,\ save\_enctlv,\ security\_counter,\ boot\_record,\ custom\_tlv,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00298}00298\ \ \ \ \ \ \ \ \ \ rom\_fixed):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00299}00299\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00300}00300\ \ \ \ \ \textcolor{keywordflow}{if}\ confirm:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00301}00301\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Confirmed\ but\ non-\/padded\ images\ don't\ make\ much\ sense,\ because}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00302}00302\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ otherwise\ there's\ no\ trailer\ area\ for\ writing\ the\ confirmed\ status.}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00303}00303\ \ \ \ \ \ \ \ \ pad\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00304}00304\ \ \ \ \ img\ =\ \mbox{\hyperlink{classimgtool_1_1image_1_1Image}{image.Image}}(version=decode\_version(version),\ header\_size=header\_size,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00305}00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pad\_header=pad\_header,\ pad=pad,\ confirm=confirm,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00306}00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ align=int(align),\ slot\_size=slot\_size,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00307}00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_sectors=max\_sectors,\ overwrite\_only=overwrite\_only,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ endian=endian,\ load\_addr=load\_addr,\ rom\_fixed=rom\_fixed,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ erased\_val=erased\_val,\ save\_enctlv=save\_enctlv,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00310}00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ security\_counter=security\_counter)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00311}00311\ \ \ \ \ img.load(infile)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00312}00312\ \ \ \ \ key\ =\ \mbox{\hyperlink{namespaceimgtool_1_1main_aaaf41295d0bf65973fec484f4617fd1d}{load\_key}}(key)\ \textcolor{keywordflow}{if}\ key\ \textcolor{keywordflow}{else}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00313}00313\ \ \ \ \ enckey\ =\ \mbox{\hyperlink{namespaceimgtool_1_1main_aaaf41295d0bf65973fec484f4617fd1d}{load\_key}}(encrypt)\ \textcolor{keywordflow}{if}\ encrypt\ \textcolor{keywordflow}{else}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00314}00314\ \ \ \ \ \textcolor{keywordflow}{if}\ enckey\ \textcolor{keywordflow}{and}\ key:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00315}00315\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((isinstance(key,\ \mbox{\hyperlink{classimgtool_1_1keys_1_1ecdsa_1_1ECDSA256P1}{keys.ECDSA256P1}})\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00316}00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{not}\ isinstance(enckey,\ \mbox{\hyperlink{classimgtool_1_1keys_1_1ecdsa_1_1ECDSA256P1Public}{keys.ECDSA256P1Public}}))}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00317}00317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{or}\ (isinstance(key,\ \mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA}{keys.RSA}})\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00318}00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{not}\ isinstance(enckey,\ \mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic}{keys.RSAPublic}}))):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00319}00319\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ FIXME}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00320}00320\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.UsageError(\textcolor{stringliteral}{"{}Signing\ and\ encryption\ must\ use\ the\ same\ "{}}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00321}00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}type\ of\ key"{}})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00322}00322\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00323}00323\ \ \ \ \ \textcolor{keywordflow}{if}\ pad\_sig\ \textcolor{keywordflow}{and}\ hasattr(key,\ \textcolor{stringliteral}{'pad\_sig'}):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00324}00324\ \ \ \ \ \ \ \ \ key.pad\_sig\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00325}00325\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00326}00326\ \ \ \ \ \textcolor{comment}{\#\ Get\ list\ of\ custom\ protected\ TLVs\ from\ the\ command-\/line}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00327}00327\ \ \ \ \ custom\_tlvs\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00328}00328\ \ \ \ \ \textcolor{keywordflow}{for}\ tlv\ \textcolor{keywordflow}{in}\ custom\_tlv:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00329}00329\ \ \ \ \ \ \ \ \ tag\ =\ int(tlv[0],\ 0)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00330}00330\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ tag\ \textcolor{keywordflow}{in}\ custom\_tlvs:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00331}00331\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.UsageError(\textcolor{stringliteral}{'Custom\ TLV\ \%s\ already\ exists.'}\ \%\ hex(tag))}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00332}00332\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ tag\ \textcolor{keywordflow}{in}\ image.TLV\_VALUES.values():}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00333}00333\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.UsageError(}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00334}00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Custom\ TLV\ \%s\ conflicts\ with\ predefined\ TLV.'}\ \%\ hex(tag))}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00335}00335\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00336}00336\ \ \ \ \ \ \ \ \ value\ =\ tlv[1]}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00337}00337\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ value.startswith(\textcolor{stringliteral}{'0x'}):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00338}00338\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(value[2:])\ \%\ 2:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.UsageError(\textcolor{stringliteral}{'Custom\ TLV\ length\ is\ odd.'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \ custom\_tlvs[tag]\ =\ bytes.fromhex(value[2:])}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00341}00341\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00342}00342\ \ \ \ \ \ \ \ \ \ \ \ \ custom\_tlvs[tag]\ =\ value.encode(\textcolor{stringliteral}{'utf-\/8'})}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00343}00343\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00344}00344\ \ \ \ \ img.create(key,\ public\_key\_format,\ enckey,\ dependencies,\ boot\_record,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00345}00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ custom\_tlvs)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00346}00346\ \ \ \ \ img.save(outfile,\ hex\_addr)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00347}00347\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00348}00348\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00349}00349\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classimgtool_1_1main_1_1AliasesGroup}{AliasesGroup}}(click.Group):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00350}00350\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00351}00351\ \ \ \ \ \_aliases\ =\ \{}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00352}00352\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}create"{}}:\ \textcolor{stringliteral}{"{}sign"{}},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00353}00353\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00354}00354\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00355}\mbox{\hyperlink{classimgtool_1_1main_1_1AliasesGroup_a393f68e9a6b16d7da98bc3e8239f0dfe}{00355}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1main_1_1AliasesGroup_a393f68e9a6b16d7da98bc3e8239f0dfe}{list\_commands}}(self,\ ctx):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00356}00356\ \ \ \ \ \ \ \ \ cmds\ =\ [k\ \textcolor{keywordflow}{for}\ k\ \textcolor{keywordflow}{in}\ self.commands]}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00357}00357\ \ \ \ \ \ \ \ \ aliases\ =\ [k\ \textcolor{keywordflow}{for}\ k\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classimgtool_1_1main_1_1AliasesGroup_a186822546b8876e4817c9dc3b0ebcd76}{\_aliases}}]}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00358}00358\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sorted(cmds\ +\ aliases)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00359}00359\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00360}\mbox{\hyperlink{classimgtool_1_1main_1_1AliasesGroup_a5919feb60d7dbc5f42aaa9266406f15b}{00360}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1main_1_1AliasesGroup_a5919feb60d7dbc5f42aaa9266406f15b}{get\_command}}(self,\ ctx,\ cmd\_name):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00361}00361\ \ \ \ \ \ \ \ \ rv\ =\ click.Group.get\_command(self,\ ctx,\ cmd\_name)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00362}00362\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ rv\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rv}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00364}00364\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ cmd\_name\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classimgtool_1_1main_1_1AliasesGroup_a186822546b8876e4817c9dc3b0ebcd76}{\_aliases}}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00365}00365\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ click.Group.get\_command(self,\ ctx,\ self.\mbox{\hyperlink{classimgtool_1_1main_1_1AliasesGroup_a186822546b8876e4817c9dc3b0ebcd76}{\_aliases}}[cmd\_name])}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00366}00366\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00367}00367\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00368}00368\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00369}00369\ \textcolor{preprocessor}{@click.command(help='Print\ imgtool\ version\ information')}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00370}00370\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceimgtool_1_1main_a6080dae0886626b9a4cedb29240708b1}{version}}():}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00371}00371\ \ \ \ \ print(imgtool\_version)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00372}00372\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00373}00373\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00374}00374\ \textcolor{preprocessor}{@click.command}(cls=AliasesGroup,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ context\_settings=dict(help\_option\_names=[\textcolor{stringliteral}{'-\/h'},\ \textcolor{stringliteral}{'-\/-\/help'}]))}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00376}00376\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceimgtool_1_1main_a4358b33af1b779a3890a43b3944c19a4}{imgtool}}():}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00377}00377\ \ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00378}00378\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00379}00379\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00380}00380\ imgtool.add\_command(keygen)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00381}00381\ imgtool.add\_command(getpub)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00382}00382\ imgtool.add\_command(getpriv)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00383}00383\ imgtool.add\_command(verify)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00384}00384\ imgtool.add\_command(sign)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00385}00385\ imgtool.add\_command(version)}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00386}00386\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00387}00387\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00388}00388\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2main_8py_source_l00389}00389\ \ \ \ \ \mbox{\hyperlink{namespaceimgtool}{imgtool}}()}
+
+\end{DoxyCode}

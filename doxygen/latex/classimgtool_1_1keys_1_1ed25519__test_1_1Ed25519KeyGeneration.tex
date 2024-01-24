@@ -1,0 +1,433 @@
+\doxysection{Ed25519\+Key\+Generation Class Reference}
+\hypertarget{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration}{}\label{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration}\index{Ed25519KeyGeneration@{Ed25519KeyGeneration}}
+Inheritance diagram for Ed25519\+Key\+Generation\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a8265f43e817bd81e8ee0479d9cf942f1}{set\+Up}} (self)
+\item 
+\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d}{tname}} (self, base)
+\item 
+\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a8a31d90b8598f609fad4582512f6822f}{tear\+Down}} (self)
+\item 
+\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_aa64d64dc6adc7a7f7fa6b8d801873a8f}{test\+\_\+keygen}} (self)
+\item 
+\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a01a2b35b87e2e0d6aba15850d0cae4ad}{test\+\_\+emit}} (self)
+\item 
+\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_add2da75c5d89a17476d295f9fcd4ff96}{test\+\_\+emit\+\_\+pub}} (self)
+\item 
+\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a3b666150b04d2b63d1b00dc655f2e892}{test\+\_\+sig}} (self)
+\item 
+\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a8265f43e817bd81e8ee0479d9cf942f1}{set\+Up}} (self)
+\item 
+\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d}{tname}} (self, base)
+\item 
+\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a8a31d90b8598f609fad4582512f6822f}{tear\+Down}} (self)
+\item 
+\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_aa64d64dc6adc7a7f7fa6b8d801873a8f}{test\+\_\+keygen}} (self)
+\item 
+\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a01a2b35b87e2e0d6aba15850d0cae4ad}{test\+\_\+emit}} (self)
+\item 
+\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_add2da75c5d89a17476d295f9fcd4ff96}{test\+\_\+emit\+\_\+pub}} (self)
+\item 
+\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a3b666150b04d2b63d1b00dc655f2e892}{test\+\_\+sig}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_ae8b53f27f72906c83ca7968f2e6f8c9e}{test\+\_\+dir}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{keys_2ed25519__test_8py_source_l00022}{22}} of file \mbox{\hyperlink{keys_2ed25519__test_8py_source}{ed25519\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a8265f43e817bd81e8ee0479d9cf942f1}\label{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a8265f43e817bd81e8ee0479d9cf942f1} 
+\index{Ed25519KeyGeneration@{Ed25519KeyGeneration}!setUp@{setUp}}
+\index{setUp@{setUp}!Ed25519KeyGeneration@{Ed25519KeyGeneration}}
+\doxysubsubsection{\texorpdfstring{setUp()}{setUp()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily set\+Up (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{keys_2ed25519__test_8py_source_l00024}{24}} of file \mbox{\hyperlink{keys_2ed25519__test_8py_source}{ed25519\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{def\ }setUp(self):}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ self.test\_dir\ =\ tempfile.TemporaryDirectory()}
+\DoxyCodeLine{00026\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a8265f43e817bd81e8ee0479d9cf942f1}\label{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a8265f43e817bd81e8ee0479d9cf942f1} 
+\index{Ed25519KeyGeneration@{Ed25519KeyGeneration}!setUp@{setUp}}
+\index{setUp@{setUp}!Ed25519KeyGeneration@{Ed25519KeyGeneration}}
+\doxysubsubsection{\texorpdfstring{setUp()}{setUp()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily set\+Up (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00022}{22}} of file \mbox{\hyperlink{1_87_82_2imgtool_2keys_2ed25519__test_8py_source}{ed25519\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{def\ }setUp(self):}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ self.test\_dir\ =\ tempfile.TemporaryDirectory()}
+\DoxyCodeLine{00024\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a8a31d90b8598f609fad4582512f6822f}\label{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a8a31d90b8598f609fad4582512f6822f} 
+\index{Ed25519KeyGeneration@{Ed25519KeyGeneration}!tearDown@{tearDown}}
+\index{tearDown@{tearDown}!Ed25519KeyGeneration@{Ed25519KeyGeneration}}
+\doxysubsubsection{\texorpdfstring{tearDown()}{tearDown()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily tear\+Down (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{keys_2ed25519__test_8py_source_l00030}{30}} of file \mbox{\hyperlink{keys_2ed25519__test_8py_source}{ed25519\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{def\ }tearDown(self):}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ self.test\_dir.cleanup()}
+\DoxyCodeLine{00032\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a8a31d90b8598f609fad4582512f6822f}\label{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a8a31d90b8598f609fad4582512f6822f} 
+\index{Ed25519KeyGeneration@{Ed25519KeyGeneration}!tearDown@{tearDown}}
+\index{tearDown@{tearDown}!Ed25519KeyGeneration@{Ed25519KeyGeneration}}
+\doxysubsubsection{\texorpdfstring{tearDown()}{tearDown()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily tear\+Down (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00028}{28}} of file \mbox{\hyperlink{1_87_82_2imgtool_2keys_2ed25519__test_8py_source}{ed25519\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{def\ }tearDown(self):}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ self.test\_dir.cleanup()}
+\DoxyCodeLine{00030\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a01a2b35b87e2e0d6aba15850d0cae4ad}\label{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a01a2b35b87e2e0d6aba15850d0cae4ad} 
+\index{Ed25519KeyGeneration@{Ed25519KeyGeneration}!test\_emit@{test\_emit}}
+\index{test\_emit@{test\_emit}!Ed25519KeyGeneration@{Ed25519KeyGeneration}}
+\doxysubsubsection{\texorpdfstring{test\_emit()}{test\_emit()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily test\+\_\+emit (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Basic sanity check on the code emitters.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{keys_2ed25519__test_8py_source_l00052}{52}} of file \mbox{\hyperlink{keys_2ed25519__test_8py_source}{ed25519\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{def\ }test\_emit(self):}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Basic\ sanity\ check\ on\ the\ code\ emitters."{}"{}"{}}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ k\ =\ Ed25519.generate()}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ ccode\ =\ io.StringIO()}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ k.emit\_c\_public(ccode)}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ed25519\_pub\_key"{}},\ ccode.getvalue())}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ed25519\_pub\_key\_len"{}},\ ccode.getvalue())}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ rustcode\ =\ io.StringIO()}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ k.emit\_rust\_public(rustcode)}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ED25519\_PUB\_KEY"{}},\ rustcode.getvalue())}
+\DoxyCodeLine{00064\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a01a2b35b87e2e0d6aba15850d0cae4ad}\label{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a01a2b35b87e2e0d6aba15850d0cae4ad} 
+\index{Ed25519KeyGeneration@{Ed25519KeyGeneration}!test\_emit@{test\_emit}}
+\index{test\_emit@{test\_emit}!Ed25519KeyGeneration@{Ed25519KeyGeneration}}
+\doxysubsubsection{\texorpdfstring{test\_emit()}{test\_emit()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily test\+\_\+emit (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Basic sanity check on the code emitters.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00050}{50}} of file \mbox{\hyperlink{1_87_82_2imgtool_2keys_2ed25519__test_8py_source}{ed25519\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{def\ }test\_emit(self):}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Basic\ sanity\ check\ on\ the\ code\ emitters."{}"{}"{}}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ k\ =\ Ed25519.generate()}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ ccode\ =\ io.StringIO()}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ k.emit\_c\_public(ccode)}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ed25519\_pub\_key"{}},\ ccode.getvalue())}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ed25519\_pub\_key\_len"{}},\ ccode.getvalue())}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ rustcode\ =\ io.StringIO()}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ k.emit\_rust\_public(rustcode)}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ED25519\_PUB\_KEY"{}},\ rustcode.getvalue())}
+\DoxyCodeLine{00062\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_add2da75c5d89a17476d295f9fcd4ff96}\label{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_add2da75c5d89a17476d295f9fcd4ff96} 
+\index{Ed25519KeyGeneration@{Ed25519KeyGeneration}!test\_emit\_pub@{test\_emit\_pub}}
+\index{test\_emit\_pub@{test\_emit\_pub}!Ed25519KeyGeneration@{Ed25519KeyGeneration}}
+\doxysubsubsection{\texorpdfstring{test\_emit\_pub()}{test\_emit\_pub()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily test\+\_\+emit\+\_\+pub (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Basic sanity check on the code emitters.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{keys_2ed25519__test_8py_source_l00065}{65}} of file \mbox{\hyperlink{keys_2ed25519__test_8py_source}{ed25519\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{def\ }test\_emit\_pub(self):}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Basic\ sanity\ check\ on\ the\ code\ emitters."{}"{}"{}}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ pubname\ =\ self.tname(\textcolor{stringliteral}{"{}public.pem"{}})}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ k\ =\ Ed25519.generate()}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ k.export\_public(pubname)}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ k2\ =\ load(pubname)}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ ccode\ =\ io.StringIO()}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ k2.emit\_c\_public(ccode)}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ed25519\_pub\_key"{}},\ ccode.getvalue())}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ed25519\_pub\_key\_len"{}},\ ccode.getvalue())}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ rustcode\ =\ io.StringIO()}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ k2.emit\_rust\_public(rustcode)}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ED25519\_PUB\_KEY"{}},\ rustcode.getvalue())}
+\DoxyCodeLine{00081\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_add2da75c5d89a17476d295f9fcd4ff96}\label{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_add2da75c5d89a17476d295f9fcd4ff96} 
+\index{Ed25519KeyGeneration@{Ed25519KeyGeneration}!test\_emit\_pub@{test\_emit\_pub}}
+\index{test\_emit\_pub@{test\_emit\_pub}!Ed25519KeyGeneration@{Ed25519KeyGeneration}}
+\doxysubsubsection{\texorpdfstring{test\_emit\_pub()}{test\_emit\_pub()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily test\+\_\+emit\+\_\+pub (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Basic sanity check on the code emitters.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00063}{63}} of file \mbox{\hyperlink{1_87_82_2imgtool_2keys_2ed25519__test_8py_source}{ed25519\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{def\ }test\_emit\_pub(self):}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Basic\ sanity\ check\ on\ the\ code\ emitters."{}"{}"{}}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ pubname\ =\ self.tname(\textcolor{stringliteral}{"{}public.pem"{}})}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ k\ =\ Ed25519.generate()}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ k.export\_public(pubname)}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ k2\ =\ load(pubname)}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ ccode\ =\ io.StringIO()}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ k2.emit\_c\_public(ccode)}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ed25519\_pub\_key"{}},\ ccode.getvalue())}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ed25519\_pub\_key\_len"{}},\ ccode.getvalue())}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ rustcode\ =\ io.StringIO()}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ k2.emit\_rust\_public(rustcode)}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ED25519\_PUB\_KEY"{}},\ rustcode.getvalue())}
+\DoxyCodeLine{00079\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_aa64d64dc6adc7a7f7fa6b8d801873a8f}\label{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_aa64d64dc6adc7a7f7fa6b8d801873a8f} 
+\index{Ed25519KeyGeneration@{Ed25519KeyGeneration}!test\_keygen@{test\_keygen}}
+\index{test\_keygen@{test\_keygen}!Ed25519KeyGeneration@{Ed25519KeyGeneration}}
+\doxysubsubsection{\texorpdfstring{test\_keygen()}{test\_keygen()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily test\+\_\+keygen (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{keys_2ed25519__test_8py_source_l00033}{33}} of file \mbox{\hyperlink{keys_2ed25519__test_8py_source}{ed25519\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{def\ }test\_keygen(self):}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ name1\ =\ self.tname(\textcolor{stringliteral}{"{}keygen.pem"{}})}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ k\ =\ Ed25519.generate()}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ k.export\_private(name1,\ b\textcolor{stringliteral}{'secret'})}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ self.assertIsNone(load(name1))}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ k2\ =\ load(name1,\ b\textcolor{stringliteral}{'secret'})}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ pubname\ =\ self.tname(\textcolor{stringliteral}{'keygen-\/pub.pem'})}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ k2.export\_public(pubname)}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ pk2\ =\ load(pubname)}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ We\ should\ be\ able\ to\ export\ the\ public\ key\ from\ the\ loaded}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ public\ key,\ but\ not\ the\ private\ key.}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ pk2.export\_public(self.tname(\textcolor{stringliteral}{'keygen-\/pub2.pem'}))}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ self.assertRaises(Ed25519UsageError,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pk2.export\_private,\ self.tname(\textcolor{stringliteral}{'keygen-\/priv2.pem'}))}
+\DoxyCodeLine{00051\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_aa64d64dc6adc7a7f7fa6b8d801873a8f}\label{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_aa64d64dc6adc7a7f7fa6b8d801873a8f} 
+\index{Ed25519KeyGeneration@{Ed25519KeyGeneration}!test\_keygen@{test\_keygen}}
+\index{test\_keygen@{test\_keygen}!Ed25519KeyGeneration@{Ed25519KeyGeneration}}
+\doxysubsubsection{\texorpdfstring{test\_keygen()}{test\_keygen()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily test\+\_\+keygen (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00031}{31}} of file \mbox{\hyperlink{1_87_82_2imgtool_2keys_2ed25519__test_8py_source}{ed25519\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{def\ }test\_keygen(self):}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ name1\ =\ self.tname(\textcolor{stringliteral}{"{}keygen.pem"{}})}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ k\ =\ Ed25519.generate()}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ k.export\_private(name1,\ b\textcolor{stringliteral}{'secret'})}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ self.assertIsNone(load(name1))}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ k2\ =\ load(name1,\ b\textcolor{stringliteral}{'secret'})}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ pubname\ =\ self.tname(\textcolor{stringliteral}{'keygen-\/pub.pem'})}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ k2.export\_public(pubname)}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ pk2\ =\ load(pubname)}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ We\ should\ be\ able\ to\ export\ the\ public\ key\ from\ the\ loaded}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ public\ key,\ but\ not\ the\ private\ key.}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ pk2.export\_public(self.tname(\textcolor{stringliteral}{'keygen-\/pub2.pem'}))}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ self.assertRaises(Ed25519UsageError,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pk2.export\_private,\ self.tname(\textcolor{stringliteral}{'keygen-\/priv2.pem'}))}
+\DoxyCodeLine{00049\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a3b666150b04d2b63d1b00dc655f2e892}\label{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a3b666150b04d2b63d1b00dc655f2e892} 
+\index{Ed25519KeyGeneration@{Ed25519KeyGeneration}!test\_sig@{test\_sig}}
+\index{test\_sig@{test\_sig}!Ed25519KeyGeneration@{Ed25519KeyGeneration}}
+\doxysubsubsection{\texorpdfstring{test\_sig()}{test\_sig()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily test\+\_\+sig (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{keys_2ed25519__test_8py_source_l00082}{82}} of file \mbox{\hyperlink{keys_2ed25519__test_8py_source}{ed25519\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{def\ }test\_sig(self):}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ k\ =\ Ed25519.generate()}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ buf\ =\ b\textcolor{stringliteral}{'This\ is\ the\ message'}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ sha\ =\ hashlib.sha256()}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ sha.update(buf)}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ digest\ =\ sha.digest()}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ sig\ =\ k.sign\_digest(digest)}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ code\ doesn't\ have\ any\ verification,\ so\ verify\ this}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ manually.}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ k.key.public\_key().verify(signature=sig,\ data=digest)}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Modify\ the\ message\ to\ make\ sure\ the\ signature\ fails.}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ sha\ =\ hashlib.sha256()}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ sha.update(b\textcolor{stringliteral}{'This\ is\ thE\ message'})}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ new\_digest\ =\ sha.digest()}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ self.assertRaises(InvalidSignature,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ k.key.public\_key().verify,}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ signature=sig,}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data=new\_digest)}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a3b666150b04d2b63d1b00dc655f2e892}\label{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a3b666150b04d2b63d1b00dc655f2e892} 
+\index{Ed25519KeyGeneration@{Ed25519KeyGeneration}!test\_sig@{test\_sig}}
+\index{test\_sig@{test\_sig}!Ed25519KeyGeneration@{Ed25519KeyGeneration}}
+\doxysubsubsection{\texorpdfstring{test\_sig()}{test\_sig()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily test\+\_\+sig (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00080}{80}} of file \mbox{\hyperlink{1_87_82_2imgtool_2keys_2ed25519__test_8py_source}{ed25519\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{def\ }test\_sig(self):}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ k\ =\ Ed25519.generate()}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ buf\ =\ b\textcolor{stringliteral}{'This\ is\ the\ message'}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ sha\ =\ hashlib.sha256()}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ sha.update(buf)}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ digest\ =\ sha.digest()}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ sig\ =\ k.sign\_digest(digest)}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ code\ doesn't\ have\ any\ verification,\ so\ verify\ this}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ manually.}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ k.key.public\_key().verify(signature=sig,\ data=digest)}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Modify\ the\ message\ to\ make\ sure\ the\ signature\ fails.}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ sha\ =\ hashlib.sha256()}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ sha.update(b\textcolor{stringliteral}{'This\ is\ thE\ message'})}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ new\_digest\ =\ sha.digest()}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ self.assertRaises(InvalidSignature,}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ k.key.public\_key().verify,}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ signature=sig,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data=new\_digest)}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d}\label{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d} 
+\index{Ed25519KeyGeneration@{Ed25519KeyGeneration}!tname@{tname}}
+\index{tname@{tname}!Ed25519KeyGeneration@{Ed25519KeyGeneration}}
+\doxysubsubsection{\texorpdfstring{tname()}{tname()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily tname (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{base }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{keys_2ed25519__test_8py_source_l00027}{27}} of file \mbox{\hyperlink{keys_2ed25519__test_8py_source}{ed25519\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{def\ }tname(self,\ base):}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os.path.join(self.test\_dir.name,\ base)}
+\DoxyCodeLine{00029\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d}\label{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d} 
+\index{Ed25519KeyGeneration@{Ed25519KeyGeneration}!tname@{tname}}
+\index{tname@{tname}!Ed25519KeyGeneration@{Ed25519KeyGeneration}}
+\doxysubsubsection{\texorpdfstring{tname()}{tname()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily tname (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{base }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00025}{25}} of file \mbox{\hyperlink{1_87_82_2imgtool_2keys_2ed25519__test_8py_source}{ed25519\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{def\ }tname(self,\ base):}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os.path.join(self.test\_dir.name,\ base)}
+\DoxyCodeLine{00027\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_ae8b53f27f72906c83ca7968f2e6f8c9e}\label{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_ae8b53f27f72906c83ca7968f2e6f8c9e} 
+\index{Ed25519KeyGeneration@{Ed25519KeyGeneration}!test\_dir@{test\_dir}}
+\index{test\_dir@{test\_dir}!Ed25519KeyGeneration@{Ed25519KeyGeneration}}
+\doxysubsubsection{\texorpdfstring{test\_dir}{test\_dir}}
+{\footnotesize\ttfamily test\+\_\+dir}
+
+
+
+Definition at line \mbox{\hyperlink{keys_2ed25519__test_8py_source_l00025}{25}} of file \mbox{\hyperlink{keys_2ed25519__test_8py_source}{ed25519\+\_\+test.\+py}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/harrkout/github/\+Leshan-\/\+OMA-\/\+Lightweight-\/\+M2\+M-\/server-\/for-\/\+Zephyr-\//scripts/imgtool/keys/\mbox{\hyperlink{keys_2ed25519__test_8py}{ed25519\+\_\+test.\+py}}\item 
+/home/harrkout/github/\+Leshan-\/\+OMA-\/\+Lightweight-\/\+M2\+M-\/server-\/for-\/\+Zephyr-\//scripts/imgtool\+\_\+1.\+7.\+2/imgtool/keys/\mbox{\hyperlink{1_87_82_2imgtool_2keys_2ed25519__test_8py}{ed25519\+\_\+test.\+py}}\end{DoxyCompactItemize}

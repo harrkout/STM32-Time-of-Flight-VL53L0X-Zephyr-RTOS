@@ -1,0 +1,35 @@
+\doxysection{setup.\+py}
+\hypertarget{imgtool__1_87_82_2setup_8py_source}{}\label{imgtool__1_87_82_2setup_8py_source}\index{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/imgtool\_1.7.2/setup.py@{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/imgtool\_1.7.2/setup.py}}
+\mbox{\hyperlink{imgtool__1_87_82_2setup_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00001}\mbox{\hyperlink{namespacesetup}{00001}}\ \textcolor{keyword}{import}\ setuptools}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00002}00002\ \textcolor{keyword}{from}\ imgtool\ \textcolor{keyword}{import}\ imgtool\_version}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00004}00004\ setuptools.setup(}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00005}\mbox{\hyperlink{namespacesetup_ab74e6bf80237ddc4109968cedc58c151}{00005}}\ \ \ \ \ name=\textcolor{stringliteral}{"{}imgtool"{}},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00006}\mbox{\hyperlink{namespacesetup_a4c7a521b8f1a0769c09bfa4a1fca7dab}{00006}}\ \ \ \ \ version=imgtool\_version,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00007}\mbox{\hyperlink{namespacesetup_ad50afb6ec7b2501164b80a0480596ded}{00007}}\ \ \ \ \ author=\textcolor{stringliteral}{"{}The\ MCUboot\ committers"{}},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00008}\mbox{\hyperlink{namespacesetup_aa0684bedaf8c5c409060306e443a7742}{00008}}\ \ \ \ \ author\_email=\textcolor{stringliteral}{"{}mcuboot@groups.io"{}},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00009}\mbox{\hyperlink{namespacesetup_a2661f439a4a94ffdcd5e47ae1da0bb1d}{00009}}\ \ \ \ \ description=(\textcolor{stringliteral}{"{}MCUboot's\ image\ signing\ and\ key\ management"{}}),}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00010}\mbox{\hyperlink{namespacesetup_a4e659be027e258b72df12349200a263e}{00010}}\ \ \ \ \ license=\textcolor{stringliteral}{"{}Apache\ Software\ License"{}},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00011}\mbox{\hyperlink{namespacesetup_afcd5a3e84f2adb7f83fa6c99911f31e4}{00011}}\ \ \ \ \ url=\textcolor{stringliteral}{"{}http://github.com/mcu-\/tools/mcuboot"{}},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00012}\mbox{\hyperlink{namespacesetup_a5191bfd75a28371588f75471591d5500}{00012}}\ \ \ \ \ packages=setuptools.find\_packages(),}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00013}\mbox{\hyperlink{namespacesetup_aa601a5da5d7cdd443389bdeea09be645}{00013}}\ \ \ \ \ python\_requires=\textcolor{stringliteral}{'>=3.6'},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00014}\mbox{\hyperlink{namespacesetup_a047d4e9f7b152e767f7bd459218fe1fd}{00014}}\ \ \ \ \ install\_requires=[}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'cryptography>=2.4.2'},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00016}00016\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'intelhex>=2.2.1'},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'click'},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'cbor>=1.0.0'},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00019}00019\ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00020}\mbox{\hyperlink{namespacesetup_a0afb2eb153236846e2dd516c55a0e0dd}{00020}}\ \ \ \ \ entry\_points=\{}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}console\_scripts"{}}:\ [\textcolor{stringliteral}{"{}imgtool=imgtool.main:imgtool"{}}]}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00022}00022\ \ \ \ \ \},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00023}\mbox{\hyperlink{namespacesetup_a6b43ae64a9080a1ac074dbd3c294bf9d}{00023}}\ \ \ \ \ classifiers=[}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Programming\ Language\ ::\ Python\ ::\ 3"{}},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Development\ Status\ ::\ 4\ -\/\ Beta"{}},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Topic\ ::\ Software\ Development\ ::\ Build\ Tools"{}},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}License\ ::\ OSI\ Approved\ ::\ Apache\ Software\ License"{}},}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00028}00028\ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2setup_8py_source_l00029}00029\ )}
+
+\end{DoxyCode}

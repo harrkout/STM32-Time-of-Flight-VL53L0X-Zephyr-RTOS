@@ -1,0 +1,1619 @@
+\doxysection{Image Class Reference}
+\hypertarget{classimgtool_1_1image_1_1Image}{}\label{classimgtool_1_1image_1_1Image}\index{Image@{Image}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a7c70226e980f376a414433a572c5c74f}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a4c7a521b8f1a0769c09bfa4a1fca7dab}{version}}=None, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_aa6505cb356927cbac12d2af8dac8651b}{header\+\_\+size}}=\mbox{\hyperlink{namespaceimgtool_1_1image_a4efed0f255ac85cda9b453fd1c554fc8}{IMAGE\+\_\+\+HEADER\+\_\+\+SIZE}}, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_ab93b5446e5640d11ee66e87a5a347e30}{pad\+\_\+header}}=False, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a85ab2d9278949e16f4c77f1b5daf342d}{pad}}=False, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a80eab7ef497bc82f028bda0b735f7727}{confirm}}=False, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a6c52c4bac77f6744fdc338766e9e8a6f}{align}}=1, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_aa688bccf026647ce81122f09a9dd5d37}{slot\+\_\+size}}=0, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_aba7c3d70c64b6a3e93ebcc28e2c36521}{max\+\_\+sectors}}=\mbox{\hyperlink{namespaceimgtool_1_1image_a9b7887d4c82a482eb06ff2272c7fba07}{DEFAULT\+\_\+\+MAX\+\_\+\+SECTORS}}, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_ad3c66df158b3cb95366d7639fd66e7fb}{overwrite\+\_\+only}}=False, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_aceb52d5e58265d474290d1e17bcf1716}{endian}}="{}little"{}, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a0ece5abf498c14f7e723a0ea201f2356}{load\+\_\+addr}}=0, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_ac1fe150a3ea42a43271e6bec10231675}{rom\+\_\+fixed}}=None, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a5fc1d58df4dc5f022d49e58729217aaa}{erased\+\_\+val}}=None, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_ab3196255cca37d29a5ed0ac49c417129}{save\+\_\+enctlv}}=False, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a8e2f7509fd83c863081352c1c941a835}{security\+\_\+counter}}=None, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_ab3751a7bf9489f96727a62232ad9d7d5}{max\+\_\+align}}=None)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a61a1f3a6a4df93d491cd753f617782a2}{\+\_\+\+\_\+repr\+\_\+\+\_\+}} (self)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_aae9853a9699155c034c6dd57551bcca4}{load}} (self, path)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a2dfc4f3822963e9ea5dc5d02509a6ac7}{save}} (self, path, hex\+\_\+addr=None)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a3c800cde66f3f0bbdf3fe1ef07b292b2}{check\+\_\+header}} (self)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_ac9e70f9f24dac287273b74b0c7e561aa}{check\+\_\+trailer}} (self)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a1f6923ecc13ffce53c3d1179e8704f6c}{ecies\+\_\+hkdf}} (self, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a9f829b459875878369da661bb9d9abda}{enckey}}, plainkey)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a3a5f7227fab39547130f389b75907f1d}{create}} (self, key, public\+\_\+key\+\_\+format, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a9f829b459875878369da661bb9d9abda}{enckey}}, dependencies=None, sw\+\_\+type=None, custom\+\_\+tlvs=None, encrypt\+\_\+keylen=128, clear=False)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a25e0c88e7d9209d7217d2b63e7b3d48b}{add\+\_\+header}} (self, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a9f829b459875878369da661bb9d9abda}{enckey}}, protected\+\_\+tlv\+\_\+size, aes\+\_\+length=128)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a02d90e9f0f17d4fb607d4741af0483ca}{pad\+\_\+to}} (self, size)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a7fe29c529ae3b9877393874ebfa99772}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a4c7a521b8f1a0769c09bfa4a1fca7dab}{version}}=None, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_aa6505cb356927cbac12d2af8dac8651b}{header\+\_\+size}}=\mbox{\hyperlink{namespaceimgtool_1_1image_a4efed0f255ac85cda9b453fd1c554fc8}{IMAGE\+\_\+\+HEADER\+\_\+\+SIZE}}, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_ab93b5446e5640d11ee66e87a5a347e30}{pad\+\_\+header}}=False, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a85ab2d9278949e16f4c77f1b5daf342d}{pad}}=False, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a80eab7ef497bc82f028bda0b735f7727}{confirm}}=False, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a6c52c4bac77f6744fdc338766e9e8a6f}{align}}=1, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_aa688bccf026647ce81122f09a9dd5d37}{slot\+\_\+size}}=0, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_aba7c3d70c64b6a3e93ebcc28e2c36521}{max\+\_\+sectors}}=\mbox{\hyperlink{namespaceimgtool_1_1image_a9b7887d4c82a482eb06ff2272c7fba07}{DEFAULT\+\_\+\+MAX\+\_\+\+SECTORS}}, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_ad3c66df158b3cb95366d7639fd66e7fb}{overwrite\+\_\+only}}=False, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_aceb52d5e58265d474290d1e17bcf1716}{endian}}="{}little"{}, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a0ece5abf498c14f7e723a0ea201f2356}{load\+\_\+addr}}=0, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_ac1fe150a3ea42a43271e6bec10231675}{rom\+\_\+fixed}}=None, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a5fc1d58df4dc5f022d49e58729217aaa}{erased\+\_\+val}}=None, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_ab3196255cca37d29a5ed0ac49c417129}{save\+\_\+enctlv}}=False, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a8e2f7509fd83c863081352c1c941a835}{security\+\_\+counter}}=None)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a61a1f3a6a4df93d491cd753f617782a2}{\+\_\+\+\_\+repr\+\_\+\+\_\+}} (self)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_aae9853a9699155c034c6dd57551bcca4}{load}} (self, path)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a2dfc4f3822963e9ea5dc5d02509a6ac7}{save}} (self, path, hex\+\_\+addr=None)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a3c800cde66f3f0bbdf3fe1ef07b292b2}{check\+\_\+header}} (self)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_ac9e70f9f24dac287273b74b0c7e561aa}{check\+\_\+trailer}} (self)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a1f6923ecc13ffce53c3d1179e8704f6c}{ecies\+\_\+hkdf}} (self, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a9f829b459875878369da661bb9d9abda}{enckey}}, plainkey)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a155839d5783a4431339f399eaf9eea69}{create}} (self, key, public\+\_\+key\+\_\+format, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a9f829b459875878369da661bb9d9abda}{enckey}}, dependencies=None, sw\+\_\+type=None, custom\+\_\+tlvs=None)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a5e5f77647e2f4f878f22391acfd89e24}{add\+\_\+header}} (self, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a9f829b459875878369da661bb9d9abda}{enckey}}, protected\+\_\+tlv\+\_\+size)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a02d90e9f0f17d4fb607d4741af0483ca}{pad\+\_\+to}} (self, size)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_ac250de8e12b6915166834bc0be6eff8b}{verify}} (imgfile, key)
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_ac250de8e12b6915166834bc0be6eff8b}{verify}} (imgfile, key)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a4c7a521b8f1a0769c09bfa4a1fca7dab}{version}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_aa6505cb356927cbac12d2af8dac8651b}{header\+\_\+size}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_ab93b5446e5640d11ee66e87a5a347e30}{pad\+\_\+header}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a85ab2d9278949e16f4c77f1b5daf342d}{pad}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a80eab7ef497bc82f028bda0b735f7727}{confirm}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a6c52c4bac77f6744fdc338766e9e8a6f}{align}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_aa688bccf026647ce81122f09a9dd5d37}{slot\+\_\+size}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_aba7c3d70c64b6a3e93ebcc28e2c36521}{max\+\_\+sectors}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_ad3c66df158b3cb95366d7639fd66e7fb}{overwrite\+\_\+only}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_aceb52d5e58265d474290d1e17bcf1716}{endian}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a22ab7e27a72864f768a6b755eda2ccfb}{base\+\_\+addr}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a0ece5abf498c14f7e723a0ea201f2356}{load\+\_\+addr}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_ac1fe150a3ea42a43271e6bec10231675}{rom\+\_\+fixed}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a5fc1d58df4dc5f022d49e58729217aaa}{erased\+\_\+val}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_aeabb6226e68bbbbb995aa6af5d999d11}{payload}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a9f829b459875878369da661bb9d9abda}{enckey}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_ab3196255cca37d29a5ed0ac49c417129}{save\+\_\+enctlv}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a651723b133106cb91db016c5b634a7b6}{enctlv\+\_\+len}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_ab3751a7bf9489f96727a62232ad9d7d5}{max\+\_\+align}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a2f6749af3466b82f4c8a02db32d05393}{boot\+\_\+magic}}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a8e2f7509fd83c863081352c1c941a835}{security\+\_\+counter}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a0cf4a46f0aec2fd17d70c5ccf571d8c8}{\+\_\+trailer\+\_\+size}} (self, write\+\_\+size, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_aba7c3d70c64b6a3e93ebcc28e2c36521}{max\+\_\+sectors}}, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_ad3c66df158b3cb95366d7639fd66e7fb}{overwrite\+\_\+only}}, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a9f829b459875878369da661bb9d9abda}{enckey}}, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_ab3196255cca37d29a5ed0ac49c417129}{save\+\_\+enctlv}}, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a651723b133106cb91db016c5b634a7b6}{enctlv\+\_\+len}})
+\item 
+\mbox{\hyperlink{classimgtool_1_1image_1_1Image_a0cf4a46f0aec2fd17d70c5ccf571d8c8}{\+\_\+trailer\+\_\+size}} (self, write\+\_\+size, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_aba7c3d70c64b6a3e93ebcc28e2c36521}{max\+\_\+sectors}}, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_ad3c66df158b3cb95366d7639fd66e7fb}{overwrite\+\_\+only}}, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a9f829b459875878369da661bb9d9abda}{enckey}}, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_ab3196255cca37d29a5ed0ac49c417129}{save\+\_\+enctlv}}, \mbox{\hyperlink{classimgtool_1_1image_1_1Image_a651723b133106cb91db016c5b634a7b6}{enctlv\+\_\+len}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00128}{128}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classimgtool_1_1image_1_1Image_a7c70226e980f376a414433a572c5c74f}\label{classimgtool_1_1image_1_1Image_a7c70226e980f376a414433a572c5c74f} 
+\index{Image@{Image}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{version = {\ttfamily None},  }\item[{}]{header\+\_\+size = {\ttfamily \mbox{\hyperlink{namespaceimgtool_1_1image_a4efed0f255ac85cda9b453fd1c554fc8}{IMAGE\+\_\+\+HEADER\+\_\+\+SIZE}}},  }\item[{}]{pad\+\_\+header = {\ttfamily False},  }\item[{}]{pad = {\ttfamily False},  }\item[{}]{confirm = {\ttfamily False},  }\item[{}]{align = {\ttfamily 1},  }\item[{}]{slot\+\_\+size = {\ttfamily 0},  }\item[{}]{max\+\_\+sectors = {\ttfamily \mbox{\hyperlink{namespaceimgtool_1_1image_a9b7887d4c82a482eb06ff2272c7fba07}{DEFAULT\+\_\+\+MAX\+\_\+\+SECTORS}}},  }\item[{}]{overwrite\+\_\+only = {\ttfamily False},  }\item[{}]{endian = {\ttfamily "{}little"{}},  }\item[{}]{load\+\_\+addr = {\ttfamily 0},  }\item[{}]{rom\+\_\+fixed = {\ttfamily None},  }\item[{}]{erased\+\_\+val = {\ttfamily None},  }\item[{}]{save\+\_\+enctlv = {\ttfamily False},  }\item[{}]{security\+\_\+counter = {\ttfamily None},  }\item[{}]{max\+\_\+align = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00130}{130}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ security\_counter=\textcolor{keywordtype}{None},\ max\_align=\textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ load\_addr\ \textcolor{keywordflow}{and}\ rom\_fixed:}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.UsageError(\textcolor{stringliteral}{"{}Can\ not\ set\ rom\_fixed\ and\ load\_addr\ at\ the\ same\ time"{}})}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ self.version\ =\ version\ \textcolor{keywordflow}{or}\ versmod.decode\_version(\textcolor{stringliteral}{"{}0"{}})}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ self.header\_size\ =\ header\_size}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ self.pad\_header\ =\ pad\_header}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ self.pad\ =\ pad}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ self.confirm\ =\ confirm}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ self.align\ =\ align}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ self.slot\_size\ =\ slot\_size}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ self.max\_sectors\ =\ max\_sectors}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ self.overwrite\_only\ =\ overwrite\_only}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ self.endian\ =\ endian}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ self.base\_addr\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ self.load\_addr\ =\ 0\ \textcolor{keywordflow}{if}\ load\_addr\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ load\_addr}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ self.rom\_fixed\ =\ rom\_fixed}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ self.erased\_val\ =\ 0xff\ \textcolor{keywordflow}{if}\ erased\_val\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ int(erased\_val,\ 0)}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ self.payload\ =\ []}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ self.enckey\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ self.save\_enctlv\ =\ save\_enctlv}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ self.enctlv\_len\ =\ 0}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ self.max\_align\ =\ max(DEFAULT\_MAX\_ALIGN,\ align)\ \textcolor{keywordflow}{if}\ max\_align\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ int(max\_align)}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.max\_align\ ==\ DEFAULT\_MAX\_ALIGN:}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ self.boot\_magic\ =\ bytes([}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x77,\ 0xc2,\ 0x95,\ 0xf3,}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x60,\ 0xd2,\ 0xef,\ 0x7f,}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x35,\ 0x52,\ 0x50,\ 0x0f,}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x2c,\ 0xb6,\ 0x79,\ 0x80,\ ])}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ align\_lsb\ =\ self.max\_align\ \&\ 0x00ff}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ align\_msb\ =\ (self.max\_align\ \&\ 0xff00)\ >>\ 8}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ self.boot\_magic\ =\ bytes([}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ align\_lsb,\ align\_msb,\ 0x2d,\ 0xe1,}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x5d,\ 0x29,\ 0x41,\ 0x0b,}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x8d,\ 0x77,\ 0x67,\ 0x9c,}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x11,\ 0x0f,\ 0x1f,\ 0x8a,\ ])}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ security\_counter\ ==\ \textcolor{stringliteral}{'auto'}:}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Security\ counter\ has\ not\ been\ explicitly\ provided,}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ generate\ it\ from\ the\ version\ number}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ self.security\_counter\ =\ ((self.version.major\ <<\ 24)}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ (self.version.minor\ <<\ 16)}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ self.version.revision)}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ self.security\_counter\ =\ security\_counter}
+\DoxyCodeLine{00183\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_a7fe29c529ae3b9877393874ebfa99772}\label{classimgtool_1_1image_1_1Image_a7fe29c529ae3b9877393874ebfa99772} 
+\index{Image@{Image}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{version = {\ttfamily None},  }\item[{}]{header\+\_\+size = {\ttfamily \mbox{\hyperlink{namespaceimgtool_1_1image_a4efed0f255ac85cda9b453fd1c554fc8}{IMAGE\+\_\+\+HEADER\+\_\+\+SIZE}}},  }\item[{}]{pad\+\_\+header = {\ttfamily False},  }\item[{}]{pad = {\ttfamily False},  }\item[{}]{confirm = {\ttfamily False},  }\item[{}]{align = {\ttfamily 1},  }\item[{}]{slot\+\_\+size = {\ttfamily 0},  }\item[{}]{max\+\_\+sectors = {\ttfamily \mbox{\hyperlink{namespaceimgtool_1_1image_a9b7887d4c82a482eb06ff2272c7fba07}{DEFAULT\+\_\+\+MAX\+\_\+\+SECTORS}}},  }\item[{}]{overwrite\+\_\+only = {\ttfamily False},  }\item[{}]{endian = {\ttfamily "{}little"{}},  }\item[{}]{load\+\_\+addr = {\ttfamily 0},  }\item[{}]{rom\+\_\+fixed = {\ttfamily None},  }\item[{}]{erased\+\_\+val = {\ttfamily None},  }\item[{}]{save\+\_\+enctlv = {\ttfamily False},  }\item[{}]{security\+\_\+counter = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source_l00130}{130}} of file \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ security\_counter=\textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ load\_addr\ \textcolor{keywordflow}{and}\ rom\_fixed:}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.UsageError(\textcolor{stringliteral}{"{}Can\ not\ set\ rom\_fixed\ and\ load\_addr\ at\ the\ same\ time"{}})}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ self.version\ =\ version\ \textcolor{keywordflow}{or}\ versmod.decode\_version(\textcolor{stringliteral}{"{}0"{}})}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ self.header\_size\ =\ header\_size}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ self.pad\_header\ =\ pad\_header}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ self.pad\ =\ pad}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ self.confirm\ =\ confirm}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ self.align\ =\ align}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ self.slot\_size\ =\ slot\_size}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ self.max\_sectors\ =\ max\_sectors}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ self.overwrite\_only\ =\ overwrite\_only}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ self.endian\ =\ endian}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ self.base\_addr\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ self.load\_addr\ =\ 0\ \textcolor{keywordflow}{if}\ load\_addr\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ load\_addr}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ self.rom\_fixed\ =\ rom\_fixed}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ self.erased\_val\ =\ 0xff\ \textcolor{keywordflow}{if}\ erased\_val\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ int(erased\_val,\ 0)}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ self.payload\ =\ []}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ self.enckey\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ self.save\_enctlv\ =\ save\_enctlv}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ self.enctlv\_len\ =\ 0}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ security\_counter\ ==\ \textcolor{stringliteral}{'auto'}:}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Security\ counter\ has\ not\ been\ explicitly\ provided,}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ generate\ it\ from\ the\ version\ number}}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ self.security\_counter\ =\ ((self.version.major\ <<\ 24)}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ (self.version.minor\ <<\ 16)}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ self.version.revision)}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ self.security\_counter\ =\ security\_counter}
+\DoxyCodeLine{00167\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classimgtool_1_1image_1_1Image_a61a1f3a6a4df93d491cd753f617782a2}\label{classimgtool_1_1image_1_1Image_a61a1f3a6a4df93d491cd753f617782a2} 
+\index{Image@{Image}!\_\_repr\_\_@{\_\_repr\_\_}}
+\index{\_\_repr\_\_@{\_\_repr\_\_}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{\_\_repr\_\_()}{\_\_repr\_\_()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \+\_\+\+\_\+repr\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00184}{184}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keyword}{def\ }\_\_repr\_\_(self):}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}<Image\ version=\{\},\ header\_size=\{\},\ security\_counter=\{\},\ \(\backslash\)}}
+\DoxyCodeLine{00186\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ base\_addr=\{\},\ load\_addr=\{\},\ align=\{\},\ slot\_size=\{\},\ \(\backslash\)}}
+\DoxyCodeLine{00187\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_sectors=\{\},\ overwrite\_only=\{\},\ endian=\{\}\ format=\{\},\ \(\backslash\)}}
+\DoxyCodeLine{00188\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ payloadlen=0x\{:x\}>"{}}.format(}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.version,}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.header\_size,}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.security\_counter,}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.base\_addr\ \textcolor{keywordflow}{if}\ self.base\_addr\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ \textcolor{stringliteral}{"{}N/A"{}},}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.load\_addr,}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.align,}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.slot\_size,}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.max\_sectors,}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.overwrite\_only,}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.endian,}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\_\_class\_\_.\_\_name\_\_,}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ len(self.payload))}
+\DoxyCodeLine{00201\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_a61a1f3a6a4df93d491cd753f617782a2}\label{classimgtool_1_1image_1_1Image_a61a1f3a6a4df93d491cd753f617782a2} 
+\index{Image@{Image}!\_\_repr\_\_@{\_\_repr\_\_}}
+\index{\_\_repr\_\_@{\_\_repr\_\_}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{\_\_repr\_\_()}{\_\_repr\_\_()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \+\_\+\+\_\+repr\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source_l00168}{168}} of file \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keyword}{def\ }\_\_repr\_\_(self):}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}<Image\ version=\{\},\ header\_size=\{\},\ security\_counter=\{\},\ \(\backslash\)}}
+\DoxyCodeLine{00170\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ base\_addr=\{\},\ load\_addr=\{\},\ align=\{\},\ slot\_size=\{\},\ \(\backslash\)}}
+\DoxyCodeLine{00171\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_sectors=\{\},\ overwrite\_only=\{\},\ endian=\{\}\ format=\{\},\ \(\backslash\)}}
+\DoxyCodeLine{00172\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ payloadlen=0x\{:x\}>"{}}.format(}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.version,}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.header\_size,}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.security\_counter,}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.base\_addr\ \textcolor{keywordflow}{if}\ self.base\_addr\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ \textcolor{stringliteral}{"{}N/A"{}},}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.load\_addr,}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.align,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.slot\_size,}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.max\_sectors,}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.overwrite\_only,}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.endian,}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\_\_class\_\_.\_\_name\_\_,}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ len(self.payload))}
+\DoxyCodeLine{00185\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_a0cf4a46f0aec2fd17d70c5ccf571d8c8}\label{classimgtool_1_1image_1_1Image_a0cf4a46f0aec2fd17d70c5ccf571d8c8} 
+\index{Image@{Image}!\_trailer\_size@{\_trailer\_size}}
+\index{\_trailer\_size@{\_trailer\_size}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{\_trailer\_size()}{\_trailer\_size()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \+\_\+trailer\+\_\+size (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{write\+\_\+size,  }\item[{}]{max\+\_\+sectors,  }\item[{}]{overwrite\+\_\+only,  }\item[{}]{enckey,  }\item[{}]{save\+\_\+enctlv,  }\item[{}]{enctlv\+\_\+len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00533}{533}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ save\_enctlv,\ enctlv\_len):}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ NOTE:\ should\ already\ be\ checked\ by\ the\ argument\ parser}}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ magic\_size\ =\ 16}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ magic\_align\_size\ =\ align\_up(magic\_size,\ self.max\_align)}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ overwrite\_only:}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.max\_align\ *\ 2\ +\ magic\_align\_size}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ write\_size\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ set([1,\ 2,\ 4,\ 8,\ 16,\ 32]):}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.BadParameter(\textcolor{stringliteral}{"{}Invalid\ alignment:\ \{\}"{}}.format(}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ write\_size))}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \ \ \ \ m\ =\ DEFAULT\_MAX\_SECTORS\ \textcolor{keywordflow}{if}\ max\_sectors\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ max\_sectors}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \ \ \ \ trailer\ =\ m\ *\ 3\ *\ write\_size\ \ \textcolor{comment}{\#\ status\ area}}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ enckey\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ save\_enctlv:}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ TLV\ saved\ by\ the\ bootloader\ is\ aligned}}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ keylen\ =\ align\_up(enctlv\_len,\ self.max\_align)}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ keylen\ =\ align\_up(16,\ self.max\_align)}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ trailer\ +=\ keylen\ *\ 2\ \ \textcolor{comment}{\#\ encryption\ keys}}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \ \ \ \ trailer\ +=\ self.max\_align\ *\ 4\ \ \textcolor{comment}{\#\ image\_ok/copy\_done/swap\_info/swap\_size}}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \ \ \ \ trailer\ +=\ magic\_align\_size}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ trailer}
+\DoxyCodeLine{00556\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_a0cf4a46f0aec2fd17d70c5ccf571d8c8}\label{classimgtool_1_1image_1_1Image_a0cf4a46f0aec2fd17d70c5ccf571d8c8} 
+\index{Image@{Image}!\_trailer\_size@{\_trailer\_size}}
+\index{\_trailer\_size@{\_trailer\_size}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{\_trailer\_size()}{\_trailer\_size()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \+\_\+trailer\+\_\+size (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{write\+\_\+size,  }\item[{}]{max\+\_\+sectors,  }\item[{}]{overwrite\+\_\+only,  }\item[{}]{enckey,  }\item[{}]{save\+\_\+enctlv,  }\item[{}]{enctlv\+\_\+len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source_l00504}{504}} of file \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ save\_enctlv,\ enctlv\_len):}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ NOTE:\ should\ already\ be\ checked\ by\ the\ argument\ parser}}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ magic\_size\ =\ 16}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ overwrite\_only:}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MAX\_ALIGN\ *\ 2\ +\ magic\_size}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ write\_size\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ set([1,\ 2,\ 4,\ 8]):}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.BadParameter(\textcolor{stringliteral}{"{}Invalid\ alignment:\ \{\}"{}}.format(}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ write\_size))}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \ \ \ \ m\ =\ DEFAULT\_MAX\_SECTORS\ \textcolor{keywordflow}{if}\ max\_sectors\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ max\_sectors}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \ \ \ \ trailer\ =\ m\ *\ 3\ *\ write\_size\ \ \textcolor{comment}{\#\ status\ area}}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ enckey\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ save\_enctlv:}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ TLV\ saved\ by\ the\ bootloader\ is\ aligned}}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ keylen\ =\ (int((enctlv\_len\ -\/\ 1)\ /\ MAX\_ALIGN)\ +\ 1)\ *\ MAX\_ALIGN}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ keylen\ =\ 16}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ trailer\ +=\ keylen\ *\ 2\ \ \textcolor{comment}{\#\ encryption\ keys}}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \ \ \ \ trailer\ +=\ MAX\_ALIGN\ *\ 4\ \ \textcolor{comment}{\#\ image\_ok/copy\_done/swap\_info/swap\_size}}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \ \ \ \ trailer\ +=\ magic\_size}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ trailer}
+\DoxyCodeLine{00526\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_a5e5f77647e2f4f878f22391acfd89e24}\label{classimgtool_1_1image_1_1Image_a5e5f77647e2f4f878f22391acfd89e24} 
+\index{Image@{Image}!add\_header@{add\_header}}
+\index{add\_header@{add\_header}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{add\_header()}{add\_header()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily add\+\_\+header (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{enckey,  }\item[{}]{protected\+\_\+tlv\+\_\+size }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Install the image header.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source_l00463}{463}} of file \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00463\ \ \ \ \ \textcolor{keyword}{def\ }add\_header(self,\ enckey,\ protected\_tlv\_size):}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Install\ the\ image\ header."{}"{}"{}}}
+\DoxyCodeLine{00465\ }
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ flags\ =\ 0}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ enckey\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \ \ \ \ flags\ |=\ IMAGE\_F[\textcolor{stringliteral}{'ENCRYPTED'}]}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.load\_addr\ !=\ 0:}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Indicates\ that\ this\ image\ should\ be\ loaded\ into\ RAM}}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ instead\ of\ run\ directly\ from\ flash.}}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \ \ \ \ flags\ |=\ IMAGE\_F[\textcolor{stringliteral}{'RAM\_LOAD'}]}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.rom\_fixed:}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \ \ \ \ flags\ |=\ IMAGE\_F[\textcolor{stringliteral}{'ROM\_FIXED'}]}
+\DoxyCodeLine{00475\ }
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ e\ =\ STRUCT\_ENDIAN\_DICT[self.endian]}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ fmt\ =\ (e\ +}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ type\ ImageHdr\ struct\ \{}}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'I'}\ +\ \ \ \ \ \textcolor{comment}{\#\ Magic\ \ \ \ uint32}}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'I'}\ +\ \ \ \ \ \textcolor{comment}{\#\ LoadAddr\ uint32}}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'H'}\ +\ \ \ \ \ \textcolor{comment}{\#\ HdrSz\ \ \ \ uint16}}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'H'}\ +\ \ \ \ \ \textcolor{comment}{\#\ PTLVSz\ \ \ uint16}}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'I'}\ +\ \ \ \ \ \textcolor{comment}{\#\ ImgSz\ \ \ \ uint32}}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'I'}\ +\ \ \ \ \ \textcolor{comment}{\#\ Flags\ \ \ \ uint32}}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'BBHI'}\ +\ \ \textcolor{comment}{\#\ Vers\ \ \ \ \ ImageVersion}}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'I'}\ \ \ \ \ \ \ \textcolor{comment}{\#\ Pad1\ \ \ \ \ uint32}}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\ \ \textcolor{comment}{\#\ \}}}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ struct.calcsize(fmt)\ ==\ IMAGE\_HEADER\_SIZE}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ header\ =\ struct.pack(fmt,}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IMAGE\_MAGIC,}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.rom\_fixed\ \textcolor{keywordflow}{or}\ self.load\_addr,}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.header\_size,}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ protected\_tlv\_size,\ \ \textcolor{comment}{\#\ TLV\ Info\ header\ +\ Protected\ TLVs}}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ len(self.payload)\ -\/\ self.header\_size,\ \ \textcolor{comment}{\#\ ImageSz}}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flags,}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.version.major,}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.version.minor\ \textcolor{keywordflow}{or}\ 0,}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.version.revision\ \textcolor{keywordflow}{or}\ 0,}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.version.build\ \textcolor{keywordflow}{or}\ 0,}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0)\ \ \textcolor{comment}{\#\ Pad1}}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ self.payload\ =\ bytearray(self.payload)}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ self.payload[:len(header)]\ =\ header}
+\DoxyCodeLine{00503\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_a25e0c88e7d9209d7217d2b63e7b3d48b}\label{classimgtool_1_1image_1_1Image_a25e0c88e7d9209d7217d2b63e7b3d48b} 
+\index{Image@{Image}!add\_header@{add\_header}}
+\index{add\_header@{add\_header}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{add\_header()}{add\_header()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily add\+\_\+header (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{enckey,  }\item[{}]{protected\+\_\+tlv\+\_\+size,  }\item[{}]{aes\+\_\+length = {\ttfamily 128} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Install the image header.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00489}{489}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00489\ \ \ \ \ \textcolor{keyword}{def\ }add\_header(self,\ enckey,\ protected\_tlv\_size,\ aes\_length=128):}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Install\ the\ image\ header."{}"{}"{}}}
+\DoxyCodeLine{00491\ }
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ flags\ =\ 0}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ enckey\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ aes\_length\ ==\ 128:}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flags\ |=\ IMAGE\_F[\textcolor{stringliteral}{'ENCRYPTED\_AES128'}]}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flags\ |=\ IMAGE\_F[\textcolor{stringliteral}{'ENCRYPTED\_AES256'}]}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.load\_addr\ !=\ 0:}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Indicates\ that\ this\ image\ should\ be\ loaded\ into\ RAM}}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ instead\ of\ run\ directly\ from\ flash.}}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \ \ \ \ flags\ |=\ IMAGE\_F[\textcolor{stringliteral}{'RAM\_LOAD'}]}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.rom\_fixed:}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \ \ \ \ flags\ |=\ IMAGE\_F[\textcolor{stringliteral}{'ROM\_FIXED'}]}
+\DoxyCodeLine{00504\ }
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ e\ =\ STRUCT\_ENDIAN\_DICT[self.endian]}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ fmt\ =\ (e\ +}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ type\ ImageHdr\ struct\ \{}}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'I'}\ +\ \ \ \ \ \textcolor{comment}{\#\ Magic\ \ \ \ uint32}}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'I'}\ +\ \ \ \ \ \textcolor{comment}{\#\ LoadAddr\ uint32}}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'H'}\ +\ \ \ \ \ \textcolor{comment}{\#\ HdrSz\ \ \ \ uint16}}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'H'}\ +\ \ \ \ \ \textcolor{comment}{\#\ PTLVSz\ \ \ uint16}}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'I'}\ +\ \ \ \ \ \textcolor{comment}{\#\ ImgSz\ \ \ \ uint32}}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'I'}\ +\ \ \ \ \ \textcolor{comment}{\#\ Flags\ \ \ \ uint32}}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'BBHI'}\ +\ \ \textcolor{comment}{\#\ Vers\ \ \ \ \ ImageVersion}}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'I'}\ \ \ \ \ \ \ \textcolor{comment}{\#\ Pad1\ \ \ \ \ uint32}}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\ \ \textcolor{comment}{\#\ \}}}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ struct.calcsize(fmt)\ ==\ IMAGE\_HEADER\_SIZE}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ header\ =\ struct.pack(fmt,}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IMAGE\_MAGIC,}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.rom\_fixed\ \textcolor{keywordflow}{or}\ self.load\_addr,}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.header\_size,}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ protected\_tlv\_size,\ \ \textcolor{comment}{\#\ TLV\ Info\ header\ +\ Protected\ TLVs}}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ len(self.payload)\ -\/\ self.header\_size,\ \ \textcolor{comment}{\#\ ImageSz}}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flags,}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.version.major,}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.version.minor\ \textcolor{keywordflow}{or}\ 0,}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.version.revision\ \textcolor{keywordflow}{or}\ 0,}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.version.build\ \textcolor{keywordflow}{or}\ 0,}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0)\ \ \textcolor{comment}{\#\ Pad1}}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ self.payload\ =\ bytearray(self.payload)}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ self.payload[:len(header)]\ =\ header}
+\DoxyCodeLine{00532\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_a3c800cde66f3f0bbdf3fe1ef07b292b2}\label{classimgtool_1_1image_1_1Image_a3c800cde66f3f0bbdf3fe1ef07b292b2} 
+\index{Image@{Image}!check\_header@{check\_header}}
+\index{check\_header@{check\_header}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{check\_header()}{check\_header()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily check\+\_\+header (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00261}{261}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keyword}{def\ }check\_header(self):}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.header\_size\ >\ 0\ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{not}\ self.pad\_header:}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ any(v\ !=\ 0\ \textcolor{keywordflow}{for}\ v\ \textcolor{keywordflow}{in}\ self.payload[0:self.header\_size]):}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.UsageError(\textcolor{stringliteral}{"{}Header\ padding\ was\ not\ requested\ and\ "{}}}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}image\ does\ not\ start\ with\ zeros"{}})}
+\DoxyCodeLine{00266\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_a3c800cde66f3f0bbdf3fe1ef07b292b2}\label{classimgtool_1_1image_1_1Image_a3c800cde66f3f0bbdf3fe1ef07b292b2} 
+\index{Image@{Image}!check\_header@{check\_header}}
+\index{check\_header@{check\_header}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{check\_header()}{check\_header()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily check\+\_\+header (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source_l00242}{242}} of file \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keyword}{def\ }check\_header(self):}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.header\_size\ >\ 0\ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{not}\ self.pad\_header:}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ any(v\ !=\ 0\ \textcolor{keywordflow}{for}\ v\ \textcolor{keywordflow}{in}\ self.payload[0:self.header\_size]):}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.UsageError(\textcolor{stringliteral}{"{}Header\ padding\ was\ not\ requested\ and\ "{}}}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}image\ does\ not\ start\ with\ zeros"{}})}
+\DoxyCodeLine{00247\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_ac9e70f9f24dac287273b74b0c7e561aa}\label{classimgtool_1_1image_1_1Image_ac9e70f9f24dac287273b74b0c7e561aa} 
+\index{Image@{Image}!check\_trailer@{check\_trailer}}
+\index{check\_trailer@{check\_trailer}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{check\_trailer()}{check\_trailer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily check\+\_\+trailer (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00267}{267}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keyword}{def\ }check\_trailer(self):}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.slot\_size\ >\ 0:}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ tsize\ =\ self.\_trailer\_size(self.align,\ self.max\_sectors,}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.overwrite\_only,\ self.enckey,}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.save\_enctlv,\ self.enctlv\_len)}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ padding\ =\ self.slot\_size\ -\/\ (len(self.payload)\ +\ tsize)}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ padding\ <\ 0:}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ msg\ =\ \textcolor{stringliteral}{"{}Image\ size\ (0x\{:x\})\ +\ trailer\ (0x\{:x\})\ exceeds\ "{}}\ \(\backslash\)}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}requested\ size\ 0x\{:x\}"{}}.format(}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ len(self.payload),\ tsize,\ self.slot\_size)}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.UsageError(msg)}
+\DoxyCodeLine{00278\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_ac9e70f9f24dac287273b74b0c7e561aa}\label{classimgtool_1_1image_1_1Image_ac9e70f9f24dac287273b74b0c7e561aa} 
+\index{Image@{Image}!check\_trailer@{check\_trailer}}
+\index{check\_trailer@{check\_trailer}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{check\_trailer()}{check\_trailer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily check\+\_\+trailer (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source_l00248}{248}} of file \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{keyword}{def\ }check\_trailer(self):}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.slot\_size\ >\ 0:}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ tsize\ =\ self.\_trailer\_size(self.align,\ self.max\_sectors,}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.overwrite\_only,\ self.enckey,}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.save\_enctlv,\ self.enctlv\_len)}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ padding\ =\ self.slot\_size\ -\/\ (len(self.payload)\ +\ tsize)}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ padding\ <\ 0:}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ msg\ =\ \textcolor{stringliteral}{"{}Image\ size\ (0x\{:x\})\ +\ trailer\ (0x\{:x\})\ exceeds\ "{}}\ \(\backslash\)}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}requested\ size\ 0x\{:x\}"{}}.format(}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ len(self.payload),\ tsize,\ self.slot\_size)}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.UsageError(msg)}
+\DoxyCodeLine{00259\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_a155839d5783a4431339f399eaf9eea69}\label{classimgtool_1_1image_1_1Image_a155839d5783a4431339f399eaf9eea69} 
+\index{Image@{Image}!create@{create}}
+\index{create@{create}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily create (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{key,  }\item[{}]{public\+\_\+key\+\_\+format,  }\item[{}]{enckey,  }\item[{}]{dependencies = {\ttfamily None},  }\item[{}]{sw\+\_\+type = {\ttfamily None},  }\item[{}]{custom\+\_\+tlvs = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source_l00288}{288}} of file \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sw\_type=\textcolor{keywordtype}{None},\ custom\_tlvs=\textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ self.enckey\ =\ enckey}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Calculate\ the\ hash\ of\ the\ public\ key}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ key\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ pub\ =\ key.get\_public\_bytes()}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ sha\ =\ hashlib.sha256()}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ sha.update(pub)}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ pubbytes\ =\ sha.digest()}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ pubbytes\ =\ bytes(hashlib.sha256().digest\_size)}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ protected\_tlv\_size\ =\ 0}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.security\_counter\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Size\ of\ the\ security\ counter\ TLV:\ header\ ('HH')\ +\ payload\ ('I')}}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 4\ +\ 4\ =\ 8\ Bytes}}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ protected\_tlv\_size\ +=\ TLV\_SIZE\ +\ 4}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ sw\_type\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(sw\_type)\ >\ MAX\_SW\_TYPE\_LENGTH:}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ msg\ =\ \textcolor{stringliteral}{"{}'\{\}'\ is\ too\ long\ (\{\}\ characters)\ for\ sw\_type.\ Its\ "{}}\ \(\backslash\)}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}maximum\ allowed\ length\ is\ 12\ characters."{}}.format(}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sw\_type,\ len(sw\_type))}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.UsageError(msg)}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ image\_version\ =\ (str(self.version.major)\ +\ \textcolor{stringliteral}{'.'}}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ str(self.version.minor)\ +\ \textcolor{stringliteral}{'.'}}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ str(self.version.revision))}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ image\ hash\ is\ computed\ over\ the\ image\ header,\ the\ image}}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ itself\ and\ the\ protected\ TLV\ area.\ However,\ the\ boot\ record\ TLV}}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ (which\ is\ part\ of\ the\ protected\ area)\ should\ contain\ this\ hash}}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ before\ it\ is\ even\ calculated.\ For\ this\ reason\ the\ script\ fills}}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ this\ field\ with\ zeros\ and\ the\ bootloader\ will\ insert\ the\ right}}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ value\ later.}}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ digest\ =\ bytes(hashlib.sha256().digest\_size)}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Create\ CBOR\ encoded\ boot\ record}}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ boot\_record\ =\ create\_sw\_component\_data(sw\_type,\ image\_version,}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}SHA256"{}},\ digest,}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pubbytes)}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ protected\_tlv\_size\ +=\ TLV\_SIZE\ +\ len(boot\_record)}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ dependencies\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Size\ of\ a\ Dependency\ TLV\ =\ Header\ ('HH')\ +\ Payload('IBBHI')}}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ =\ 4\ +\ 12\ =\ 16\ Bytes}}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ dependencies\_num\ =\ len(dependencies[DEP\_IMAGES\_KEY])}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ protected\_tlv\_size\ +=\ (dependencies\_num\ *\ 16)}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ custom\_tlvs\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ value\ \textcolor{keywordflow}{in}\ custom\_tlvs.values():}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ protected\_tlv\_size\ +=\ TLV\_SIZE\ +\ len(value)}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ protected\_tlv\_size\ !=\ 0:}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Add\ the\ size\ of\ the\ TLV\ info\ header}}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ protected\_tlv\_size\ +=\ TLV\_INFO\_SIZE}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ At\ this\ point\ the\ image\ is\ already\ on\ the\ payload}}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#}}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ This\ adds\ the\ padding\ if\ image\ is\ not\ aligned\ to\ the\ 16\ Bytes}}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ in\ encrypted\ mode}}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.enckey\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ pad\_len\ =\ len(self.payload)\ \%\ 16}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ pad\_len\ >\ 0:}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pad\ =\ bytes(16\ -\/\ pad\_len)}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(self.payload,\ bytes):}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.payload\ +=\ pad}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.payload.extend(pad)}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ This\ adds\ the\ header\ to\ the\ payload\ as\ well}}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ self.add\_header(enckey,\ protected\_tlv\_size)}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ prot\_tlv\ =\ TLV(self.endian,\ TLV\_PROT\_INFO\_MAGIC)}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Protected\ TLVs\ must\ be\ added\ first,\ because\ they\ are\ also\ included}}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ in\ the\ hash\ calculation}}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ protected\_tlv\_off\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ protected\_tlv\_size\ !=\ 0:}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ e\ =\ STRUCT\_ENDIAN\_DICT[self.endian]}
+\DoxyCodeLine{00372\ }
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.security\_counter\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ payload\ =\ struct.pack(e\ +\ \textcolor{stringliteral}{'I'},\ self.security\_counter)}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prot\_tlv.add(\textcolor{stringliteral}{'SEC\_CNT'},\ payload)}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ sw\_type\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prot\_tlv.add(\textcolor{stringliteral}{'BOOT\_RECORD'},\ boot\_record)}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ dependencies\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(dependencies\_num):}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ payload\ =\ struct.pack(}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ e\ +\ \textcolor{stringliteral}{'B3x'}+\textcolor{stringliteral}{'BBHI'},}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int(dependencies[DEP\_IMAGES\_KEY][i]),}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dependencies[DEP\_VERSIONS\_KEY][i].major,}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dependencies[DEP\_VERSIONS\_KEY][i].minor,}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dependencies[DEP\_VERSIONS\_KEY][i].revision,}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dependencies[DEP\_VERSIONS\_KEY][i].build}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prot\_tlv.add(\textcolor{stringliteral}{'DEPENDENCY'},\ payload)}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ custom\_tlvs\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tag,\ value\ \textcolor{keywordflow}{in}\ custom\_tlvs.items():}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prot\_tlv.add(tag,\ value)}
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ protected\_tlv\_off\ =\ len(self.payload)}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ self.payload\ +=\ prot\_tlv.get()}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ tlv\ =\ TLV(self.endian)}
+\DoxyCodeLine{00400\ }
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Note\ that\ ecdsa\ wants\ to\ do\ the\ hashing\ itself,\ which\ means}}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ we\ get\ to\ hash\ it\ twice.}}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ sha\ =\ hashlib.sha256()}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ sha.update(self.payload)}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ digest\ =\ sha.digest()}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ tlv.add(\textcolor{stringliteral}{'SHA256'},\ digest)}
+\DoxyCodeLine{00408\ }
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ key\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ public\_key\_format\ ==\ \textcolor{stringliteral}{'hash'}:}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tlv.add(\textcolor{stringliteral}{'KEYHASH'},\ pubbytes)}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tlv.add(\textcolor{stringliteral}{'PUBKEY'},\ pub)}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ \`{}sign`\ expects\ the\ full\ image\ payload\ (sha256\ done\ internally),}}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ while\ \`{}sign\_digest`\ expects\ only\ the\ digest\ of\ the\ payload}}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hasattr(key,\ \textcolor{stringliteral}{'sign'}):}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sig\ =\ key.sign(bytes(self.payload))}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sig\ =\ key.sign\_digest(digest)}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \ \ \ \ tlv.add(key.sig\_tlv(),\ sig)}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ At\ this\ point\ the\ image\ was\ hashed\ +\ signed,\ we\ can\ remove\ the}}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ protected\ TLVs\ from\ the\ payload\ (will\ be\ re-\/added\ later)}}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ protected\_tlv\_off\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ self.payload\ =\ self.payload[:protected\_tlv\_off]}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ enckey\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ plainkey\ =\ os.urandom(16)}
+\DoxyCodeLine{00431\ }
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(enckey,\ rsa.RSAPublic):}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cipherkey\ =\ enckey.\_get\_public().encrypt(}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ plainkey,\ padding.OAEP(}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mgf=padding.MGF1(algorithm=hashes.SHA256()),}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ algorithm=hashes.SHA256(),}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ label=\textcolor{keywordtype}{None}))}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.enctlv\_len\ =\ len(cipherkey)}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tlv.add(\textcolor{stringliteral}{'ENCRSA2048'},\ cipherkey)}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ isinstance(enckey,\ (ecdsa.ECDSA256P1Public,}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x25519.X25519Public)):}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cipherkey,\ mac,\ pubk\ =\ self.ecies\_hkdf(enckey,\ plainkey)}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ enctlv\ =\ pubk\ +\ mac\ +\ cipherkey}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.enctlv\_len\ =\ len(enctlv)}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(enckey,\ ecdsa.ECDSA256P1Public):}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tlv.add(\textcolor{stringliteral}{'ENCEC256'},\ enctlv)}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tlv.add(\textcolor{stringliteral}{'ENCX25519'},\ enctlv)}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ nonce\ =\ bytes([0]\ *\ 16)}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ cipher\ =\ Cipher(algorithms.AES(plainkey),\ modes.CTR(nonce),}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ backend=default\_backend())}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ encryptor\ =\ cipher.encryptor()}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ img\ =\ bytes(self.payload[self.header\_size:])}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ self.payload[self.header\_size:]\ =\ \(\backslash\)}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encryptor.update(img)\ +\ encryptor.finalize()}
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ self.payload\ +=\ prot\_tlv.get()}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ self.payload\ +=\ tlv.get()}
+\DoxyCodeLine{00460\ }
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ self.check\_trailer()}
+\DoxyCodeLine{00462\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_a3a5f7227fab39547130f389b75907f1d}\label{classimgtool_1_1image_1_1Image_a3a5f7227fab39547130f389b75907f1d} 
+\index{Image@{Image}!create@{create}}
+\index{create@{create}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily create (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{key,  }\item[{}]{public\+\_\+key\+\_\+format,  }\item[{}]{enckey,  }\item[{}]{dependencies = {\ttfamily None},  }\item[{}]{sw\+\_\+type = {\ttfamily None},  }\item[{}]{custom\+\_\+tlvs = {\ttfamily None},  }\item[{}]{encrypt\+\_\+keylen = {\ttfamily 128},  }\item[{}]{clear = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00307}{307}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sw\_type=\textcolor{keywordtype}{None},\ custom\_tlvs=\textcolor{keywordtype}{None},\ encrypt\_keylen=128,\ clear=\textcolor{keyword}{False}):}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ self.enckey\ =\ enckey}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Calculate\ the\ hash\ of\ the\ public\ key}}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ key\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ pub\ =\ key.get\_public\_bytes()}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ sha\ =\ hashlib.sha256()}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ sha.update(pub)}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ pubbytes\ =\ sha.digest()}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ pubbytes\ =\ bytes(hashlib.sha256().digest\_size)}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ protected\_tlv\_size\ =\ 0}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.security\_counter\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Size\ of\ the\ security\ counter\ TLV:\ header\ ('HH')\ +\ payload\ ('I')}}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 4\ +\ 4\ =\ 8\ Bytes}}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ protected\_tlv\_size\ +=\ TLV\_SIZE\ +\ 4}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ sw\_type\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(sw\_type)\ >\ MAX\_SW\_TYPE\_LENGTH:}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ msg\ =\ \textcolor{stringliteral}{"{}'\{\}'\ is\ too\ long\ (\{\}\ characters)\ for\ sw\_type.\ Its\ "{}}\ \(\backslash\)}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}maximum\ allowed\ length\ is\ 12\ characters."{}}.format(}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sw\_type,\ len(sw\_type))}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.UsageError(msg)}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ image\_version\ =\ (str(self.version.major)\ +\ \textcolor{stringliteral}{'.'}}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ str(self.version.minor)\ +\ \textcolor{stringliteral}{'.'}}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ str(self.version.revision))}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ image\ hash\ is\ computed\ over\ the\ image\ header,\ the\ image}}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ itself\ and\ the\ protected\ TLV\ area.\ However,\ the\ boot\ record\ TLV}}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ (which\ is\ part\ of\ the\ protected\ area)\ should\ contain\ this\ hash}}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ before\ it\ is\ even\ calculated.\ For\ this\ reason\ the\ script\ fills}}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ this\ field\ with\ zeros\ and\ the\ bootloader\ will\ insert\ the\ right}}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ value\ later.}}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ digest\ =\ bytes(hashlib.sha256().digest\_size)}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Create\ CBOR\ encoded\ boot\ record}}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ boot\_record\ =\ create\_sw\_component\_data(sw\_type,\ image\_version,}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}SHA256"{}},\ digest,}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pubbytes)}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ protected\_tlv\_size\ +=\ TLV\_SIZE\ +\ len(boot\_record)}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ dependencies\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Size\ of\ a\ Dependency\ TLV\ =\ Header\ ('HH')\ +\ Payload('IBBHI')}}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ =\ 4\ +\ 12\ =\ 16\ Bytes}}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ dependencies\_num\ =\ len(dependencies[DEP\_IMAGES\_KEY])}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ protected\_tlv\_size\ +=\ (dependencies\_num\ *\ 16)}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ custom\_tlvs\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ value\ \textcolor{keywordflow}{in}\ custom\_tlvs.values():}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ protected\_tlv\_size\ +=\ TLV\_SIZE\ +\ len(value)}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ protected\_tlv\_size\ !=\ 0:}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Add\ the\ size\ of\ the\ TLV\ info\ header}}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ protected\_tlv\_size\ +=\ TLV\_INFO\_SIZE}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ At\ this\ point\ the\ image\ is\ already\ on\ the\ payload}}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#}}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ This\ adds\ the\ padding\ if\ image\ is\ not\ aligned\ to\ the\ 16\ Bytes}}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ in\ encrypted\ mode}}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.enckey\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ pad\_len\ =\ len(self.payload)\ \%\ 16}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ pad\_len\ >\ 0:}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pad\ =\ bytes(16\ -\/\ pad\_len)}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(self.payload,\ bytes):}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.payload\ +=\ pad}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.payload.extend(pad)}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ This\ adds\ the\ header\ to\ the\ payload\ as\ well}}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ encrypt\_keylen\ ==\ 256:}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ self.add\_header(enckey,\ protected\_tlv\_size,\ 256)}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ self.add\_header(enckey,\ protected\_tlv\_size)}
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ prot\_tlv\ =\ TLV(self.endian,\ TLV\_PROT\_INFO\_MAGIC)}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Protected\ TLVs\ must\ be\ added\ first,\ because\ they\ are\ also\ included}}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ in\ the\ hash\ calculation}}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ protected\_tlv\_off\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ protected\_tlv\_size\ !=\ 0:}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ e\ =\ STRUCT\_ENDIAN\_DICT[self.endian]}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.security\_counter\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ payload\ =\ struct.pack(e\ +\ \textcolor{stringliteral}{'I'},\ self.security\_counter)}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prot\_tlv.add(\textcolor{stringliteral}{'SEC\_CNT'},\ payload)}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ sw\_type\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prot\_tlv.add(\textcolor{stringliteral}{'BOOT\_RECORD'},\ boot\_record)}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ dependencies\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(dependencies\_num):}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ payload\ =\ struct.pack(}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ e\ +\ \textcolor{stringliteral}{'B3x'}+\textcolor{stringliteral}{'BBHI'},}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int(dependencies[DEP\_IMAGES\_KEY][i]),}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dependencies[DEP\_VERSIONS\_KEY][i].major,}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dependencies[DEP\_VERSIONS\_KEY][i].minor,}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dependencies[DEP\_VERSIONS\_KEY][i].revision,}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dependencies[DEP\_VERSIONS\_KEY][i].build}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prot\_tlv.add(\textcolor{stringliteral}{'DEPENDENCY'},\ payload)}
+\DoxyCodeLine{00413\ }
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ custom\_tlvs\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tag,\ value\ \textcolor{keywordflow}{in}\ custom\_tlvs.items():}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prot\_tlv.add(tag,\ value)}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ protected\_tlv\_off\ =\ len(self.payload)}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ self.payload\ +=\ prot\_tlv.get()}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ tlv\ =\ TLV(self.endian)}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Note\ that\ ecdsa\ wants\ to\ do\ the\ hashing\ itself,\ which\ means}}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ we\ get\ to\ hash\ it\ twice.}}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ sha\ =\ hashlib.sha256()}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ sha.update(self.payload)}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ digest\ =\ sha.digest()}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ tlv.add(\textcolor{stringliteral}{'SHA256'},\ digest)}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ key\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ public\_key\_format\ ==\ \textcolor{stringliteral}{'hash'}:}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tlv.add(\textcolor{stringliteral}{'KEYHASH'},\ pubbytes)}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tlv.add(\textcolor{stringliteral}{'PUBKEY'},\ pub)}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ \`{}sign`\ expects\ the\ full\ image\ payload\ (sha256\ done\ internally),}}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ while\ \`{}sign\_digest`\ expects\ only\ the\ digest\ of\ the\ payload}}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hasattr(key,\ \textcolor{stringliteral}{'sign'}):}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sig\ =\ key.sign(bytes(self.payload))}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sig\ =\ key.sign\_digest(digest)}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ tlv.add(key.sig\_tlv(),\ sig)}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ At\ this\ point\ the\ image\ was\ hashed\ +\ signed,\ we\ can\ remove\ the}}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ protected\ TLVs\ from\ the\ payload\ (will\ be\ re-\/added\ later)}}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ protected\_tlv\_off\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ self.payload\ =\ self.payload[:protected\_tlv\_off]}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ enckey\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ encrypt\_keylen\ ==\ 256:}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ plainkey\ =\ os.urandom(32)}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ plainkey\ =\ os.urandom(16)}
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(enckey,\ rsa.RSAPublic):}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cipherkey\ =\ enckey.\_get\_public().encrypt(}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ plainkey,\ padding.OAEP(}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mgf=padding.MGF1(algorithm=hashes.SHA256()),}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ algorithm=hashes.SHA256(),}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ label=\textcolor{keywordtype}{None}))}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.enctlv\_len\ =\ len(cipherkey)}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tlv.add(\textcolor{stringliteral}{'ENCRSA2048'},\ cipherkey)}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ isinstance(enckey,\ (ecdsa.ECDSA256P1Public,}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x25519.X25519Public)):}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cipherkey,\ mac,\ pubk\ =\ self.ecies\_hkdf(enckey,\ plainkey)}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ enctlv\ =\ pubk\ +\ mac\ +\ cipherkey}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.enctlv\_len\ =\ len(enctlv)}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(enckey,\ ecdsa.ECDSA256P1Public):}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tlv.add(\textcolor{stringliteral}{'ENCEC256'},\ enctlv)}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tlv.add(\textcolor{stringliteral}{'ENCX25519'},\ enctlv)}
+\DoxyCodeLine{00474\ }
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ clear:}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nonce\ =\ bytes([0]\ *\ 16)}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cipher\ =\ Cipher(algorithms.AES(plainkey),\ modes.CTR(nonce),}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ backend=default\_backend())}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encryptor\ =\ cipher.encryptor()}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ img\ =\ bytes(self.payload[self.header\_size:])}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.payload[self.header\_size:]\ =\ \(\backslash\)}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encryptor.update(img)\ +\ encryptor.finalize()}
+\DoxyCodeLine{00483\ }
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ self.payload\ +=\ prot\_tlv.get()}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ self.payload\ +=\ tlv.get()}
+\DoxyCodeLine{00486\ }
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ self.check\_trailer()}
+\DoxyCodeLine{00488\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_a1f6923ecc13ffce53c3d1179e8704f6c}\label{classimgtool_1_1image_1_1Image_a1f6923ecc13ffce53c3d1179e8704f6c} 
+\index{Image@{Image}!ecies\_hkdf@{ecies\_hkdf}}
+\index{ecies\_hkdf@{ecies\_hkdf}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{ecies\_hkdf()}{ecies\_hkdf()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily ecies\+\_\+hkdf (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{enckey,  }\item[{}]{plainkey }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00279}{279}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{keyword}{def\ }ecies\_hkdf(self,\ enckey,\ plainkey):}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(enckey,\ ecdsa.ECDSA256P1Public):}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ newpk\ =\ ec.generate\_private\_key(ec.SECP256R1(),\ default\_backend())}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ shared\ =\ newpk.exchange(ec.ECDH(),\ enckey.\_get\_public())}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ newpk\ =\ X25519PrivateKey.generate()}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ shared\ =\ newpk.exchange(enckey.\_get\_public())}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ derived\_key\ =\ HKDF(}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ algorithm=hashes.SHA256(),\ length=48,\ salt=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ info=b\textcolor{stringliteral}{'MCUBoot\_ECIES\_v1'},\ backend=default\_backend()).derive(shared)}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ encryptor\ =\ Cipher(algorithms.AES(derived\_key[:16]),}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ modes.CTR(bytes([0]\ *\ 16)),}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ backend=default\_backend()).encryptor()}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ cipherkey\ =\ encryptor.update(plainkey)\ +\ encryptor.finalize()}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ mac\ =\ hmac.HMAC(derived\_key[16:],\ hashes.SHA256(),}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ backend=default\_backend())}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ mac.update(cipherkey)}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ ciphermac\ =\ mac.finalize()}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(enckey,\ ecdsa.ECDSA256P1Public):}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ pubk\ =\ newpk.public\_key().public\_bytes(}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encoding=Encoding.X962,}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ format=PublicFormat.UncompressedPoint)}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ pubk\ =\ newpk.public\_key().public\_bytes(}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encoding=Encoding.Raw,}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ format=PublicFormat.Raw)}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cipherkey,\ ciphermac,\ pubk}
+\DoxyCodeLine{00306\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_a1f6923ecc13ffce53c3d1179e8704f6c}\label{classimgtool_1_1image_1_1Image_a1f6923ecc13ffce53c3d1179e8704f6c} 
+\index{Image@{Image}!ecies\_hkdf@{ecies\_hkdf}}
+\index{ecies\_hkdf@{ecies\_hkdf}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{ecies\_hkdf()}{ecies\_hkdf()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily ecies\+\_\+hkdf (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{enckey,  }\item[{}]{plainkey }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source_l00260}{260}} of file \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keyword}{def\ }ecies\_hkdf(self,\ enckey,\ plainkey):}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(enckey,\ ecdsa.ECDSA256P1Public):}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ newpk\ =\ ec.generate\_private\_key(ec.SECP256R1(),\ default\_backend())}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ shared\ =\ newpk.exchange(ec.ECDH(),\ enckey.\_get\_public())}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ newpk\ =\ X25519PrivateKey.generate()}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ shared\ =\ newpk.exchange(enckey.\_get\_public())}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ derived\_key\ =\ HKDF(}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ algorithm=hashes.SHA256(),\ length=48,\ salt=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ info=b\textcolor{stringliteral}{'MCUBoot\_ECIES\_v1'},\ backend=default\_backend()).derive(shared)}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ encryptor\ =\ Cipher(algorithms.AES(derived\_key[:16]),}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ modes.CTR(bytes([0]\ *\ 16)),}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ backend=default\_backend()).encryptor()}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ cipherkey\ =\ encryptor.update(plainkey)\ +\ encryptor.finalize()}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ mac\ =\ hmac.HMAC(derived\_key[16:],\ hashes.SHA256(),}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ backend=default\_backend())}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ mac.update(cipherkey)}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ ciphermac\ =\ mac.finalize()}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(enckey,\ ecdsa.ECDSA256P1Public):}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ pubk\ =\ newpk.public\_key().public\_bytes(}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encoding=Encoding.X962,}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ format=PublicFormat.UncompressedPoint)}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ pubk\ =\ newpk.public\_key().public\_bytes(}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encoding=Encoding.Raw,}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ format=PublicFormat.Raw)}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cipherkey,\ ciphermac,\ pubk}
+\DoxyCodeLine{00287\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_aae9853a9699155c034c6dd57551bcca4}\label{classimgtool_1_1image_1_1Image_aae9853a9699155c034c6dd57551bcca4} 
+\index{Image@{Image}!load@{load}}
+\index{load@{load}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily load (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{path }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Load an image from a given file\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00202}{202}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keyword}{def\ }load(self,\ path):}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Load\ an\ image\ from\ a\ given\ file"{}"{}"{}}}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ ext\ =\ os.path.splitext(path)[1][1:].lower()}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ext\ ==\ INTEL\_HEX\_EXT:}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ih\ =\ IntelHex(path)}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.payload\ =\ ih.tobinarray()}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.base\_addr\ =\ ih.minaddr()}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ open(path,\ \textcolor{stringliteral}{'rb'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.payload\ =\ f.read()}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ FileNotFoundError:}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.UsageError(\textcolor{stringliteral}{"{}Input\ file\ not\ found"{}})}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Add\ the\ image\ header\ if\ needed.}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.pad\_header\ \textcolor{keywordflow}{and}\ self.header\_size\ >\ 0:}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.base\_addr:}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Adjust\ base\_addr\ for\ new\ header}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.base\_addr\ -\/=\ self.header\_size}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ self.payload\ =\ bytes([self.erased\_val]\ *\ self.header\_size)\ +\ \(\backslash\)}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.payload}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ self.check\_header()}
+\DoxyCodeLine{00225\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_aae9853a9699155c034c6dd57551bcca4}\label{classimgtool_1_1image_1_1Image_aae9853a9699155c034c6dd57551bcca4} 
+\index{Image@{Image}!load@{load}}
+\index{load@{load}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily load (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{path }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Load an image from a given file\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source_l00186}{186}} of file \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keyword}{def\ }load(self,\ path):}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Load\ an\ image\ from\ a\ given\ file"{}"{}"{}}}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ ext\ =\ os.path.splitext(path)[1][1:].lower()}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ext\ ==\ INTEL\_HEX\_EXT:}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ih\ =\ IntelHex(path)}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.payload\ =\ ih.tobinarray()}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.base\_addr\ =\ ih.minaddr()}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ open(path,\ \textcolor{stringliteral}{'rb'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.payload\ =\ f.read()}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ FileNotFoundError:}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.UsageError(\textcolor{stringliteral}{"{}Input\ file\ not\ found"{}})}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Add\ the\ image\ header\ if\ needed.}}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.pad\_header\ \textcolor{keywordflow}{and}\ self.header\_size\ >\ 0:}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.base\_addr:}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Adjust\ base\_addr\ for\ new\ header}}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.base\_addr\ -\/=\ self.header\_size}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ self.payload\ =\ bytes([self.erased\_val]\ *\ self.header\_size)\ +\ \(\backslash\)}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.payload}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ self.check\_header()}
+\DoxyCodeLine{00209\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_a02d90e9f0f17d4fb607d4741af0483ca}\label{classimgtool_1_1image_1_1Image_a02d90e9f0f17d4fb607d4741af0483ca} 
+\index{Image@{Image}!pad\_to@{pad\_to}}
+\index{pad\_to@{pad\_to}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{pad\_to()}{pad\_to()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily pad\+\_\+to (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{size }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Pad the image to the given size, with the given flash alignment.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00557}{557}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00557\ \ \ \ \ \textcolor{keyword}{def\ }pad\_to(self,\ size):}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Pad\ the\ image\ to\ the\ given\ size,\ with\ the\ given\ flash\ alignment."{}"{}"{}}}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ tsize\ =\ self.\_trailer\_size(self.align,\ self.max\_sectors,}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.overwrite\_only,\ self.enckey,}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.save\_enctlv,\ self.enctlv\_len)}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ padding\ =\ size\ -\/\ (len(self.payload)\ +\ tsize)}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ pbytes\ =\ bytearray([self.erased\_val]\ *\ padding)}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ pbytes\ +=\ bytearray([self.erased\_val]\ *\ (tsize\ -\/\ len(self.boot\_magic)))}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ pbytes\ +=\ self.boot\_magic}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.confirm\ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{not}\ self.overwrite\_only:}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \ \ \ \ magic\_size\ =\ 16}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \ \ \ \ magic\_align\_size\ =\ align\_up(magic\_size,\ self.max\_align)}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \ \ \ \ image\_ok\_idx\ =\ -\/(magic\_align\_size\ +\ self.max\_align)}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \ \ \ \ pbytes[image\_ok\_idx]\ =\ 0x01\ \ \textcolor{comment}{\#\ image\_ok\ =\ 0x01}}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ self.payload\ +=\ pbytes}
+\DoxyCodeLine{00572\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_a02d90e9f0f17d4fb607d4741af0483ca}\label{classimgtool_1_1image_1_1Image_a02d90e9f0f17d4fb607d4741af0483ca} 
+\index{Image@{Image}!pad\_to@{pad\_to}}
+\index{pad\_to@{pad\_to}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{pad\_to()}{pad\_to()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily pad\+\_\+to (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{size }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Pad the image to the given size, with the given flash alignment.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source_l00527}{527}} of file \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00527\ \ \ \ \ \textcolor{keyword}{def\ }pad\_to(self,\ size):}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Pad\ the\ image\ to\ the\ given\ size,\ with\ the\ given\ flash\ alignment."{}"{}"{}}}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ tsize\ =\ self.\_trailer\_size(self.align,\ self.max\_sectors,}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.overwrite\_only,\ self.enckey,}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.save\_enctlv,\ self.enctlv\_len)}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ padding\ =\ size\ -\/\ (len(self.payload)\ +\ tsize)}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ pbytes\ =\ bytearray([self.erased\_val]\ *\ padding)}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ pbytes\ +=\ bytearray([self.erased\_val]\ *\ (tsize\ -\/\ len(boot\_magic)))}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.confirm\ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{not}\ self.overwrite\_only:}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \ \ \ \ pbytes[-\/MAX\_ALIGN]\ =\ 0x01\ \ \textcolor{comment}{\#\ image\_ok\ =\ 0x01}}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ pbytes\ +=\ boot\_magic}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ self.payload\ +=\ pbytes}
+\DoxyCodeLine{00539\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_a2dfc4f3822963e9ea5dc5d02509a6ac7}\label{classimgtool_1_1image_1_1Image_a2dfc4f3822963e9ea5dc5d02509a6ac7} 
+\index{Image@{Image}!save@{save}}
+\index{save@{save}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily save (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{path,  }\item[{}]{hex\+\_\+addr = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Save an image from a given file\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00226}{226}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keyword}{def\ }save(self,\ path,\ hex\_addr=None):}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Save\ an\ image\ from\ a\ given\ file"{}"{}"{}}}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ ext\ =\ os.path.splitext(path)[1][1:].lower()}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ext\ ==\ INTEL\_HEX\_EXT:}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ input\ was\ in\ binary\ format,\ but\ HEX\ needs\ to\ know\ the\ base\ addr}}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.base\_addr\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}\ hex\_addr\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.UsageError(\textcolor{stringliteral}{"{}No\ address\ exists\ in\ input\ file\ "{}}}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}neither\ was\ it\ provided\ by\ user"{}})}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ h\ =\ IntelHex()}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hex\_addr\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.base\_addr\ =\ hex\_addr}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ h.frombytes(bytes=self.payload,\ offset=self.base\_addr)}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.pad:}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ trailer\_size\ =\ self.\_trailer\_size(self.align,\ self.max\_sectors,}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.overwrite\_only,}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.enckey,}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.save\_enctlv,}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.enctlv\_len)}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ trailer\_addr\ =\ (self.base\_addr\ +\ self.slot\_size)\ -\/\ trailer\_size}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.confirm\ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{not}\ self.overwrite\_only:}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ magic\_size\ =\ 16}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ magic\_align\_size\ =\ align\_up(magic\_size,\ self.max\_align)}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_ok\_idx\ =\ -\/(magic\_align\_size\ +\ self.max\_align)}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flag\ =\ bytearray([self.erased\_val]\ *\ magic\_align\_size)}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flag[0]\ =\ 0x01\ \textcolor{comment}{\#\ image\_ok\ =\ 0x01}}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ h.puts(trailer\_addr\ +\ image\_ok\_idx,\ bytes(flag))}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ h.puts(trailer\_addr\ +\ (trailer\_size\ -\/\ len(self.boot\_magic)),}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bytes(self.boot\_magic))}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ h.tofile(path,\ \textcolor{stringliteral}{'hex'})}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.pad:}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.pad\_to(self.slot\_size)}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ open(path,\ \textcolor{stringliteral}{'wb'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f.write(self.payload)}
+\DoxyCodeLine{00260\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_a2dfc4f3822963e9ea5dc5d02509a6ac7}\label{classimgtool_1_1image_1_1Image_a2dfc4f3822963e9ea5dc5d02509a6ac7} 
+\index{Image@{Image}!save@{save}}
+\index{save@{save}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily save (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{path,  }\item[{}]{hex\+\_\+addr = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Save an image from a given file\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source_l00210}{210}} of file \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keyword}{def\ }save(self,\ path,\ hex\_addr=None):}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Save\ an\ image\ from\ a\ given\ file"{}"{}"{}}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ ext\ =\ os.path.splitext(path)[1][1:].lower()}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ext\ ==\ INTEL\_HEX\_EXT:}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ input\ was\ in\ binary\ format,\ but\ HEX\ needs\ to\ know\ the\ base\ addr}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.base\_addr\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}\ hex\_addr\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ click.UsageError(\textcolor{stringliteral}{"{}No\ address\ exists\ in\ input\ file\ "{}}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}neither\ was\ it\ provided\ by\ user"{}})}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ h\ =\ IntelHex()}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hex\_addr\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.base\_addr\ =\ hex\_addr}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ h.frombytes(bytes=self.payload,\ offset=self.base\_addr)}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.pad:}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ trailer\_size\ =\ self.\_trailer\_size(self.align,\ self.max\_sectors,}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.overwrite\_only,}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.enckey,}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.save\_enctlv,}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.enctlv\_len)}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ trailer\_addr\ =\ (self.base\_addr\ +\ self.slot\_size)\ -\/\ trailer\_size}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ padding\ =\ bytearray([self.erased\_val]\ *\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (trailer\_size\ -\/\ len(boot\_magic)))}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.confirm\ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{not}\ self.overwrite\_only:}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ padding[-\/MAX\_ALIGN]\ =\ 0x01\ \ \textcolor{comment}{\#\ image\_ok\ =\ 0x01}}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ padding\ +=\ boot\_magic}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ h.puts(trailer\_addr,\ bytes(padding))}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ h.tofile(path,\ \textcolor{stringliteral}{'hex'})}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.pad:}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.pad\_to(self.slot\_size)}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ open(path,\ \textcolor{stringliteral}{'wb'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f.write(self.payload)}
+\DoxyCodeLine{00241\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_ac250de8e12b6915166834bc0be6eff8b}\label{classimgtool_1_1image_1_1Image_ac250de8e12b6915166834bc0be6eff8b} 
+\index{Image@{Image}!verify@{verify}}
+\index{verify@{verify}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{verify()}{verify()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily verify (\begin{DoxyParamCaption}\item[{}]{imgfile,  }\item[{}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00574}{574}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00574\ \ \ \ \ \textcolor{keyword}{def\ }verify(imgfile,\ key):}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ open(imgfile,\ \textcolor{stringliteral}{"{}rb"{}})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \ \ \ \ b\ =\ f.read()}
+\DoxyCodeLine{00577\ }
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ magic,\ \_,\ header\_size,\ \_,\ img\_size\ =\ struct.unpack(\textcolor{stringliteral}{'IIHHI'},\ b[:16])}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ version\ =\ struct.unpack(\textcolor{stringliteral}{'BBHI'},\ b[20:28])}
+\DoxyCodeLine{00580\ }
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ magic\ !=\ IMAGE\_MAGIC:}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VerifyResult.INVALID\_MAGIC,\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00583\ }
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ tlv\_off\ =\ header\_size\ +\ img\_size}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ tlv\_info\ =\ b[tlv\_off:tlv\_off+TLV\_INFO\_SIZE]}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ magic,\ tlv\_tot\ =\ struct.unpack(\textcolor{stringliteral}{'HH'},\ tlv\_info)}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ magic\ ==\ TLV\_PROT\_INFO\_MAGIC:}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \ \ \ \ tlv\_off\ +=\ tlv\_tot}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \ \ \ \ tlv\_info\ =\ b[tlv\_off:tlv\_off+TLV\_INFO\_SIZE]}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \ \ \ \ magic,\ tlv\_tot\ =\ struct.unpack(\textcolor{stringliteral}{'HH'},\ tlv\_info)}
+\DoxyCodeLine{00591\ }
+\DoxyCodeLine{00592\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ magic\ !=\ TLV\_INFO\_MAGIC:}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VerifyResult.INVALID\_TLV\_INFO\_MAGIC,\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ sha\ =\ hashlib.sha256()}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ prot\_tlv\_size\ =\ tlv\_off}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ sha.update(b[:prot\_tlv\_size])}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ digest\ =\ sha.digest()}
+\DoxyCodeLine{00599\ }
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \ \ tlv\_end\ =\ tlv\_off\ +\ tlv\_tot}
+\DoxyCodeLine{00601\ \ \ \ \ \ \ \ \ tlv\_off\ +=\ TLV\_INFO\_SIZE\ \ \textcolor{comment}{\#\ skip\ tlv\ info}}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ tlv\_off\ <\ tlv\_end:}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \ \ \ \ tlv\ =\ b[tlv\_off:tlv\_off+TLV\_SIZE]}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \ \ \ \ \ \ tlv\_type,\ \_,\ tlv\_len\ =\ struct.unpack(\textcolor{stringliteral}{'BBH'},\ tlv)}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ tlv\_type\ ==\ TLV\_VALUES[\textcolor{stringliteral}{"{}SHA256"{}}]:}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ off\ =\ tlv\_off\ +\ TLV\_SIZE}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ digest\ ==\ b[off:off+tlv\_len]:}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ key\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VerifyResult.OK,\ version,\ digest}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VerifyResult.INVALID\_HASH,\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ key\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}\ tlv\_type\ ==\ TLV\_VALUES[key.sig\_tlv()]:}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ off\ =\ tlv\_off\ +\ TLV\_SIZE}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tlv\_sig\ =\ b[off:off+tlv\_len]}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ payload\ =\ b[:prot\_tlv\_size]}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hasattr(key,\ \textcolor{stringliteral}{'verify'}):}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ key.verify(tlv\_sig,\ payload)}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ key.verify\_digest(tlv\_sig,\ digest)}
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VerifyResult.OK,\ version,\ digest}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ InvalidSignature:}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ continue\ to\ next\ TLV}}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \ \ \ \ tlv\_off\ +=\ TLV\_SIZE\ +\ tlv\_len}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VerifyResult.INVALID\_SIGNATURE,\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None}}
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1image_1_1Image_ac250de8e12b6915166834bc0be6eff8b}\label{classimgtool_1_1image_1_1Image_ac250de8e12b6915166834bc0be6eff8b} 
+\index{Image@{Image}!verify@{verify}}
+\index{verify@{verify}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{verify()}{verify()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily verify (\begin{DoxyParamCaption}\item[{}]{imgfile,  }\item[{}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source_l00541}{541}} of file \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py_source}{image.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00541\ \ \ \ \ \textcolor{keyword}{def\ }verify(imgfile,\ key):}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ open(imgfile,\ \textcolor{stringliteral}{"{}rb"{}})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ b\ =\ f.read()}
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ magic,\ \_,\ header\_size,\ \_,\ img\_size\ =\ struct.unpack(\textcolor{stringliteral}{'IIHHI'},\ b[:16])}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ version\ =\ struct.unpack(\textcolor{stringliteral}{'BBHI'},\ b[20:28])}
+\DoxyCodeLine{00547\ }
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ magic\ !=\ IMAGE\_MAGIC:}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VerifyResult.INVALID\_MAGIC,\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00550\ }
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ tlv\_info\ =\ b[header\_size+img\_size:header\_size+img\_size+TLV\_INFO\_SIZE]}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ magic,\ tlv\_tot\ =\ struct.unpack(\textcolor{stringliteral}{'HH'},\ tlv\_info)}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ magic\ !=\ TLV\_INFO\_MAGIC:}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VerifyResult.INVALID\_TLV\_INFO\_MAGIC,\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00555\ }
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ sha\ =\ hashlib.sha256()}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ sha.update(b[:header\_size+img\_size])}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ digest\ =\ sha.digest()}
+\DoxyCodeLine{00559\ }
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ tlv\_off\ =\ header\_size\ +\ img\_size}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ tlv\_end\ =\ tlv\_off\ +\ tlv\_tot}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ tlv\_off\ +=\ TLV\_INFO\_SIZE\ \ \textcolor{comment}{\#\ skip\ tlv\ info}}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ tlv\_off\ <\ tlv\_end:}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ \ \ \ \ tlv\ =\ b[tlv\_off:tlv\_off+TLV\_SIZE]}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \ \ \ \ tlv\_type,\ \_,\ tlv\_len\ =\ struct.unpack(\textcolor{stringliteral}{'BBH'},\ tlv)}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ tlv\_type\ ==\ TLV\_VALUES[\textcolor{stringliteral}{"{}SHA256"{}}]:}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ off\ =\ tlv\_off\ +\ TLV\_SIZE}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ digest\ ==\ b[off:off+tlv\_len]:}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ key\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VerifyResult.OK,\ version,\ digest}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VerifyResult.INVALID\_HASH,\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ key\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}\ tlv\_type\ ==\ TLV\_VALUES[key.sig\_tlv()]:}
+\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ off\ =\ tlv\_off\ +\ TLV\_SIZE}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tlv\_sig\ =\ b[off:off+tlv\_len]}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ payload\ =\ b[:header\_size+img\_size]}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hasattr(key,\ \textcolor{stringliteral}{'verify'}):}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ key.verify(tlv\_sig,\ payload)}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ key.verify\_digest(tlv\_sig,\ digest)}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VerifyResult.OK,\ version,\ digest}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ InvalidSignature:}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ continue\ to\ next\ TLV}}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \ \ \ \ tlv\_off\ +=\ TLV\_SIZE\ +\ tlv\_len}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VerifyResult.INVALID\_SIGNATURE,\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{classimgtool_1_1image_1_1Image_a6c52c4bac77f6744fdc338766e9e8a6f}\label{classimgtool_1_1image_1_1Image_a6c52c4bac77f6744fdc338766e9e8a6f} 
+\index{Image@{Image}!align@{align}}
+\index{align@{align}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{align}{align}}
+{\footnotesize\ttfamily align}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00145}{145}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_a22ab7e27a72864f768a6b755eda2ccfb}\label{classimgtool_1_1image_1_1Image_a22ab7e27a72864f768a6b755eda2ccfb} 
+\index{Image@{Image}!base\_addr@{base\_addr}}
+\index{base\_addr@{base\_addr}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{base\_addr}{base\_addr}}
+{\footnotesize\ttfamily base\+\_\+addr}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00150}{150}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_a2f6749af3466b82f4c8a02db32d05393}\label{classimgtool_1_1image_1_1Image_a2f6749af3466b82f4c8a02db32d05393} 
+\index{Image@{Image}!boot\_magic@{boot\_magic}}
+\index{boot\_magic@{boot\_magic}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{boot\_magic}{boot\_magic}}
+{\footnotesize\ttfamily boot\+\_\+magic}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00161}{161}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_a80eab7ef497bc82f028bda0b735f7727}\label{classimgtool_1_1image_1_1Image_a80eab7ef497bc82f028bda0b735f7727} 
+\index{Image@{Image}!confirm@{confirm}}
+\index{confirm@{confirm}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{confirm}{confirm}}
+{\footnotesize\ttfamily confirm}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00144}{144}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_a9f829b459875878369da661bb9d9abda}\label{classimgtool_1_1image_1_1Image_a9f829b459875878369da661bb9d9abda} 
+\index{Image@{Image}!enckey@{enckey}}
+\index{enckey@{enckey}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{enckey}{enckey}}
+{\footnotesize\ttfamily enckey}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00155}{155}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_a651723b133106cb91db016c5b634a7b6}\label{classimgtool_1_1image_1_1Image_a651723b133106cb91db016c5b634a7b6} 
+\index{Image@{Image}!enctlv\_len@{enctlv\_len}}
+\index{enctlv\_len@{enctlv\_len}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{enctlv\_len}{enctlv\_len}}
+{\footnotesize\ttfamily enctlv\+\_\+len}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00157}{157}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_aceb52d5e58265d474290d1e17bcf1716}\label{classimgtool_1_1image_1_1Image_aceb52d5e58265d474290d1e17bcf1716} 
+\index{Image@{Image}!endian@{endian}}
+\index{endian@{endian}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{endian}{endian}}
+{\footnotesize\ttfamily endian}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00149}{149}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_a5fc1d58df4dc5f022d49e58729217aaa}\label{classimgtool_1_1image_1_1Image_a5fc1d58df4dc5f022d49e58729217aaa} 
+\index{Image@{Image}!erased\_val@{erased\_val}}
+\index{erased\_val@{erased\_val}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{erased\_val}{erased\_val}}
+{\footnotesize\ttfamily erased\+\_\+val}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00153}{153}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_aa6505cb356927cbac12d2af8dac8651b}\label{classimgtool_1_1image_1_1Image_aa6505cb356927cbac12d2af8dac8651b} 
+\index{Image@{Image}!header\_size@{header\_size}}
+\index{header\_size@{header\_size}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{header\_size}{header\_size}}
+{\footnotesize\ttfamily header\+\_\+size}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00141}{141}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_a0ece5abf498c14f7e723a0ea201f2356}\label{classimgtool_1_1image_1_1Image_a0ece5abf498c14f7e723a0ea201f2356} 
+\index{Image@{Image}!load\_addr@{load\_addr}}
+\index{load\_addr@{load\_addr}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{load\_addr}{load\_addr}}
+{\footnotesize\ttfamily load\+\_\+addr}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00151}{151}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_ab3751a7bf9489f96727a62232ad9d7d5}\label{classimgtool_1_1image_1_1Image_ab3751a7bf9489f96727a62232ad9d7d5} 
+\index{Image@{Image}!max\_align@{max\_align}}
+\index{max\_align@{max\_align}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{max\_align}{max\_align}}
+{\footnotesize\ttfamily max\+\_\+align}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00158}{158}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_aba7c3d70c64b6a3e93ebcc28e2c36521}\label{classimgtool_1_1image_1_1Image_aba7c3d70c64b6a3e93ebcc28e2c36521} 
+\index{Image@{Image}!max\_sectors@{max\_sectors}}
+\index{max\_sectors@{max\_sectors}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{max\_sectors}{max\_sectors}}
+{\footnotesize\ttfamily max\+\_\+sectors}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00147}{147}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_ad3c66df158b3cb95366d7639fd66e7fb}\label{classimgtool_1_1image_1_1Image_ad3c66df158b3cb95366d7639fd66e7fb} 
+\index{Image@{Image}!overwrite\_only@{overwrite\_only}}
+\index{overwrite\_only@{overwrite\_only}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{overwrite\_only}{overwrite\_only}}
+{\footnotesize\ttfamily overwrite\+\_\+only}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00148}{148}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_a85ab2d9278949e16f4c77f1b5daf342d}\label{classimgtool_1_1image_1_1Image_a85ab2d9278949e16f4c77f1b5daf342d} 
+\index{Image@{Image}!pad@{pad}}
+\index{pad@{pad}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{pad}{pad}}
+{\footnotesize\ttfamily pad}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00143}{143}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_ab93b5446e5640d11ee66e87a5a347e30}\label{classimgtool_1_1image_1_1Image_ab93b5446e5640d11ee66e87a5a347e30} 
+\index{Image@{Image}!pad\_header@{pad\_header}}
+\index{pad\_header@{pad\_header}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{pad\_header}{pad\_header}}
+{\footnotesize\ttfamily pad\+\_\+header}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00142}{142}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_aeabb6226e68bbbbb995aa6af5d999d11}\label{classimgtool_1_1image_1_1Image_aeabb6226e68bbbbb995aa6af5d999d11} 
+\index{Image@{Image}!payload@{payload}}
+\index{payload@{payload}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{payload}{payload}}
+{\footnotesize\ttfamily payload}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00154}{154}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_ac1fe150a3ea42a43271e6bec10231675}\label{classimgtool_1_1image_1_1Image_ac1fe150a3ea42a43271e6bec10231675} 
+\index{Image@{Image}!rom\_fixed@{rom\_fixed}}
+\index{rom\_fixed@{rom\_fixed}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{rom\_fixed}{rom\_fixed}}
+{\footnotesize\ttfamily rom\+\_\+fixed}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00152}{152}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_ab3196255cca37d29a5ed0ac49c417129}\label{classimgtool_1_1image_1_1Image_ab3196255cca37d29a5ed0ac49c417129} 
+\index{Image@{Image}!save\_enctlv@{save\_enctlv}}
+\index{save\_enctlv@{save\_enctlv}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{save\_enctlv}{save\_enctlv}}
+{\footnotesize\ttfamily save\+\_\+enctlv}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00156}{156}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_a8e2f7509fd83c863081352c1c941a835}\label{classimgtool_1_1image_1_1Image_a8e2f7509fd83c863081352c1c941a835} 
+\index{Image@{Image}!security\_counter@{security\_counter}}
+\index{security\_counter@{security\_counter}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{security\_counter}{security\_counter}}
+{\footnotesize\ttfamily security\+\_\+counter}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00178}{178}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_aa688bccf026647ce81122f09a9dd5d37}\label{classimgtool_1_1image_1_1Image_aa688bccf026647ce81122f09a9dd5d37} 
+\index{Image@{Image}!slot\_size@{slot\_size}}
+\index{slot\_size@{slot\_size}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{slot\_size}{slot\_size}}
+{\footnotesize\ttfamily slot\+\_\+size}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00146}{146}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+\Hypertarget{classimgtool_1_1image_1_1Image_a4c7a521b8f1a0769c09bfa4a1fca7dab}\label{classimgtool_1_1image_1_1Image_a4c7a521b8f1a0769c09bfa4a1fca7dab} 
+\index{Image@{Image}!version@{version}}
+\index{version@{version}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{version}{version}}
+{\footnotesize\ttfamily version}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2image_8py_source_l00140}{140}} of file \mbox{\hyperlink{imgtool_2image_8py_source}{image.\+py}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/harrkout/github/\+Leshan-\/\+OMA-\/\+Lightweight-\/\+M2\+M-\/server-\/for-\/\+Zephyr-\//scripts/imgtool/\mbox{\hyperlink{imgtool_2image_8py}{image.\+py}}\item 
+/home/harrkout/github/\+Leshan-\/\+OMA-\/\+Lightweight-\/\+M2\+M-\/server-\/for-\/\+Zephyr-\//scripts/imgtool\+\_\+1.\+7.\+2/imgtool/\mbox{\hyperlink{imgtool__1_87_82_2imgtool_2image_8py}{image.\+py}}\end{DoxyCompactItemize}

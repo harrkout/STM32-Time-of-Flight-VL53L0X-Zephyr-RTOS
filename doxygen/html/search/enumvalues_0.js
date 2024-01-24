@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['detools_5fapply_5fpatch_5fstate_5fadjustment_5ft_0',['detools_apply_patch_state_adjustment_t',['../detools_8h.html#a5069102d39ee8fd370d2a59a06298126a0214ab9f479304fb9d695aa32d84a259',1,'detools.h']]],
+  ['detools_5fapply_5fpatch_5fstate_5fdfpatch_5fsize_5ft_1',['detools_apply_patch_state_dfpatch_size_t',['../detools_8h.html#a5069102d39ee8fd370d2a59a06298126a0067cce162491af9a4c8305643d610a1',1,'detools.h']]],
+  ['detools_5fapply_5fpatch_5fstate_5fdiff_5fdata_5ft_2',['detools_apply_patch_state_diff_data_t',['../detools_8h.html#a5069102d39ee8fd370d2a59a06298126a287e36848921542a079d976f4ceeb43c',1,'detools.h']]],
+  ['detools_5fapply_5fpatch_5fstate_5fdiff_5fsize_5ft_3',['detools_apply_patch_state_diff_size_t',['../detools_8h.html#a5069102d39ee8fd370d2a59a06298126a2b6d7e166a2489f76c2ff67c5d3e48f2',1,'detools.h']]],
+  ['detools_5fapply_5fpatch_5fstate_5fdone_5ft_4',['detools_apply_patch_state_done_t',['../detools_8h.html#a5069102d39ee8fd370d2a59a06298126ab902dc14321b87f8e1b9e8ca0252c0ea',1,'detools.h']]],
+  ['detools_5fapply_5fpatch_5fstate_5fextra_5fdata_5ft_5',['detools_apply_patch_state_extra_data_t',['../detools_8h.html#a5069102d39ee8fd370d2a59a06298126afba96a5afac4c8d8aa258294f7e9d7d5',1,'detools.h']]],
+  ['detools_5fapply_5fpatch_5fstate_5fextra_5fsize_5ft_6',['detools_apply_patch_state_extra_size_t',['../detools_8h.html#a5069102d39ee8fd370d2a59a06298126a152e158b96e9cb320d7c017c1b2fde72',1,'detools.h']]],
+  ['detools_5fapply_5fpatch_5fstate_5ffailed_5ft_7',['detools_apply_patch_state_failed_t',['../detools_8h.html#a5069102d39ee8fd370d2a59a06298126a0b718d2aa509574e8794e9c8f387eff2',1,'detools.h']]],
+  ['detools_5fapply_5fpatch_5fstate_5finit_5ft_8',['detools_apply_patch_state_init_t',['../detools_8h.html#a5069102d39ee8fd370d2a59a06298126a92695700295444b680b585071639cff9',1,'detools.h']]],
+  ['detools_5fcrle_5fstate_5fidle_5ft_9',['detools_crle_state_idle_t',['../detools_8h.html#a99e4787f6340b31108b5da963cf72515a713350dac50ebabf8c5198ee249aaa93',1,'detools.h']]],
+  ['detools_5fcrle_5fstate_5frepeated_5fdata_5fread_5ft_10',['detools_crle_state_repeated_data_read_t',['../detools_8h.html#a99e4787f6340b31108b5da963cf72515a5919234c23758bc7a6a637a151a00b09',1,'detools.h']]],
+  ['detools_5fcrle_5fstate_5frepeated_5fdata_5ft_11',['detools_crle_state_repeated_data_t',['../detools_8h.html#a99e4787f6340b31108b5da963cf72515a5b7df126d421d99ae23b234773df512e',1,'detools.h']]],
+  ['detools_5fcrle_5fstate_5frepeated_5frepetitions_5ft_12',['detools_crle_state_repeated_repetitions_t',['../detools_8h.html#a99e4787f6340b31108b5da963cf72515a7c8b47b62861661e8bc2a1c99ef9ccc9',1,'detools.h']]],
+  ['detools_5fcrle_5fstate_5fscattered_5fdata_5ft_13',['detools_crle_state_scattered_data_t',['../detools_8h.html#a99e4787f6340b31108b5da963cf72515a167c038e1cc322fd189de74b10315ee2',1,'detools.h']]],
+  ['detools_5fcrle_5fstate_5fscattered_5fsize_5ft_14',['detools_crle_state_scattered_size_t',['../detools_8h.html#a99e4787f6340b31108b5da963cf72515a87a59a178a6ae43abc608cb272dc0d96',1,'detools.h']]],
+  ['detools_5funpack_5fusize_5fstate_5fconsecutive_5ft_15',['detools_unpack_usize_state_consecutive_t',['../detools_8h.html#a42c2c13c4d558473f7b8bbb24625cd07af812806dd42e1b49226a793e68c9a699',1,'detools.h']]],
+  ['detools_5funpack_5fusize_5fstate_5ffirst_5ft_16',['detools_unpack_usize_state_first_t',['../detools_8h.html#a42c2c13c4d558473f7b8bbb24625cd07a7ec7b592736dd01f28eb7564a5b133ec',1,'detools.h']]]
+];

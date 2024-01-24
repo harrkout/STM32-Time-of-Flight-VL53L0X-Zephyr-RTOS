@@ -1,0 +1,266 @@
+\doxysection{Assembly Class Reference}
+\hypertarget{classassemble_1_1Assembly}{}\label{classassemble_1_1Assembly}\index{Assembly@{Assembly}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classassemble_1_1Assembly_ac165056ed3dc62d6127da7bc6d6b027e}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classassemble_1_1Assembly_ad288825273ed7192429ab0474fb2d4a0}{output}}, bootdir, edt)
+\item 
+\mbox{\hyperlink{classassemble_1_1Assembly_adec7e877f190dcec11c83db693799737}{find\+\_\+slots}} (self, edt)
+\item 
+\mbox{\hyperlink{classassemble_1_1Assembly_a035a335f45f45f820cea38ad6952bb6b}{add\+\_\+image}} (self, source, partition)
+\item 
+\mbox{\hyperlink{classassemble_1_1Assembly_ac165056ed3dc62d6127da7bc6d6b027e}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classassemble_1_1Assembly_ad288825273ed7192429ab0474fb2d4a0}{output}}, bootdir, edt)
+\item 
+\mbox{\hyperlink{classassemble_1_1Assembly_adec7e877f190dcec11c83db693799737}{find\+\_\+slots}} (self, edt)
+\item 
+\mbox{\hyperlink{classassemble_1_1Assembly_a035a335f45f45f820cea38ad6952bb6b}{add\+\_\+image}} (self, source, partition)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classassemble_1_1Assembly_ad288825273ed7192429ab0474fb2d4a0}{output}}
+\item 
+\mbox{\hyperlink{classassemble_1_1Assembly_aba3805bd573676d9962792683b40ac6b}{offsets}}
+\item 
+\mbox{\hyperlink{classassemble_1_1Assembly_a59954f9ddc7bd5849baf28f0b04501b3}{sizes}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{assemble_8py_source_l00045}{45}} of file \mbox{\hyperlink{assemble_8py_source}{assemble.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classassemble_1_1Assembly_ac165056ed3dc62d6127da7bc6d6b027e}\label{classassemble_1_1Assembly_ac165056ed3dc62d6127da7bc6d6b027e} 
+\index{Assembly@{Assembly}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!Assembly@{Assembly}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{output,  }\item[{}]{bootdir,  }\item[{}]{edt }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{assemble_8py_source_l00046}{46}} of file \mbox{\hyperlink{assemble_8py_source}{assemble.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ output,\ bootdir,\ edt):}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ self.find\_slots(edt)}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ os.unlink(output)}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ OSError\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ e.errno\ !=\ errno.ENOENT:}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ self.output\ =\ output}
+\DoxyCodeLine{00054\ }
+
+\end{DoxyCode}
+\Hypertarget{classassemble_1_1Assembly_ac165056ed3dc62d6127da7bc6d6b027e}\label{classassemble_1_1Assembly_ac165056ed3dc62d6127da7bc6d6b027e} 
+\index{Assembly@{Assembly}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!Assembly@{Assembly}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{output,  }\item[{}]{bootdir,  }\item[{}]{edt }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2assemble_8py_source_l00043}{43}} of file \mbox{\hyperlink{imgtool__1_87_82_2assemble_8py_source}{assemble.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ output,\ bootdir,\ edt):}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ self.find\_slots(edt)}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ os.unlink(output)}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ OSError\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ e.errno\ !=\ errno.ENOENT:}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ self.output\ =\ output}
+\DoxyCodeLine{00051\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classassemble_1_1Assembly_a035a335f45f45f820cea38ad6952bb6b}\label{classassemble_1_1Assembly_a035a335f45f45f820cea38ad6952bb6b} 
+\index{Assembly@{Assembly}!add\_image@{add\_image}}
+\index{add\_image@{add\_image}!Assembly@{Assembly}}
+\doxysubsubsection{\texorpdfstring{add\_image()}{add\_image()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily add\+\_\+image (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{source,  }\item[{}]{partition }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{assemble_8py_source_l00083}{83}} of file \mbox{\hyperlink{assemble_8py_source}{assemble.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{def\ }add\_image(self,\ source,\ partition):}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ open(self.output,\ \textcolor{stringliteral}{'ab'})\ \textcolor{keyword}{as}\ ofd:}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ pos\ =\ ofd.tell()}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}partition\ \{\},\ pos=\{\},\ offset=\{\}"{}}.format(partition,\ pos,\ self.offsets[partition]))}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ pos\ >\ self.offsets[partition]:}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Partitions\ not\ in\ order,\ unsupported"{}})}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ pos\ <\ self.offsets[partition]:}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buf\ =\ b\textcolor{stringliteral}{'\(\backslash\)xFF'}\ *\ (self.offsets[partition]\ -\/\ pos)}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ofd.write(buf)}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ open(source,\ \textcolor{stringliteral}{'rb'})\ \textcolor{keyword}{as}\ rfd:}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ibuf\ =\ rfd.read()}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(ibuf)\ >\ self.sizes[partition]:}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Image\ \{\}\ is\ too\ large\ for\ partition"{}}.format(source))}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ ofd.write(ibuf)}
+\DoxyCodeLine{00097\ }
+
+\end{DoxyCode}
+\Hypertarget{classassemble_1_1Assembly_a035a335f45f45f820cea38ad6952bb6b}\label{classassemble_1_1Assembly_a035a335f45f45f820cea38ad6952bb6b} 
+\index{Assembly@{Assembly}!add\_image@{add\_image}}
+\index{add\_image@{add\_image}!Assembly@{Assembly}}
+\doxysubsubsection{\texorpdfstring{add\_image()}{add\_image()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily add\+\_\+image (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{source,  }\item[{}]{partition }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2assemble_8py_source_l00080}{80}} of file \mbox{\hyperlink{imgtool__1_87_82_2assemble_8py_source}{assemble.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{def\ }add\_image(self,\ source,\ partition):}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ open(self.output,\ \textcolor{stringliteral}{'ab'})\ \textcolor{keyword}{as}\ ofd:}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ pos\ =\ ofd.tell()}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}partition\ \{\},\ pos=\{\},\ offset=\{\}"{}}.format(partition,\ pos,\ self.offsets[partition]))}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ pos\ >\ self.offsets[partition]:}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Partitions\ not\ in\ order,\ unsupported"{}})}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ pos\ <\ self.offsets[partition]:}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buf\ =\ b\textcolor{stringliteral}{'\(\backslash\)xFF'}\ *\ (self.offsets[partition]\ -\/\ pos)}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ofd.write(buf)}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ open(source,\ \textcolor{stringliteral}{'rb'})\ \textcolor{keyword}{as}\ rfd:}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ibuf\ =\ rfd.read()}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(ibuf)\ >\ self.sizes[partition]:}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Image\ \{\}\ is\ too\ large\ for\ partition"{}}.format(source))}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ ofd.write(ibuf)}
+\DoxyCodeLine{00094\ }
+
+\end{DoxyCode}
+\Hypertarget{classassemble_1_1Assembly_adec7e877f190dcec11c83db693799737}\label{classassemble_1_1Assembly_adec7e877f190dcec11c83db693799737} 
+\index{Assembly@{Assembly}!find\_slots@{find\_slots}}
+\index{find\_slots@{find\_slots}!Assembly@{Assembly}}
+\doxysubsubsection{\texorpdfstring{find\_slots()}{find\_slots()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily find\+\_\+slots (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{edt }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{assemble_8py_source_l00055}{55}} of file \mbox{\hyperlink{assemble_8py_source}{assemble.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{def\ }find\_slots(self,\ edt):}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ offsets\ =\ \{\}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ sizes\ =\ \{\}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ part\_nodes\ =\ edt.compat2nodes[\textcolor{stringliteral}{"{}fixed-\/partitions"{}}]}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ node\ \textcolor{keywordflow}{in}\ part\_nodes:}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ child\ \textcolor{keywordflow}{in}\ node.children.values():}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}label"{}}\ \textcolor{keywordflow}{in}\ child.props:}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ label\ =\ child.props[\textcolor{stringliteral}{"{}label"{}}].val}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offsets[label]\ =\ child.regs[0].addr}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizes[label]\ =\ child.regs[0].size}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ same\_keys(offsets,\ sizes):}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Inconsistent\ data\ in\ devicetree.h"{}})}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ We\ care\ about\ the\ mcuboot,\ image-\/0,\ and\ image-\/1\ partitions.}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'mcuboot'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ offsets:}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Board\ partition\ table\ does\ not\ have\ mcuboot\ partition"{}})}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'image-\/0'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ offsets:}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Board\ partition\ table\ does\ not\ have\ image-\/0\ partition"{}})}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'image-\/1'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ offsets:}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Board\ partition\ table\ does\ not\ have\ image-\/1\ partition"{}})}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ self.offsets\ =\ offsets}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ self.sizes\ =\ sizes}
+\DoxyCodeLine{00082\ }
+
+\end{DoxyCode}
+\Hypertarget{classassemble_1_1Assembly_adec7e877f190dcec11c83db693799737}\label{classassemble_1_1Assembly_adec7e877f190dcec11c83db693799737} 
+\index{Assembly@{Assembly}!find\_slots@{find\_slots}}
+\index{find\_slots@{find\_slots}!Assembly@{Assembly}}
+\doxysubsubsection{\texorpdfstring{find\_slots()}{find\_slots()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily find\+\_\+slots (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{edt }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2assemble_8py_source_l00052}{52}} of file \mbox{\hyperlink{imgtool__1_87_82_2assemble_8py_source}{assemble.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{def\ }find\_slots(self,\ edt):}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ offsets\ =\ \{\}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ sizes\ =\ \{\}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ part\_nodes\ =\ edt.compat2nodes[\textcolor{stringliteral}{"{}fixed-\/partitions"{}}]}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ node\ \textcolor{keywordflow}{in}\ part\_nodes:}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ child\ \textcolor{keywordflow}{in}\ node.children.values():}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}label"{}}\ \textcolor{keywordflow}{in}\ child.props:}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ label\ =\ child.props[\textcolor{stringliteral}{"{}label"{}}].val}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offsets[label]\ =\ child.regs[0].addr}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizes[label]\ =\ child.regs[0].size}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ same\_keys(offsets,\ sizes):}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Inconsistent\ data\ in\ devicetree.h"{}})}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ We\ care\ about\ the\ mcuboot,\ image-\/0,\ and\ image-\/1\ partitions.}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'mcuboot'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ offsets:}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Board\ partition\ table\ does\ not\ have\ mcuboot\ partition"{}})}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'image-\/0'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ offsets:}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Board\ partition\ table\ does\ not\ have\ image-\/0\ partition"{}})}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'image-\/1'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ offsets:}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Board\ partition\ table\ does\ not\ have\ image-\/1\ partition"{}})}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ self.offsets\ =\ offsets}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ self.sizes\ =\ sizes}
+\DoxyCodeLine{00079\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{classassemble_1_1Assembly_aba3805bd573676d9962792683b40ac6b}\label{classassemble_1_1Assembly_aba3805bd573676d9962792683b40ac6b} 
+\index{Assembly@{Assembly}!offsets@{offsets}}
+\index{offsets@{offsets}!Assembly@{Assembly}}
+\doxysubsubsection{\texorpdfstring{offsets}{offsets}}
+{\footnotesize\ttfamily offsets}
+
+
+
+Definition at line \mbox{\hyperlink{assemble_8py_source_l00080}{80}} of file \mbox{\hyperlink{assemble_8py_source}{assemble.\+py}}.
+
+\Hypertarget{classassemble_1_1Assembly_ad288825273ed7192429ab0474fb2d4a0}\label{classassemble_1_1Assembly_ad288825273ed7192429ab0474fb2d4a0} 
+\index{Assembly@{Assembly}!output@{output}}
+\index{output@{output}!Assembly@{Assembly}}
+\doxysubsubsection{\texorpdfstring{output}{output}}
+{\footnotesize\ttfamily output}
+
+
+
+Definition at line \mbox{\hyperlink{assemble_8py_source_l00053}{53}} of file \mbox{\hyperlink{assemble_8py_source}{assemble.\+py}}.
+
+\Hypertarget{classassemble_1_1Assembly_a59954f9ddc7bd5849baf28f0b04501b3}\label{classassemble_1_1Assembly_a59954f9ddc7bd5849baf28f0b04501b3} 
+\index{Assembly@{Assembly}!sizes@{sizes}}
+\index{sizes@{sizes}!Assembly@{Assembly}}
+\doxysubsubsection{\texorpdfstring{sizes}{sizes}}
+{\footnotesize\ttfamily sizes}
+
+
+
+Definition at line \mbox{\hyperlink{assemble_8py_source_l00081}{81}} of file \mbox{\hyperlink{assemble_8py_source}{assemble.\+py}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/harrkout/github/\+Leshan-\/\+OMA-\/\+Lightweight-\/\+M2\+M-\/server-\/for-\/\+Zephyr-\//scripts/\mbox{\hyperlink{assemble_8py}{assemble.\+py}}\item 
+/home/harrkout/github/\+Leshan-\/\+OMA-\/\+Lightweight-\/\+M2\+M-\/server-\/for-\/\+Zephyr-\//scripts/imgtool\+\_\+1.\+7.\+2/\mbox{\hyperlink{imgtool__1_87_82_2assemble_8py}{assemble.\+py}}\end{DoxyCompactItemize}

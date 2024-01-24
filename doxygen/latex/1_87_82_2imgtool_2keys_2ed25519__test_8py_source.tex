@@ -1,0 +1,109 @@
+\doxysection{ed25519\+\_\+test.\+py}
+\hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source}{}\label{1_87_82_2imgtool_2keys_2ed25519__test_8py_source}\index{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/imgtool\_1.7.2/imgtool/keys/ed25519\_test.py@{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/imgtool\_1.7.2/imgtool/keys/ed25519\_test.py}}
+\mbox{\hyperlink{1_87_82_2imgtool_2keys_2ed25519__test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00001}00001\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00002}00002\ \textcolor{stringliteral}{Tests\ for\ ECDSA\ keys}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00003}00003\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00005}00005\ \textcolor{keyword}{import}\ hashlib}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00006}00006\ \textcolor{keyword}{import}\ io}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00007}00007\ \textcolor{keyword}{import}\ os.path}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00008}00008\ \textcolor{keyword}{import}\ sys}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00009}00009\ \textcolor{keyword}{import}\ tempfile}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00010}00010\ \textcolor{keyword}{import}\ unittest}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00012}00012\ \textcolor{keyword}{from}\ cryptography.exceptions\ \textcolor{keyword}{import}\ InvalidSignature}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00013}00013\ \textcolor{keyword}{from}\ cryptography.hazmat.primitives.asymmetric\ \textcolor{keyword}{import}\ ed25519}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00015}00015\ sys.path.insert(0,\ os.path.abspath(os.path.join(os.path.dirname(\_\_file\_\_),\ \textcolor{stringliteral}{'../..'})))}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00017}00017\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespaceimgtool_1_1keys}{imgtool.keys}}\ \textcolor{keyword}{import}\ load,\ Ed25519,\ Ed25519UsageError}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00020}00020\ \textcolor{keyword}{class\ }Ed25519KeyGeneration(unittest.TestCase):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00022}\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a8265f43e817bd81e8ee0479d9cf942f1}{00022}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a8265f43e817bd81e8ee0479d9cf942f1}{setUp}}(self):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00023}00023\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_ae8b53f27f72906c83ca7968f2e6f8c9e}{test\_dir}}\ =\ tempfile.TemporaryDirectory()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00025}\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d}{00025}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d}{tname}}(self,\ base):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os.path.join(self.\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_ae8b53f27f72906c83ca7968f2e6f8c9e}{test\_dir}}.name,\ base)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00028}\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a8a31d90b8598f609fad4582512f6822f}{00028}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a8a31d90b8598f609fad4582512f6822f}{tearDown}}(self):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00029}00029\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_ae8b53f27f72906c83ca7968f2e6f8c9e}{test\_dir}}.cleanup()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00031}\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_aa64d64dc6adc7a7f7fa6b8d801873a8f}{00031}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_aa64d64dc6adc7a7f7fa6b8d801873a8f}{test\_keygen}}(self):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00032}00032\ \ \ \ \ \ \ \ \ name1\ =\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d}{tname}}\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d}{tname}}(\textcolor{stringliteral}{"{}keygen.pem"{}})}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ k\ =\ Ed25519.generate()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00034}00034\ \ \ \ \ \ \ \ \ k.export\_private(name1,\ b\textcolor{stringliteral}{'secret'})}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ self.assertIsNone(load(name1))}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ k2\ =\ load(name1,\ b\textcolor{stringliteral}{'secret'})}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ pubname\ =\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d}{tname}}\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d}{tname}}(\textcolor{stringliteral}{'keygen-\/pub.pem'})}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ k2.export\_public(pubname)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ pk2\ =\ load(pubname)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ We\ should\ be\ able\ to\ export\ the\ public\ key\ from\ the\ loaded}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ public\ key,\ but\ not\ the\ private\ key.}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ pk2.export\_public(self.\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d}{tname}}\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d}{tname}}(\textcolor{stringliteral}{'keygen-\/pub2.pem'}))}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ self.assertRaises(Ed25519UsageError,}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pk2.export\_private,\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d}{tname}}\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d}{tname}}(\textcolor{stringliteral}{'keygen-\/priv2.pem'}))}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00050}\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a01a2b35b87e2e0d6aba15850d0cae4ad}{00050}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a01a2b35b87e2e0d6aba15850d0cae4ad}{test\_emit}}(self):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Basic\ sanity\ check\ on\ the\ code\ emitters."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ k\ =\ Ed25519.generate()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ ccode\ =\ io.StringIO()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ k.emit\_c\_public(ccode)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ed25519\_pub\_key"{}},\ ccode.getvalue())}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ed25519\_pub\_key\_len"{}},\ ccode.getvalue())}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ rustcode\ =\ io.StringIO()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ k.emit\_rust\_public(rustcode)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ED25519\_PUB\_KEY"{}},\ rustcode.getvalue())}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00063}\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_add2da75c5d89a17476d295f9fcd4ff96}{00063}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_add2da75c5d89a17476d295f9fcd4ff96}{test\_emit\_pub}}(self):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Basic\ sanity\ check\ on\ the\ code\ emitters."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ pubname\ =\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d}{tname}}\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a6fd5cdd564f4e658af897ca28cadb28d}{tname}}(\textcolor{stringliteral}{"{}public.pem"{}})}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ k\ =\ Ed25519.generate()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ k.export\_public(pubname)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ k2\ =\ load(pubname)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ ccode\ =\ io.StringIO()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ k2.emit\_c\_public(ccode)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ed25519\_pub\_key"{}},\ ccode.getvalue())}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ed25519\_pub\_key\_len"{}},\ ccode.getvalue())}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ rustcode\ =\ io.StringIO()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ k2.emit\_rust\_public(rustcode)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ self.assertIn(\textcolor{stringliteral}{"{}ED25519\_PUB\_KEY"{}},\ rustcode.getvalue())}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00080}\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a3b666150b04d2b63d1b00dc655f2e892}{00080}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1ed25519__test_1_1Ed25519KeyGeneration_a3b666150b04d2b63d1b00dc655f2e892}{test\_sig}}(self):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ k\ =\ Ed25519.generate()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ buf\ =\ b\textcolor{stringliteral}{'This\ is\ the\ message'}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ sha\ =\ hashlib.sha256()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ sha.update(buf)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ digest\ =\ sha.digest()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ sig\ =\ k.sign\_digest(digest)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ code\ doesn't\ have\ any\ verification,\ so\ verify\ this}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ manually.}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ k.key.public\_key().verify(signature=sig,\ data=digest)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Modify\ the\ message\ to\ make\ sure\ the\ signature\ fails.}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ sha\ =\ hashlib.sha256()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ sha.update(b\textcolor{stringliteral}{'This\ is\ thE\ message'})}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ new\_digest\ =\ sha.digest()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ self.assertRaises(InvalidSignature,}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ k.key.public\_key().verify,}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ signature=sig,}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data=new\_digest)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00102}00102\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2ed25519__test_8py_source_l00103}00103\ \ \ \ \ unittest.main()}
+
+\end{DoxyCode}

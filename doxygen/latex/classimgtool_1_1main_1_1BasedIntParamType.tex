@@ -1,0 +1,242 @@
+\doxysection{Based\+Int\+Param\+Type Class Reference}
+\hypertarget{classimgtool_1_1main_1_1BasedIntParamType}{}\label{classimgtool_1_1main_1_1BasedIntParamType}\index{BasedIntParamType@{BasedIntParamType}}
+Inheritance diagram for Based\+Int\+Param\+Type\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classimgtool_1_1main_1_1BasedIntParamType}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classimgtool_1_1main_1_1BasedIntParamType_a2d21608d693f3ea37f79a26e2fbe8855}{convert}} (self, value, param, ctx)
+\item 
+\mbox{\hyperlink{classimgtool_1_1main_1_1BasedIntParamType_a2d21608d693f3ea37f79a26e2fbe8855}{convert}} (self, value, param, ctx)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{classimgtool_1_1main_1_1BasedIntParamType_ae057a05edfbf71fef52477aeb25af27f}{name}} = \textquotesingle{}integer\textquotesingle{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{imgtool_2main_8py_source_l00217}{217}} of file \mbox{\hyperlink{imgtool_2main_8py_source}{main.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classimgtool_1_1main_1_1BasedIntParamType_a2d21608d693f3ea37f79a26e2fbe8855}\label{classimgtool_1_1main_1_1BasedIntParamType_a2d21608d693f3ea37f79a26e2fbe8855} 
+\index{BasedIntParamType@{BasedIntParamType}!convert@{convert}}
+\index{convert@{convert}!BasedIntParamType@{BasedIntParamType}}
+\doxysubsubsection{\texorpdfstring{convert()}{convert()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily convert (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{value,  }\item[{}]{param,  }\item[{}]{ctx }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2main_8py_source_l00220}{220}} of file \mbox{\hyperlink{imgtool_2main_8py_source}{main.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keyword}{def\ }convert(self,\ value,\ param,\ ctx):}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ int(value,\ 0)}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ ValueError:}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ self.fail(\textcolor{stringliteral}{'\%s\ is\ not\ a\ valid\ integer.\ Please\ use\ code\ literals\ '}}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'prefixed\ with\ 0b/0B,\ 0o/0O,\ or\ 0x/0X\ as\ necessary.'}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \%\ value,\ param,\ ctx)}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{@click.argument('outfile')}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{@click.argument('infile')}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/custom-\/tlv'},\ required=\textcolor{keyword}{False},\ nargs=2,\ default=[],}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ multiple=\textcolor{keyword}{True},\ metavar=\textcolor{stringliteral}{'[tag]\ [value]'},}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Custom\ TLV\ that\ will\ be\ placed\ into\ protected\ area.\ '}}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Add\ "{}0x"{}\ prefix\ if\ the\ value\ should\ be\ interpreted\ as\ an\ '}}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'integer,\ otherwise\ it\ will\ be\ interpreted\ as\ a\ string.\ '}}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Specify\ the\ option\ multiple\ times\ to\ add\ multiple\ TLVs.'})}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{@click.option('-\/R',\ '-\/-\/erased-\/val',\ type=click.Choice(['0',\ '0xff'])},}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ required=\textcolor{keyword}{False},}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'The\ value\ that\ is\ read\ back\ from\ erased\ flash.'})}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{@click.option('-\/x',\ '-\/-\/hex-\/addr',\ type=BasedIntParamType()},\ required=\textcolor{keyword}{False},}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Adjust\ address\ in\ hex\ output\ file.'})}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{@click.option('-\/L',\ '-\/-\/load-\/addr',\ type=BasedIntParamType()},\ required=\textcolor{keyword}{False},}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Load\ address\ for\ image\ when\ it\ should\ run\ from\ RAM.'})}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{@click.option('-\/F',\ '-\/-\/rom-\/fixed',\ type=BasedIntParamType()},\ required=\textcolor{keyword}{False},}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Set\ flash\ address\ the\ image\ is\ built\ for.'})}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/save-\/enctlv'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'When\ upgrading,\ save\ encrypted\ key\ TLVs\ instead\ of\ plain\ '}}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'keys.\ Enable\ when\ BOOT\_SWAP\_SAVE\_ENCTLV\ config\ option\ '}}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'was\ set.'})}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/E'},\ \textcolor{stringliteral}{'-\/-\/encrypt'},\ metavar=\textcolor{stringliteral}{'filename'},}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Encrypt\ image\ using\ the\ provided\ public\ key.\ '}}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'(Not\ supported\ in\ direct-\/xip\ or\ ram-\/load\ mode.)'})}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/encrypt-\/keylen'},\ default=\textcolor{stringliteral}{'128'},}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ type=click.Choice([\textcolor{stringliteral}{'128'},\textcolor{stringliteral}{'256'}]),}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'When\ encrypting\ the\ image\ using\ AES,\ select\ a\ 128\ bit\ or\ '}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'256\ bit\ key\ len.'})}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/c'},\ \textcolor{stringliteral}{'-\/-\/clear'},\ required=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},\ default=\textcolor{keyword}{False},}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Output\ a\ non-\/encrypted\ image\ with\ encryption\ capabilities,'}}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'so\ it\ can\ be\ installed\ in\ the\ primary\ slot,\ and\ encrypted\ '}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'when\ swapped\ to\ the\ secondary.'})}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{@click.option('-\/e',\ '-\/-\/endian',\ type=click.Choice(['little',\ 'big'])},}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ default=\textcolor{stringliteral}{'little'},\ help=\textcolor{stringliteral}{"{}Select\ little\ or\ big\ endian"{}})}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/overwrite-\/only'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Use\ overwrite-\/only\ instead\ of\ swap\ upgrades'})}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/boot-\/record'},\ metavar=\textcolor{stringliteral}{'sw\_type'},\ help=\textcolor{stringliteral}{'Create\ CBOR\ encoded\ '}}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'boot\ record\ TLV.\ The\ sw\_type\ represents\ the\ role\ of\ the\ '}}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'software\ component\ (e.g.\ CoFM\ for\ coprocessor\ firmware).\ '}}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'[max.\ 12\ characters]'})}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/M'},\ \textcolor{stringliteral}{'-\/-\/max-\/sectors'},\ type=int,}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'When\ padding\ allow\ for\ this\ amount\ of\ sectors\ (defaults\ '}}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'to\ 128)'})}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/confirm'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'When\ padding\ the\ image,\ mark\ it\ as\ confirmed\ (implies\ '}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'-\/-\/pad)'})}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/pad'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Pad\ image\ to\ -\/-\/slot-\/size\ bytes,\ adding\ trailer\ magic'})}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{@click.option('-\/S',\ '-\/-\/slot-\/size',\ type=BasedIntParamType()},\ required=\textcolor{keyword}{True},}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Size\ of\ the\ slot.\ If\ the\ slots\ have\ different\ sizes,\ use\ '}}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'the\ size\ of\ the\ secondary\ slot.'})}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/pad-\/header'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Add\ -\/-\/header-\/size\ zeroed\ bytes\ at\ the\ beginning\ of\ the\ '}}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'image'})}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/H'},\ \textcolor{stringliteral}{'-\/-\/header-\/size'},\ callback=validate\_header\_size,}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ type=BasedIntParamType(),\ required=\textcolor{keyword}{True})}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/pad-\/sig'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Add\ 0-\/2\ bytes\ of\ padding\ to\ ECDSA\ signature\ '}}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'(for\ mcuboot\ <1.5)'})}
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/d'},\ \textcolor{stringliteral}{'-\/-\/dependencies'},\ callback=get\_dependencies,}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ required=\textcolor{keyword}{False},\ help=\textcolor{stringliteral}{'''Add\ dependence\ on\ another\ image,\ format:}}
+\DoxyCodeLine{00290\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}(<image\_ID>,<image\_version>),\ ...\ "{}'''})}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/s'},\ \textcolor{stringliteral}{'-\/-\/security-\/counter'},\ callback=validate\_security\_counter,}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Specify\ the\ value\ of\ security\ counter.\ Use\ the\ \`{}auto`\ '}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'keyword\ to\ automatically\ generate\ it\ from\ the\ image\ version.'})}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{@click.option('-\/v',\ '-\/-\/version',\ callback=validate\_version,\ \ required=True)}}
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{@click.option('-\/-\/align',\ type=click.Choice(['1',\ '2',\ '4',\ '8',\ '16',\ '32'])},}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ required=\textcolor{keyword}{True})}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{@click.option('-\/-\/max-\/align',\ type=click.Choice(['8',\ '16',\ '32'])},}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ required=\textcolor{keyword}{False},}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Maximum\ flash\ alignment.\ Set\ if\ flash\ alignment\ of\ the\ '}}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'primary\ and\ secondary\ slot\ differ\ and\ any\ of\ them\ is\ larger\ '}}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'than\ 8.'})}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{@click.option('-\/-\/public-\/key-\/format',\ type=click.Choice(['hash',\ 'full'])},}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ default=\textcolor{stringliteral}{'hash'},\ help=\textcolor{stringliteral}{'In\ what\ format\ to\ add\ the\ public\ key\ to\ '}}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'the\ image\ manifest:\ full\ key\ or\ hash\ of\ the\ key.'})}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{@click.option('-\/k',\ '-\/-\/key',\ metavar='filename')}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{@click.command}(help=\textcolor{stringliteral}{'''Create\ a\ signed\ or\ unsigned\ image\(\backslash\)n}}
+\DoxyCodeLine{00307\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ INFILE\ and\ OUTFILE\ are\ parsed\ as\ Intel\ HEX\ if\ the\ params\ have}}
+\DoxyCodeLine{00308\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .hex\ extension,\ otherwise\ binary\ format\ is\ used'''})}
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1main_1_1BasedIntParamType_a2d21608d693f3ea37f79a26e2fbe8855}\label{classimgtool_1_1main_1_1BasedIntParamType_a2d21608d693f3ea37f79a26e2fbe8855} 
+\index{BasedIntParamType@{BasedIntParamType}!convert@{convert}}
+\index{convert@{convert}!BasedIntParamType@{BasedIntParamType}}
+\doxysubsubsection{\texorpdfstring{convert()}{convert()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily convert (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{value,  }\item[{}]{param,  }\item[{}]{ctx }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2main_8py_source_l00218}{218}} of file \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2main_8py_source}{main.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keyword}{def\ }convert(self,\ value,\ param,\ ctx):}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ int(value,\ 0)}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ ValueError:}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ self.fail(\textcolor{stringliteral}{'\%s\ is\ not\ a\ valid\ integer.\ Please\ use\ code\ literals\ '}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'prefixed\ with\ 0b/0B,\ 0o/0O,\ or\ 0x/0X\ as\ necessary.'}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \%\ value,\ param,\ ctx)}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{@click.argument('outfile')}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{@click.argument('infile')}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/custom-\/tlv'},\ required=\textcolor{keyword}{False},\ nargs=2,\ default=[],}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ multiple=\textcolor{keyword}{True},\ metavar=\textcolor{stringliteral}{'[tag]\ [value]'},}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Custom\ TLV\ that\ will\ be\ placed\ into\ protected\ area.\ '}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Add\ "{}0x"{}\ prefix\ if\ the\ value\ should\ be\ interpreted\ as\ an\ '}}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'integer,\ otherwise\ it\ will\ be\ interpreted\ as\ a\ string.\ '}}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Specify\ the\ option\ multiple\ times\ to\ add\ multiple\ TLVs.'})}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{@click.option('-\/R',\ '-\/-\/erased-\/val',\ type=click.Choice(['0',\ '0xff'])},}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ required=\textcolor{keyword}{False},}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'The\ value\ that\ is\ read\ back\ from\ erased\ flash.'})}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{@click.option('-\/x',\ '-\/-\/hex-\/addr',\ type=BasedIntParamType()},\ required=\textcolor{keyword}{False},}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Adjust\ address\ in\ hex\ output\ file.'})}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{@click.option('-\/L',\ '-\/-\/load-\/addr',\ type=BasedIntParamType()},\ required=\textcolor{keyword}{False},}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Load\ address\ for\ image\ when\ it\ should\ run\ from\ RAM.'})}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{@click.option('-\/F',\ '-\/-\/rom-\/fixed',\ type=BasedIntParamType()},\ required=\textcolor{keyword}{False},}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Set\ flash\ address\ the\ image\ is\ built\ for.'})}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/save-\/enctlv'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'When\ upgrading,\ save\ encrypted\ key\ TLVs\ instead\ of\ plain\ '}}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'keys.\ Enable\ when\ BOOT\_SWAP\_SAVE\_ENCTLV\ config\ option\ '}}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'was\ set.'})}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/E'},\ \textcolor{stringliteral}{'-\/-\/encrypt'},\ metavar=\textcolor{stringliteral}{'filename'},}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Encrypt\ image\ using\ the\ provided\ public\ key.\ '}}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'(Not\ supported\ in\ direct-\/xip\ or\ ram-\/load\ mode.)'})}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{@click.option('-\/e',\ '-\/-\/endian',\ type=click.Choice(['little',\ 'big'])},}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ default=\textcolor{stringliteral}{'little'},\ help=\textcolor{stringliteral}{"{}Select\ little\ or\ big\ endian"{}})}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/overwrite-\/only'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Use\ overwrite-\/only\ instead\ of\ swap\ upgrades'})}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/boot-\/record'},\ metavar=\textcolor{stringliteral}{'sw\_type'},\ help=\textcolor{stringliteral}{'Create\ CBOR\ encoded\ '}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'boot\ record\ TLV.\ The\ sw\_type\ represents\ the\ role\ of\ the\ '}}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'software\ component\ (e.g.\ CoFM\ for\ coprocessor\ firmware).\ '}}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'[max.\ 12\ characters]'})}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/M'},\ \textcolor{stringliteral}{'-\/-\/max-\/sectors'},\ type=int,}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'When\ padding\ allow\ for\ this\ amount\ of\ sectors\ (defaults\ '}}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'to\ 128)'})}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/confirm'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'When\ padding\ the\ image,\ mark\ it\ as\ confirmed\ (implies\ '}}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'-\/-\/pad)'})}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/pad'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Pad\ image\ to\ -\/-\/slot-\/size\ bytes,\ adding\ trailer\ magic'})}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{@click.option('-\/S',\ '-\/-\/slot-\/size',\ type=BasedIntParamType()},\ required=\textcolor{keyword}{True},}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Size\ of\ the\ slot.\ If\ the\ slots\ have\ different\ sizes,\ use\ '}}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'the\ size\ of\ the\ secondary\ slot.'})}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/pad-\/header'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Add\ -\/-\/header-\/size\ zeroed\ bytes\ at\ the\ beginning\ of\ the\ '}}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'image'})}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/H'},\ \textcolor{stringliteral}{'-\/-\/header-\/size'},\ callback=validate\_header\_size,}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ type=BasedIntParamType(),\ required=\textcolor{keyword}{True})}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/-\/pad-\/sig'},\ default=\textcolor{keyword}{False},\ is\_flag=\textcolor{keyword}{True},}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Add\ 0-\/2\ bytes\ of\ padding\ to\ ECDSA\ signature\ '}}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'(for\ mcuboot\ <1.5)'})}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/d'},\ \textcolor{stringliteral}{'-\/-\/dependencies'},\ callback=get\_dependencies,}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ required=\textcolor{keyword}{False},\ help=\textcolor{stringliteral}{'''Add\ dependence\ on\ another\ image,\ format:}}
+\DoxyCodeLine{00280\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}(<image\_ID>,<image\_version>),\ ...\ "{}'''})}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{@click.option}(\textcolor{stringliteral}{'-\/s'},\ \textcolor{stringliteral}{'-\/-\/security-\/counter'},\ callback=validate\_security\_counter,}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Specify\ the\ value\ of\ security\ counter.\ Use\ the\ \`{}auto`\ '}}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'keyword\ to\ automatically\ generate\ it\ from\ the\ image\ version.'})}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{@click.option('-\/v',\ '-\/-\/version',\ callback=validate\_version,\ \ required=True)}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{@click.option('-\/-\/align',\ type=click.Choice(['1',\ '2',\ '4',\ '8'])},}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ required=\textcolor{keyword}{True})}
+\DoxyCodeLine{00287\ \textcolor{preprocessor}{@click.option('-\/-\/public-\/key-\/format',\ type=click.Choice(['hash',\ 'full'])},}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ default=\textcolor{stringliteral}{'hash'},\ help=\textcolor{stringliteral}{'In\ what\ format\ to\ add\ the\ public\ key\ to\ '}}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'the\ image\ manifest:\ full\ key\ or\ hash\ of\ the\ key.'})}
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{@click.option('-\/k',\ '-\/-\/key',\ metavar='filename')}}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{@click.command}(help=\textcolor{stringliteral}{'''Create\ a\ signed\ or\ unsigned\ image\(\backslash\)n}}
+\DoxyCodeLine{00292\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ INFILE\ and\ OUTFILE\ are\ parsed\ as\ Intel\ HEX\ if\ the\ params\ have}}
+\DoxyCodeLine{00293\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .hex\ extension,\ otherwise\ binary\ format\ is\ used'''})}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{classimgtool_1_1main_1_1BasedIntParamType_ae057a05edfbf71fef52477aeb25af27f}\label{classimgtool_1_1main_1_1BasedIntParamType_ae057a05edfbf71fef52477aeb25af27f} 
+\index{BasedIntParamType@{BasedIntParamType}!name@{name}}
+\index{name@{name}!BasedIntParamType@{BasedIntParamType}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily str name = \textquotesingle{}integer\textquotesingle{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2main_8py_source_l00218}{218}} of file \mbox{\hyperlink{imgtool_2main_8py_source}{main.\+py}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/harrkout/github/\+Leshan-\/\+OMA-\/\+Lightweight-\/\+M2\+M-\/server-\/for-\/\+Zephyr-\//scripts/imgtool/\mbox{\hyperlink{imgtool_2main_8py}{main.\+py}}\item 
+/home/harrkout/github/\+Leshan-\/\+OMA-\/\+Lightweight-\/\+M2\+M-\/server-\/for-\/\+Zephyr-\//scripts/imgtool\+\_\+1.\+7.\+2/imgtool/\mbox{\hyperlink{imgtool__1_87_82_2imgtool_2main_8py}{main.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,146 @@
+\doxysection{Aliases\+Group Class Reference}
+\hypertarget{classimgtool_1_1main_1_1AliasesGroup}{}\label{classimgtool_1_1main_1_1AliasesGroup}\index{AliasesGroup@{AliasesGroup}}
+Inheritance diagram for Aliases\+Group\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classimgtool_1_1main_1_1AliasesGroup}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classimgtool_1_1main_1_1AliasesGroup_a393f68e9a6b16d7da98bc3e8239f0dfe}{list\+\_\+commands}} (self, ctx)
+\item 
+\mbox{\hyperlink{classimgtool_1_1main_1_1AliasesGroup_a5919feb60d7dbc5f42aaa9266406f15b}{get\+\_\+command}} (self, ctx, cmd\+\_\+name)
+\item 
+\mbox{\hyperlink{classimgtool_1_1main_1_1AliasesGroup_a393f68e9a6b16d7da98bc3e8239f0dfe}{list\+\_\+commands}} (self, ctx)
+\item 
+\mbox{\hyperlink{classimgtool_1_1main_1_1AliasesGroup_a5919feb60d7dbc5f42aaa9266406f15b}{get\+\_\+command}} (self, ctx, cmd\+\_\+name)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+dict \mbox{\hyperlink{classimgtool_1_1main_1_1AliasesGroup_a186822546b8876e4817c9dc3b0ebcd76}{\+\_\+aliases}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{imgtool_2main_8py_source_l00364}{364}} of file \mbox{\hyperlink{imgtool_2main_8py_source}{main.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classimgtool_1_1main_1_1AliasesGroup_a5919feb60d7dbc5f42aaa9266406f15b}\label{classimgtool_1_1main_1_1AliasesGroup_a5919feb60d7dbc5f42aaa9266406f15b} 
+\index{AliasesGroup@{AliasesGroup}!get\_command@{get\_command}}
+\index{get\_command@{get\_command}!AliasesGroup@{AliasesGroup}}
+\doxysubsubsection{\texorpdfstring{get\_command()}{get\_command()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily get\+\_\+command (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ctx,  }\item[{}]{cmd\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2main_8py_source_l00375}{375}} of file \mbox{\hyperlink{imgtool_2main_8py_source}{main.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00375\ \ \ \ \ \textcolor{keyword}{def\ }get\_command(self,\ ctx,\ cmd\_name):}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ rv\ =\ click.Group.get\_command(self,\ ctx,\ cmd\_name)}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ rv\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rv}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ cmd\_name\ \textcolor{keywordflow}{in}\ self.\_aliases:}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ click.Group.get\_command(self,\ ctx,\ self.\_aliases[cmd\_name])}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \textcolor{preprocessor}{@click.command(help='Print\ imgtool\ version\ information')}}
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1main_1_1AliasesGroup_a5919feb60d7dbc5f42aaa9266406f15b}\label{classimgtool_1_1main_1_1AliasesGroup_a5919feb60d7dbc5f42aaa9266406f15b} 
+\index{AliasesGroup@{AliasesGroup}!get\_command@{get\_command}}
+\index{get\_command@{get\_command}!AliasesGroup@{AliasesGroup}}
+\doxysubsubsection{\texorpdfstring{get\_command()}{get\_command()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily get\+\_\+command (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ctx,  }\item[{}]{cmd\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2main_8py_source_l00360}{360}} of file \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2main_8py_source}{main.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keyword}{def\ }get\_command(self,\ ctx,\ cmd\_name):}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ rv\ =\ click.Group.get\_command(self,\ ctx,\ cmd\_name)}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ rv\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rv}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ cmd\_name\ \textcolor{keywordflow}{in}\ self.\_aliases:}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ click.Group.get\_command(self,\ ctx,\ self.\_aliases[cmd\_name])}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \textcolor{preprocessor}{@click.command(help='Print\ imgtool\ version\ information')}}
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1main_1_1AliasesGroup_a393f68e9a6b16d7da98bc3e8239f0dfe}\label{classimgtool_1_1main_1_1AliasesGroup_a393f68e9a6b16d7da98bc3e8239f0dfe} 
+\index{AliasesGroup@{AliasesGroup}!list\_commands@{list\_commands}}
+\index{list\_commands@{list\_commands}!AliasesGroup@{AliasesGroup}}
+\doxysubsubsection{\texorpdfstring{list\_commands()}{list\_commands()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily list\+\_\+commands (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ctx }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool_2main_8py_source_l00370}{370}} of file \mbox{\hyperlink{imgtool_2main_8py_source}{main.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keyword}{def\ }list\_commands(self,\ ctx):}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ cmds\ =\ [k\ \textcolor{keywordflow}{for}\ k\ \textcolor{keywordflow}{in}\ self.commands]}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ aliases\ =\ [k\ \textcolor{keywordflow}{for}\ k\ \textcolor{keywordflow}{in}\ self.\_aliases]}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sorted(cmds\ +\ aliases)}
+\DoxyCodeLine{00374\ }
+
+\end{DoxyCode}
+\Hypertarget{classimgtool_1_1main_1_1AliasesGroup_a393f68e9a6b16d7da98bc3e8239f0dfe}\label{classimgtool_1_1main_1_1AliasesGroup_a393f68e9a6b16d7da98bc3e8239f0dfe} 
+\index{AliasesGroup@{AliasesGroup}!list\_commands@{list\_commands}}
+\index{list\_commands@{list\_commands}!AliasesGroup@{AliasesGroup}}
+\doxysubsubsection{\texorpdfstring{list\_commands()}{list\_commands()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily list\+\_\+commands (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ctx }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2main_8py_source_l00355}{355}} of file \mbox{\hyperlink{imgtool__1_87_82_2imgtool_2main_8py_source}{main.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00355\ \ \ \ \ \textcolor{keyword}{def\ }list\_commands(self,\ ctx):}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ cmds\ =\ [k\ \textcolor{keywordflow}{for}\ k\ \textcolor{keywordflow}{in}\ self.commands]}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ aliases\ =\ [k\ \textcolor{keywordflow}{for}\ k\ \textcolor{keywordflow}{in}\ self.\_aliases]}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sorted(cmds\ +\ aliases)}
+\DoxyCodeLine{00359\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{classimgtool_1_1main_1_1AliasesGroup_a186822546b8876e4817c9dc3b0ebcd76}\label{classimgtool_1_1main_1_1AliasesGroup_a186822546b8876e4817c9dc3b0ebcd76} 
+\index{AliasesGroup@{AliasesGroup}!\_aliases@{\_aliases}}
+\index{\_aliases@{\_aliases}!AliasesGroup@{AliasesGroup}}
+\doxysubsubsection{\texorpdfstring{\_aliases}{\_aliases}}
+{\footnotesize\ttfamily dict \+\_\+aliases\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}create"{}}:\ \textcolor{stringliteral}{"{}sign"{}},}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{imgtool_2main_8py_source_l00366}{366}} of file \mbox{\hyperlink{imgtool_2main_8py_source}{main.\+py}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/harrkout/github/\+Leshan-\/\+OMA-\/\+Lightweight-\/\+M2\+M-\/server-\/for-\/\+Zephyr-\//scripts/imgtool/\mbox{\hyperlink{imgtool_2main_8py}{main.\+py}}\item 
+/home/harrkout/github/\+Leshan-\/\+OMA-\/\+Lightweight-\/\+M2\+M-\/server-\/for-\/\+Zephyr-\//scripts/imgtool\+\_\+1.\+7.\+2/imgtool/\mbox{\hyperlink{imgtool__1_87_82_2imgtool_2main_8py}{main.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,679 @@
+\doxysection{/home/harrkout/github/\+Leshan-\/\+OMA-\/\+Lightweight-\/\+M2\+M-\/server-\/for-\/\+Zephyr-\//src/lwm2m-\/client.c File Reference}
+\hypertarget{lwm2m-client_8c}{}\label{lwm2m-client_8c}\index{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//src/lwm2m-\/client.c@{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//src/lwm2m-\/client.c}}
+{\ttfamily \#include $<$logging/log.\+h$>$}\newline
+{\ttfamily \#include $<$drivers/hwinfo.\+h$>$}\newline
+{\ttfamily \#include $<$zephyr.\+h$>$}\newline
+{\ttfamily \#include $<$drivers/gpio.\+h$>$}\newline
+{\ttfamily \#include $<$drivers/sensor.\+h$>$}\newline
+{\ttfamily \#include $<$net/lwm2m.\+h$>$}\newline
+{\ttfamily \#include $<$sys/reboot.\+h$>$}\newline
+{\ttfamily \#include $<$device.\+h$>$}\newline
+{\ttfamily \#include "{}delta/delta.\+h"{}}\newline
+{\ttfamily \#include $<$sys/printk.\+h$>$}\newline
+{\ttfamily \#include $<$sys/util.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_af410eea597f86573114f14171154f29e}{LOG\+\_\+\+MODULE\+\_\+\+NAME}}~net\+\_\+lwm2m\+\_\+client\+\_\+app
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_a0b87e0d3bf5853bcbb0b66a7c48fdc05}{LOG\+\_\+\+LEVEL}}~LOG\+\_\+\+LEVEL\+\_\+\+DBG
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_a6c47c73f6041203a8cf8bb24e5b2e8ed}{APP\+\_\+\+BANNER}}~"{}Run LWM2M client"{}
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_a8375b354cc7fa4544cf5ce59924c8ae2}{CONFIG\+\_\+\+NET\+\_\+\+CONFIG\+\_\+\+PEER\+\_\+\+IPV4\+\_\+\+ADDR}}~"{}"{}
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_a9e94a988d4e46f204df4dbb651c39dca}{CONFIG\+\_\+\+NET\+\_\+\+CONFIG\+\_\+\+PEER\+\_\+\+IPV6\+\_\+\+ADDR}}~"{}"{}
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_a266a456108689c3ec05f87a4b8c76979}{REBOOT\+\_\+\+DELAY\+\_\+\+SEC}}~1
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_aea69ffbacdcdf16c21b8c9961df84448}{GRN}}~"{}\textbackslash{}x1B\mbox{[}32m"{}
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_ae7676cdfa371dfdcf6fb0687737c29a6}{WAIT\+\_\+\+TIME}}~K\+\_\+\+SECONDS(10)
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_aac223400fe4767d970ea758a4ab0c6be}{CONNECT\+\_\+\+TIME}}~K\+\_\+\+SECONDS(10)
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_a3dad5fdb23da7f63cec1921edccfd696}{CLIENT\+\_\+\+MANUFACTURER}}~"{}Zephyr"{}
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_ad89a0babb85a3a1c151c1e24b6893200}{CLIENT\+\_\+\+MODEL\+\_\+\+NUMBER}}~"{}OMA-\/LWM2M Sample Client"{}
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_a1c2e709b69f2bbd871bdbbb175041fbc}{CLIENT\+\_\+\+SERIAL\+\_\+\+NUMBER}}~"{}345000123"{}
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_a8ce14be746b2a10ea6ba353f8d47ac99}{CLIENT\+\_\+\+FIRMWARE\+\_\+\+VER}}~"{}1.\+0"{}
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_a21f0ceb3c0b0fdde9af87758d5386cba}{CLIENT\+\_\+\+DEVICE\+\_\+\+TYPE}}~"{}OMA-\/LWM2M Client"{}
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_a63680a451f0689f9e8916d4f688e9208}{CLIENT\+\_\+\+HW\+\_\+\+VER}}~"{}1.\+0.\+1"{}
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_ad84e693a37f12618885a50f95bcc2368}{LIGHT\+\_\+\+NAME}}~"{}Test light"{}
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_a3e221425db69a695a3ccb7bced1ad749}{TIMER\+\_\+\+NAME}}~"{}Test timer"{}
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_ad263f322228e62f533f46b1a9505f5d1}{ENDPOINT\+\_\+\+LEN}}~32
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_a0e37635de72a322420108b45fed9573e}{LED\+\_\+\+GPIO\+\_\+\+PORT}}~"{}"{}
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_aeaffaa5768d0aaceb2d963a109f702f5}{LED\+\_\+\+GPIO\+\_\+\+PIN}}~0
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_a41cf179291397cc0246669265135472a}{LED\+\_\+\+GPIO\+\_\+\+FLAGS}}~0
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_aea6f782003374f75cd7ff90a9984658a}{SW0\+\_\+\+NODE}}~DT\+\_\+\+ALIAS(sw0)
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_a8854fd36b98412fe777d85b2fc427e44}{SW0\+\_\+\+GPIO\+\_\+\+LABEL}}~"{}"{}
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_af727a36a2c2d3e88a2702a4739432788}{SW0\+\_\+\+GPIO\+\_\+\+PIN}}~0
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_afb233e09fceb00a16bfce708820bc3cc}{SW0\+\_\+\+GPIO\+\_\+\+FLAGS}}~0
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_a840217aee9bd887463dad1b56defb051}{SLEEP\+\_\+\+TIME\+\_\+\+MS}}~10000
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_a661852bec8ab9683d43ad02881c2f2b5}{LED0\+\_\+\+NODE}}~DT\+\_\+\+ALIAS(led0)
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_ae8d5b4e7e2d9d21caaa4744d385d7cc7}{LED0}}~"{}"{}
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_ae1a27401b7fb01ccb9a82dbddbb54eea}{PIN}}~0
+\item 
+\#define \mbox{\hyperlink{lwm2m-client_8c_a6ccad09b4a2a06ae178418fdccf5940d}{FLAGS}}~0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{lwm2m-client_8c_a68af80fd221df51a874389f1e99b2409}{LOG\+\_\+\+MODULE\+\_\+\+REGISTER}} (\mbox{\hyperlink{lwm2m-client_8c_af410eea597f86573114f14171154f29e}{LOG\+\_\+\+MODULE\+\_\+\+NAME}})
+\item 
+void \mbox{\hyperlink{lwm2m-client_8c_ab4b2c1747e66383dfb0b5679887e1854}{button\+\_\+pressed}} (const struct device \texorpdfstring{$\ast$}{*}dev, struct gpio\+\_\+callback \texorpdfstring{$\ast$}{*}cb, uint32\+\_\+t pins)
+\item 
+void \mbox{\hyperlink{lwm2m-client_8c_aa0318eeefff11dfae9fa384bccf308a0}{Do\+Progress}} (char label\mbox{[}$\,$\mbox{]}, float step, int total)
+\item 
+void \mbox{\hyperlink{lwm2m-client_8c_a307e1c6e7b5394ccbf06aa4b2de9e8ec}{Do\+Some}} ()
+\item 
+void \mbox{\hyperlink{lwm2m-client_8c_a6288eba0f8e8ad3ab1544ad731eb7667}{main}} (void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{lwm2m-client_8c_a6c47c73f6041203a8cf8bb24e5b2e8ed}\label{lwm2m-client_8c_a6c47c73f6041203a8cf8bb24e5b2e8ed} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!APP\_BANNER@{APP\_BANNER}}
+\index{APP\_BANNER@{APP\_BANNER}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{APP\_BANNER}{APP\_BANNER}}
+{\footnotesize\ttfamily \#define APP\+\_\+\+BANNER~"{}Run LWM2M client"{}}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00032}{32}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_a21f0ceb3c0b0fdde9af87758d5386cba}\label{lwm2m-client_8c_a21f0ceb3c0b0fdde9af87758d5386cba} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!CLIENT\_DEVICE\_TYPE@{CLIENT\_DEVICE\_TYPE}}
+\index{CLIENT\_DEVICE\_TYPE@{CLIENT\_DEVICE\_TYPE}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{CLIENT\_DEVICE\_TYPE}{CLIENT\_DEVICE\_TYPE}}
+{\footnotesize\ttfamily \#define CLIENT\+\_\+\+DEVICE\+\_\+\+TYPE~"{}OMA-\/LWM2M Client"{}}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00061}{61}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_a8ce14be746b2a10ea6ba353f8d47ac99}\label{lwm2m-client_8c_a8ce14be746b2a10ea6ba353f8d47ac99} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!CLIENT\_FIRMWARE\_VER@{CLIENT\_FIRMWARE\_VER}}
+\index{CLIENT\_FIRMWARE\_VER@{CLIENT\_FIRMWARE\_VER}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{CLIENT\_FIRMWARE\_VER}{CLIENT\_FIRMWARE\_VER}}
+{\footnotesize\ttfamily \#define CLIENT\+\_\+\+FIRMWARE\+\_\+\+VER~"{}1.\+0"{}}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00060}{60}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_a63680a451f0689f9e8916d4f688e9208}\label{lwm2m-client_8c_a63680a451f0689f9e8916d4f688e9208} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!CLIENT\_HW\_VER@{CLIENT\_HW\_VER}}
+\index{CLIENT\_HW\_VER@{CLIENT\_HW\_VER}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{CLIENT\_HW\_VER}{CLIENT\_HW\_VER}}
+{\footnotesize\ttfamily \#define CLIENT\+\_\+\+HW\+\_\+\+VER~"{}1.\+0.\+1"{}}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00062}{62}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_a3dad5fdb23da7f63cec1921edccfd696}\label{lwm2m-client_8c_a3dad5fdb23da7f63cec1921edccfd696} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!CLIENT\_MANUFACTURER@{CLIENT\_MANUFACTURER}}
+\index{CLIENT\_MANUFACTURER@{CLIENT\_MANUFACTURER}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{CLIENT\_MANUFACTURER}{CLIENT\_MANUFACTURER}}
+{\footnotesize\ttfamily \#define CLIENT\+\_\+\+MANUFACTURER~"{}Zephyr"{}}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00057}{57}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_ad89a0babb85a3a1c151c1e24b6893200}\label{lwm2m-client_8c_ad89a0babb85a3a1c151c1e24b6893200} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!CLIENT\_MODEL\_NUMBER@{CLIENT\_MODEL\_NUMBER}}
+\index{CLIENT\_MODEL\_NUMBER@{CLIENT\_MODEL\_NUMBER}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{CLIENT\_MODEL\_NUMBER}{CLIENT\_MODEL\_NUMBER}}
+{\footnotesize\ttfamily \#define CLIENT\+\_\+\+MODEL\+\_\+\+NUMBER~"{}OMA-\/LWM2M Sample Client"{}}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00058}{58}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_a1c2e709b69f2bbd871bdbbb175041fbc}\label{lwm2m-client_8c_a1c2e709b69f2bbd871bdbbb175041fbc} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!CLIENT\_SERIAL\_NUMBER@{CLIENT\_SERIAL\_NUMBER}}
+\index{CLIENT\_SERIAL\_NUMBER@{CLIENT\_SERIAL\_NUMBER}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{CLIENT\_SERIAL\_NUMBER}{CLIENT\_SERIAL\_NUMBER}}
+{\footnotesize\ttfamily \#define CLIENT\+\_\+\+SERIAL\+\_\+\+NUMBER~"{}345000123"{}}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00059}{59}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_a8375b354cc7fa4544cf5ce59924c8ae2}\label{lwm2m-client_8c_a8375b354cc7fa4544cf5ce59924c8ae2} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!CONFIG\_NET\_CONFIG\_PEER\_IPV4\_ADDR@{CONFIG\_NET\_CONFIG\_PEER\_IPV4\_ADDR}}
+\index{CONFIG\_NET\_CONFIG\_PEER\_IPV4\_ADDR@{CONFIG\_NET\_CONFIG\_PEER\_IPV4\_ADDR}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{CONFIG\_NET\_CONFIG\_PEER\_IPV4\_ADDR}{CONFIG\_NET\_CONFIG\_PEER\_IPV4\_ADDR}}
+{\footnotesize\ttfamily \#define CONFIG\+\_\+\+NET\+\_\+\+CONFIG\+\_\+\+PEER\+\_\+\+IPV4\+\_\+\+ADDR~"{}"{}}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00035}{35}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_a9e94a988d4e46f204df4dbb651c39dca}\label{lwm2m-client_8c_a9e94a988d4e46f204df4dbb651c39dca} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!CONFIG\_NET\_CONFIG\_PEER\_IPV6\_ADDR@{CONFIG\_NET\_CONFIG\_PEER\_IPV6\_ADDR}}
+\index{CONFIG\_NET\_CONFIG\_PEER\_IPV6\_ADDR@{CONFIG\_NET\_CONFIG\_PEER\_IPV6\_ADDR}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{CONFIG\_NET\_CONFIG\_PEER\_IPV6\_ADDR}{CONFIG\_NET\_CONFIG\_PEER\_IPV6\_ADDR}}
+{\footnotesize\ttfamily \#define CONFIG\+\_\+\+NET\+\_\+\+CONFIG\+\_\+\+PEER\+\_\+\+IPV6\+\_\+\+ADDR~"{}"{}}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00039}{39}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_aac223400fe4767d970ea758a4ab0c6be}\label{lwm2m-client_8c_aac223400fe4767d970ea758a4ab0c6be} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!CONNECT\_TIME@{CONNECT\_TIME}}
+\index{CONNECT\_TIME@{CONNECT\_TIME}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{CONNECT\_TIME}{CONNECT\_TIME}}
+{\footnotesize\ttfamily \#define CONNECT\+\_\+\+TIME~K\+\_\+\+SECONDS(10)}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00055}{55}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_ad263f322228e62f533f46b1a9505f5d1}\label{lwm2m-client_8c_ad263f322228e62f533f46b1a9505f5d1} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!ENDPOINT\_LEN@{ENDPOINT\_LEN}}
+\index{ENDPOINT\_LEN@{ENDPOINT\_LEN}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{ENDPOINT\_LEN}{ENDPOINT\_LEN}}
+{\footnotesize\ttfamily \#define ENDPOINT\+\_\+\+LEN~32}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00067}{67}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_a6ccad09b4a2a06ae178418fdccf5940d}\label{lwm2m-client_8c_a6ccad09b4a2a06ae178418fdccf5940d} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!FLAGS@{FLAGS}}
+\index{FLAGS@{FLAGS}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{FLAGS}{FLAGS}}
+{\footnotesize\ttfamily \#define FLAGS~0}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00127}{127}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_aea69ffbacdcdf16c21b8c9961df84448}\label{lwm2m-client_8c_aea69ffbacdcdf16c21b8c9961df84448} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!GRN@{GRN}}
+\index{GRN@{GRN}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{GRN}{GRN}}
+{\footnotesize\ttfamily \#define GRN~"{}\textbackslash{}x1B\mbox{[}32m"{}}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00052}{52}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_ae8d5b4e7e2d9d21caaa4744d385d7cc7}\label{lwm2m-client_8c_ae8d5b4e7e2d9d21caaa4744d385d7cc7} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!LED0@{LED0}}
+\index{LED0@{LED0}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{LED0}{LED0}}
+{\footnotesize\ttfamily \#define LED0~"{}"{}}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00125}{125}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_a661852bec8ab9683d43ad02881c2f2b5}\label{lwm2m-client_8c_a661852bec8ab9683d43ad02881c2f2b5} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!LED0\_NODE@{LED0\_NODE}}
+\index{LED0\_NODE@{LED0\_NODE}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{LED0\_NODE}{LED0\_NODE}}
+{\footnotesize\ttfamily \#define LED0\+\_\+\+NODE~DT\+\_\+\+ALIAS(led0)}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00117}{117}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_a41cf179291397cc0246669265135472a}\label{lwm2m-client_8c_a41cf179291397cc0246669265135472a} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!LED\_GPIO\_FLAGS@{LED\_GPIO\_FLAGS}}
+\index{LED\_GPIO\_FLAGS@{LED\_GPIO\_FLAGS}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{LED\_GPIO\_FLAGS}{LED\_GPIO\_FLAGS}}
+{\footnotesize\ttfamily \#define LED\+\_\+\+GPIO\+\_\+\+FLAGS~0}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00077}{77}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_aeaffaa5768d0aaceb2d963a109f702f5}\label{lwm2m-client_8c_aeaffaa5768d0aaceb2d963a109f702f5} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!LED\_GPIO\_PIN@{LED\_GPIO\_PIN}}
+\index{LED\_GPIO\_PIN@{LED\_GPIO\_PIN}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{LED\_GPIO\_PIN}{LED\_GPIO\_PIN}}
+{\footnotesize\ttfamily \#define LED\+\_\+\+GPIO\+\_\+\+PIN~0}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00076}{76}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_a0e37635de72a322420108b45fed9573e}\label{lwm2m-client_8c_a0e37635de72a322420108b45fed9573e} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!LED\_GPIO\_PORT@{LED\_GPIO\_PORT}}
+\index{LED\_GPIO\_PORT@{LED\_GPIO\_PORT}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{LED\_GPIO\_PORT}{LED\_GPIO\_PORT}}
+{\footnotesize\ttfamily \#define LED\+\_\+\+GPIO\+\_\+\+PORT~"{}"{}}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00075}{75}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_ad84e693a37f12618885a50f95bcc2368}\label{lwm2m-client_8c_ad84e693a37f12618885a50f95bcc2368} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!LIGHT\_NAME@{LIGHT\_NAME}}
+\index{LIGHT\_NAME@{LIGHT\_NAME}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{LIGHT\_NAME}{LIGHT\_NAME}}
+{\footnotesize\ttfamily \#define LIGHT\+\_\+\+NAME~"{}Test light"{}}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00064}{64}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_a0b87e0d3bf5853bcbb0b66a7c48fdc05}\label{lwm2m-client_8c_a0b87e0d3bf5853bcbb0b66a7c48fdc05} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!LOG\_LEVEL@{LOG\_LEVEL}}
+\index{LOG\_LEVEL@{LOG\_LEVEL}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{LOG\_LEVEL}{LOG\_LEVEL}}
+{\footnotesize\ttfamily \#define LOG\+\_\+\+LEVEL~LOG\+\_\+\+LEVEL\+\_\+\+DBG}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00009}{9}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_af410eea597f86573114f14171154f29e}\label{lwm2m-client_8c_af410eea597f86573114f14171154f29e} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!LOG\_MODULE\_NAME@{LOG\_MODULE\_NAME}}
+\index{LOG\_MODULE\_NAME@{LOG\_MODULE\_NAME}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{LOG\_MODULE\_NAME}{LOG\_MODULE\_NAME}}
+{\footnotesize\ttfamily \#define LOG\+\_\+\+MODULE\+\_\+\+NAME~net\+\_\+lwm2m\+\_\+client\+\_\+app}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00008}{8}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_ae1a27401b7fb01ccb9a82dbddbb54eea}\label{lwm2m-client_8c_ae1a27401b7fb01ccb9a82dbddbb54eea} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!PIN@{PIN}}
+\index{PIN@{PIN}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{PIN}{PIN}}
+{\footnotesize\ttfamily \#define PIN~0}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00126}{126}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_a266a456108689c3ec05f87a4b8c76979}\label{lwm2m-client_8c_a266a456108689c3ec05f87a4b8c76979} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!REBOOT\_DELAY\_SEC@{REBOOT\_DELAY\_SEC}}
+\index{REBOOT\_DELAY\_SEC@{REBOOT\_DELAY\_SEC}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{REBOOT\_DELAY\_SEC}{REBOOT\_DELAY\_SEC}}
+{\footnotesize\ttfamily \#define REBOOT\+\_\+\+DELAY\+\_\+\+SEC~1}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00051}{51}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_a840217aee9bd887463dad1b56defb051}\label{lwm2m-client_8c_a840217aee9bd887463dad1b56defb051} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!SLEEP\_TIME\_MS@{SLEEP\_TIME\_MS}}
+\index{SLEEP\_TIME\_MS@{SLEEP\_TIME\_MS}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{SLEEP\_TIME\_MS}{SLEEP\_TIME\_MS}}
+{\footnotesize\ttfamily \#define SLEEP\+\_\+\+TIME\+\_\+\+MS~10000}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00115}{115}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_afb233e09fceb00a16bfce708820bc3cc}\label{lwm2m-client_8c_afb233e09fceb00a16bfce708820bc3cc} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!SW0\_GPIO\_FLAGS@{SW0\_GPIO\_FLAGS}}
+\index{SW0\_GPIO\_FLAGS@{SW0\_GPIO\_FLAGS}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{SW0\_GPIO\_FLAGS}{SW0\_GPIO\_FLAGS}}
+{\footnotesize\ttfamily \#define SW0\+\_\+\+GPIO\+\_\+\+FLAGS~0}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00104}{104}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_a8854fd36b98412fe777d85b2fc427e44}\label{lwm2m-client_8c_a8854fd36b98412fe777d85b2fc427e44} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!SW0\_GPIO\_LABEL@{SW0\_GPIO\_LABEL}}
+\index{SW0\_GPIO\_LABEL@{SW0\_GPIO\_LABEL}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{SW0\_GPIO\_LABEL}{SW0\_GPIO\_LABEL}}
+{\footnotesize\ttfamily \#define SW0\+\_\+\+GPIO\+\_\+\+LABEL~"{}"{}}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00102}{102}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_af727a36a2c2d3e88a2702a4739432788}\label{lwm2m-client_8c_af727a36a2c2d3e88a2702a4739432788} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!SW0\_GPIO\_PIN@{SW0\_GPIO\_PIN}}
+\index{SW0\_GPIO\_PIN@{SW0\_GPIO\_PIN}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{SW0\_GPIO\_PIN}{SW0\_GPIO\_PIN}}
+{\footnotesize\ttfamily \#define SW0\+\_\+\+GPIO\+\_\+\+PIN~0}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00103}{103}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_aea6f782003374f75cd7ff90a9984658a}\label{lwm2m-client_8c_aea6f782003374f75cd7ff90a9984658a} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!SW0\_NODE@{SW0\_NODE}}
+\index{SW0\_NODE@{SW0\_NODE}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{SW0\_NODE}{SW0\_NODE}}
+{\footnotesize\ttfamily \#define SW0\+\_\+\+NODE~DT\+\_\+\+ALIAS(sw0)}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00094}{94}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_a3e221425db69a695a3ccb7bced1ad749}\label{lwm2m-client_8c_a3e221425db69a695a3ccb7bced1ad749} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!TIMER\_NAME@{TIMER\_NAME}}
+\index{TIMER\_NAME@{TIMER\_NAME}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{TIMER\_NAME}{TIMER\_NAME}}
+{\footnotesize\ttfamily \#define TIMER\+\_\+\+NAME~"{}Test timer"{}}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00065}{65}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+\Hypertarget{lwm2m-client_8c_ae7676cdfa371dfdcf6fb0687737c29a6}\label{lwm2m-client_8c_ae7676cdfa371dfdcf6fb0687737c29a6} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!WAIT\_TIME@{WAIT\_TIME}}
+\index{WAIT\_TIME@{WAIT\_TIME}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{WAIT\_TIME}{WAIT\_TIME}}
+{\footnotesize\ttfamily \#define WAIT\+\_\+\+TIME~K\+\_\+\+SECONDS(10)}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00054}{54}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{lwm2m-client_8c_ab4b2c1747e66383dfb0b5679887e1854}\label{lwm2m-client_8c_ab4b2c1747e66383dfb0b5679887e1854} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!button\_pressed@{button\_pressed}}
+\index{button\_pressed@{button\_pressed}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{button\_pressed()}{button\_pressed()}}
+{\footnotesize\ttfamily void button\+\_\+pressed (\begin{DoxyParamCaption}\item[{const struct device \texorpdfstring{$\ast$}{*}}]{dev,  }\item[{struct gpio\+\_\+callback \texorpdfstring{$\ast$}{*}}]{cb,  }\item[{uint32\+\_\+t}]{pins }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00774}{774}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00775\ \{}
+\DoxyCodeLine{00776\ \ \ \ \ printk(\textcolor{stringliteral}{"{}Checking\ for\ Delta\ Update\ \(\backslash\)n"{}});}
+\DoxyCodeLine{00777\ \ \ \ \ btn\_flag\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00778\ \}}
+
+\end{DoxyCode}
+\Hypertarget{lwm2m-client_8c_aa0318eeefff11dfae9fa384bccf308a0}\label{lwm2m-client_8c_aa0318eeefff11dfae9fa384bccf308a0} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!DoProgress@{DoProgress}}
+\index{DoProgress@{DoProgress}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{DoProgress()}{DoProgress()}}
+{\footnotesize\ttfamily void Do\+Progress (\begin{DoxyParamCaption}\item[{char}]{label\mbox{[}$\,$\mbox{]},  }\item[{float}]{step,  }\item[{int}]{total }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00139}{139}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00140\ \{\ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{comment}{//progress\ width\ }}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ pwidth\ =\ 72;\ }
+\DoxyCodeLine{00143\ \ }
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{comment}{//minus\ label\ len\ }}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{int}\ width\ =\ pwidth\ -\/\ strlen(\ label\ );\ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{float}\ pos\ =\ (\ step\ *\ width\ )\ /\ total\ ;\ }
+\DoxyCodeLine{00147\ \ }
+\DoxyCodeLine{00148\ \ \ \ \ \ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{int}\ percent\ =\ (\ step\ *\ 100\ )\ /\ total;\ }
+\DoxyCodeLine{00150\ \ \ }
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{comment}{//fill\ progress\ bar\ with\ =\ }}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{comment}{//printf("{}["{});\ }}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordflow}{for}\ (\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ pos;\ i++\ )\ }
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%c"{}},\ \textcolor{charliteral}{'|'});\ }
+\DoxyCodeLine{00155\ \ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{comment}{//fill\ progress\ bar\ with\ spaces\ }}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{comment}{//printf(\ "{}\%\ *c"{},\ width\ -\/\ pos\ +\ 1,\ ']'\ );\ }}
+\DoxyCodeLine{00158\ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}\ \%3d\%\%\(\backslash\)r"{}},\ percent\ );\ }
+\DoxyCodeLine{00159\ \ \}\ }
+
+\end{DoxyCode}
+\Hypertarget{lwm2m-client_8c_a307e1c6e7b5394ccbf06aa4b2de9e8ec}\label{lwm2m-client_8c_a307e1c6e7b5394ccbf06aa4b2de9e8ec} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!DoSome@{DoSome}}
+\index{DoSome@{DoSome}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{DoSome()}{DoSome()}}
+{\footnotesize\ttfamily void Do\+Some (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00161}{161}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00162\ \{\ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{int}\ total\ =\ 1000;\ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordtype}{float}\ step\ =\ 0;\ }
+\DoxyCodeLine{00165\ \ }
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordflow}{while}\ (\ step\ <\ total\ )\ }
+\DoxyCodeLine{00167\ \ \ \ \ \{\ }
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{comment}{//do\ some\ action\ }}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sleep(\ 50\ );\ }}
+\DoxyCodeLine{00170\ \ }
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ step+=1;\ }
+\DoxyCodeLine{00172\ \ }
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{lwm2m-client_8c_aa0318eeefff11dfae9fa384bccf308a0}{DoProgress}}(\ \textcolor{stringliteral}{"{}Download:\ "{}},\ step,\ total\ );\ }
+\DoxyCodeLine{00174\ \ \ \ \ \}\ }
+\DoxyCodeLine{00175\ \ }
+\DoxyCodeLine{00176\ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ );\ }
+\DoxyCodeLine{00177\ \ }
+\DoxyCodeLine{00178\ \}\ }
+
+\end{DoxyCode}
+\Hypertarget{lwm2m-client_8c_a68af80fd221df51a874389f1e99b2409}\label{lwm2m-client_8c_a68af80fd221df51a874389f1e99b2409} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!LOG\_MODULE\_REGISTER@{LOG\_MODULE\_REGISTER}}
+\index{LOG\_MODULE\_REGISTER@{LOG\_MODULE\_REGISTER}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{LOG\_MODULE\_REGISTER()}{LOG\_MODULE\_REGISTER()}}
+{\footnotesize\ttfamily LOG\+\_\+\+MODULE\+\_\+\+REGISTER (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lwm2m-client_8c_af410eea597f86573114f14171154f29e}{LOG\+\_\+\+MODULE\+\_\+\+NAME}}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{lwm2m-client_8c_a6288eba0f8e8ad3ab1544ad731eb7667}\label{lwm2m-client_8c_a6288eba0f8e8ad3ab1544ad731eb7667} 
+\index{lwm2m-\/client.c@{lwm2m-\/client.c}!main@{main}}
+\index{main@{main}!lwm2m-\/client.c@{lwm2m-\/client.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily void main (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+// Testing Begin 
+\begin{DoxyParams}{Parameters}
+{\em //} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{lwm2m-client_8c_source_l00567}{567}} of file \mbox{\hyperlink{lwm2m-client_8c_source}{lwm2m-\/client.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00568\ \{}
+\DoxyCodeLine{00569\ \ \ \ \ uint32\_t\ flags\ =\ IS\_ENABLED(CONFIG\_LWM2M\_RD\_CLIENT\_SUPPORT\_BOOTSTRAP)\ ?}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LWM2M\_RD\_CLIENT\_FLAG\_BOOTSTRAP\ :}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0;}
+\DoxyCodeLine{00572\ \ \ \ \ \textcolor{keywordtype}{int}\ ret;}
+\DoxyCodeLine{00573\ }
+\DoxyCodeLine{00574\ \ \ \ \ LOG\_INF(\mbox{\hyperlink{lwm2m-client_8c_a6c47c73f6041203a8cf8bb24e5b2e8ed}{APP\_BANNER}});}
+\DoxyCodeLine{00575\ }
+\DoxyCodeLine{00576\ \ \ \ \ k\_sem\_init(\&quit\_lock,\ 0,\ K\_SEM\_MAX\_LIMIT);}
+\DoxyCodeLine{00577\ }
+\DoxyCodeLine{00578\ \ \ \ \ ret\ =\ lwm2m\_setup();}
+\DoxyCodeLine{00579\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ <\ 0)\ \{}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ LOG\_ERR(\textcolor{stringliteral}{"{}Cannot\ setup\ LWM2M\ fields\ (\%d)"{}},\ ret);}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00582\ \ \ \ \ \}}
+\DoxyCodeLine{00583\ }
+\DoxyCodeLine{00584\ \ \ \ \ (void)memset(\&client,\ 0x0,\ \textcolor{keyword}{sizeof}(client));}
+\DoxyCodeLine{00585\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_LWM2M\_DTLS\_SUPPORT)}}
+\DoxyCodeLine{00586\ \ \ \ \ client.tls\_tag\ =\ TLS\_TAG;}
+\DoxyCodeLine{00587\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00588\ }
+\DoxyCodeLine{00589\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_HWINFO)}}
+\DoxyCodeLine{00590\ \ \ \ \ uint8\_t\ dev\_id[16];}
+\DoxyCodeLine{00591\ \ \ \ \ \textcolor{keywordtype}{char}\ dev\_str[33];}
+\DoxyCodeLine{00592\ \ \ \ \ ssize\_t\ length;}
+\DoxyCodeLine{00593\ \ \ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00595\ \ \ \ \ (void)memset(dev\_id,\ 0x0,\ \textcolor{keyword}{sizeof}(dev\_id));}
+\DoxyCodeLine{00596\ }
+\DoxyCodeLine{00597\ \ \ \ \ \textcolor{comment}{/*\ Obtain\ the\ device\ id\ */}}
+\DoxyCodeLine{00598\ \ \ \ \ length\ =\ hwinfo\_get\_device\_id(dev\_id,\ \textcolor{keyword}{sizeof}(dev\_id));}
+\DoxyCodeLine{00599\ }
+\DoxyCodeLine{00600\ \ \ \ \ \textcolor{comment}{/*\ If\ this\ fails\ for\ some\ reason,\ use\ all\ zeros\ instead\ */}}
+\DoxyCodeLine{00601\ \ \ \ \ \textcolor{keywordflow}{if}\ (length\ <=\ 0)\ \{}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ length\ =\ \textcolor{keyword}{sizeof}(dev\_id);}
+\DoxyCodeLine{00603\ \ \ \ \ \}}
+\DoxyCodeLine{00604\ }
+\DoxyCodeLine{00605\ \ \ \ \ \textcolor{comment}{/*\ Render\ the\ obtained\ serial\ number\ in\ hexadecimal\ representation\ */}}
+\DoxyCodeLine{00606\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ length;\ i++)\ \{}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ sprintf(\&dev\_str[i\ *\ 2],\ \textcolor{stringliteral}{"{}\%02x"{}},\ dev\_id[i]);}
+\DoxyCodeLine{00608\ \ \ \ \ \}}
+\DoxyCodeLine{00609\ }
+\DoxyCodeLine{00610\ \ \ \ \ lwm2m\_rd\_client\_start(\&client,\ dev\_str,\ flags,\ rd\_client\_event,\ observe\_cb);}
+\DoxyCodeLine{00611\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00612\ \ \ \ \ \textcolor{comment}{/*\ client.sec\_obj\_inst\ is\ 0\ as\ a\ starting\ point\ */}}
+\DoxyCodeLine{00613\ \ \ \ \ lwm2m\_rd\_client\_start(\&client,\ CONFIG\_BOARD,\ flags,\ rd\_client\_event,\ observe\_cb);}
+\DoxyCodeLine{00614\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00615\ }
+\DoxyCodeLine{00618\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }device*\ dev\ =\ device\_get\_binding(DT\_LABEL(DT\_INST(0,\ st\_vl53l0x)));}
+\DoxyCodeLine{00619\ }
+\DoxyCodeLine{00621\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }device\ *led,\ *button;}
+\DoxyCodeLine{00622\ \ \ \ \ \textcolor{keywordtype}{bool}\ led\_is\_on\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00623\ }
+\DoxyCodeLine{00624\ \ \ \ \ led\ =\ device\_get\_binding(\mbox{\hyperlink{lwm2m-client_8c_ae8d5b4e7e2d9d21caaa4744d385d7cc7}{LED0}});}
+\DoxyCodeLine{00625\ \ \ \ \ button\ =\ device\_get\_binding(\mbox{\hyperlink{lwm2m-client_8c_a8854fd36b98412fe777d85b2fc427e44}{SW0\_GPIO\_LABEL}});}
+\DoxyCodeLine{00627\ \ \ \ \ \textcolor{comment}{//\ struct\ for\ reading\ the\ sensor\ values\ (universal\ library\ in\ zephyr,\ I\ think?).}}
+\DoxyCodeLine{00628\ \ \ \ \ \textcolor{keyword}{struct\ }sensor\_value\ dist,\ prox;}
+\DoxyCodeLine{00629\ }
+\DoxyCodeLine{00630\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00631\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structflash__mem}{flash\_mem}}*\ flash\_pt;}
+\DoxyCodeLine{00632\ }
+\DoxyCodeLine{00633\ \ \ \ \ flash\_pt\ =\ k\_malloc(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structflash__mem}{flash\_mem}}));}
+\DoxyCodeLine{00634\ \ \ \ \ flash\_pt-\/>\mbox{\hyperlink{structflash__mem_aa1f78abf61a59cbd09d602ab4485e7d1}{device}}\ =\ device\_get\_binding(DT\_CHOSEN\_ZEPHYR\_FLASH\_CONTROLLER\_LABEL);}
+\DoxyCodeLine{00635\ }
+\DoxyCodeLine{00636\ \ \ \ \ \textcolor{comment}{//\ strings\ are\ used\ to\ save\ the\ data,\ because\ Golioth\ uses\ CoAP\ Protocol\ and\ can\ send\ only\ Plain\ Text.}}
+\DoxyCodeLine{00637\ \ \ \ \ \textcolor{keywordtype}{char}\ str\_distance[64];}
+\DoxyCodeLine{00638\ \ \ \ \ \textcolor{keywordtype}{char}\ str\_proximity[32];}
+\DoxyCodeLine{00639\ \ \ \ \ \textcolor{keywordtype}{int}\ err;}
+\DoxyCodeLine{00640\ \ \ \ \ \textcolor{keywordtype}{int}\ dret;}
+\DoxyCodeLine{00641\ \ \ \ \ }
+\DoxyCodeLine{00643\ \ \ \ \ \textcolor{keywordflow}{if}\ (!led\ ||\ !button\ ||\ !flash\_pt-\/>\mbox{\hyperlink{structflash__mem_aa1f78abf61a59cbd09d602ab4485e7d1}{device}})\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00644\ }
+\DoxyCodeLine{00645\ \ \ \ \ \textcolor{keywordflow}{if}\ (config\_devices(button,\ led))\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00647\ }
+\DoxyCodeLine{00649\ \ \ \ \ \textcolor{keywordflow}{if}\ (!boot\_is\_img\_confirmed())\ \{}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00651\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ There\ is\ no\ shared\ context\ between\ previous\ update\ request}}
+\DoxyCodeLine{00652\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ and\ current\ boot,\ so\ treat\ current\ image\ 'confirmed'\ flag\ as}}
+\DoxyCodeLine{00653\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ an\ indication\ whether\ previous\ update\ process\ was\ successful}}
+\DoxyCodeLine{00654\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ or\ not.}}
+\DoxyCodeLine{00655\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00656\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}});}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}|\ \ \ \ \ \ Current\ Firware\ Version:\ (\%s)\ \ \ \ \ \ \ \ \ \ \ \ \ |"{}});}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{00659\ }
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ err\ =\ boot\_write\_img\_confirmed();}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (err)\ \{\ LOG\_ERR(\textcolor{stringliteral}{"{}Failed\ to\ confirm\ image:\ \%d"{}},\ err);\ \}}
+\DoxyCodeLine{00662\ \ \ \ \ \}}
+\DoxyCodeLine{00663\ \ \ \ \ }
+\DoxyCodeLine{00664\ \ \ \ \ \textcolor{keywordflow}{while}\ (1)\ \{}
+\DoxyCodeLine{00665\ }
+\DoxyCodeLine{00666\ }
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ ret\ =\ sensor\_sample\_fetch(dev);}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ret)\ \{}
+\DoxyCodeLine{00669\ \ \ \ \ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}sensor\_sample\_fetch\ failed\ ret\ \%d\(\backslash\)n"{}},\ ret);}
+\DoxyCodeLine{00670\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ \ \ \ \ k\_sleep(K\_SECONDS(1));}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00674\ }
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ str\_distance[\textcolor{keyword}{sizeof}(sensor\_value\_to\_double(\&dist))\ -\/\ 1]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ str\_proximity[\textcolor{keyword}{sizeof}(prox)]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00677\ }
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Proximity}}
+\DoxyCodeLine{00679\ }
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Variable\ ret\ saves\ the\ state\ of\ the\ data\ taken\ from\ the\ sensor.}}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ ret\ =\ sensor\_channel\_get(dev,\ SENSOR\_CHAN\_PROX,\ \&prox);}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Prints\ in\ UART\ the\ received\ data.}}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}=========================================================================================================================\(\backslash\)n"{}});}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}\(\backslash\)n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}\(\backslash\)n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DELTA\ 1.0.4\ ST\_VL53L0X\ Data:\ \(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}},\ prox);}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ Proximity\ is\ \%d\ \ \ \ \ \ \ |\(\backslash\)n"{}},\ prox);}
+\DoxyCodeLine{00688\ }
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Distance}}
+\DoxyCodeLine{00690\ }
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ ret\ =\ sensor\_channel\_get(dev,\ SENSOR\_CHAN\_DISTANCE,\ \&dist);}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ Distance\ \ is\ \%.3fm\ \ |\(\backslash\)n"{}},\ sensor\_value\_to\_double(\&dist));}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n\(\backslash\)n\(\backslash\)n"{}},\ prox);}
+\DoxyCodeLine{00694\ }
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}=========================================================================================================================\(\backslash\)n"{}});}
+\DoxyCodeLine{00696\ }
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ snprintk\ \&\&\ snprintf(same\ usage\ in\ Zephyr,\ I\ think?)\ are\ necessary\ to\ send\ log\ to\ LightDB\ Stream.bx}}
+\DoxyCodeLine{00698\ }
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ USAGE:}}
+\DoxyCodeLine{00700\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Composes\ a\ string\ with\ the\ same\ text\ that\ would\ be\ printed\ if\ format\ was\ used\ on\ printf,\ but\ instead\ of\ being\ printed,}}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ content\ is\ stored\ as\ a\ C\ string\ in\ the\ buffer\ pointed\ by\ s\ (taking\ n\ as\ the\ maximum\ buffer\ capacity\ to\ fill).}}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00705\ }
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ snprintf(str\_proximity,\ \textcolor{keyword}{sizeof}(str\_proximity),\ \textcolor{stringliteral}{"{}\%d"{}},\ prox);}
+\DoxyCodeLine{00707\ }
+\DoxyCodeLine{00708\ \ \ \ \ \ \ \ \ str\_proximity[\textcolor{keyword}{sizeof}(str\_proximity)\ -\/\ 1]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00709\ }
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \ \ snprintf(str\_distance,\ \textcolor{keyword}{sizeof}(str\_distance),}
+\DoxyCodeLine{00711\ }
+\DoxyCodeLine{00712\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\%.3fm"{}},\ sensor\_value\_to\_double(\&dist));}
+\DoxyCodeLine{00713\ \ \ \ \ \ \ \ \ str\_distance[\textcolor{keyword}{sizeof}(str\_distance)\ -\/\ 1]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00714\ }
+\DoxyCodeLine{00715\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Message\ the\ is\ shown\ in\ UART\ if\ Golioth\ Client\ is\ correctly\ sending\ data.}}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}Sending\ Distance\ \%sm\(\backslash\)\ \ /|\ \ Proximity\ \%s\(\backslash\)n"{}},\ log\_strdup(str\_distance),\ log\_strdup(str\_proximity));}
+\DoxyCodeLine{00717\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ printk("{}================================================================================================\(\backslash\)n"{});}}
+\DoxyCodeLine{00718\ }
+\DoxyCodeLine{00719\ \ \ \ \ \ \ \ \ k\_sleep(K\_MSEC(3000));}
+\DoxyCodeLine{00720\ }
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ gpio\_pin\_set(led,\ \mbox{\hyperlink{lwm2m-client_8c_ae1a27401b7fb01ccb9a82dbddbb54eea}{PIN}},\ (\textcolor{keywordtype}{int})led\_is\_on);}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ k\_msleep(\mbox{\hyperlink{lwm2m-client_8c_a840217aee9bd887463dad1b56defb051}{SLEEP\_TIME\_MS}});}
+\DoxyCodeLine{00723\ }
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (btn\_flag)\ \{}
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \ \ \ \ \ \ led\_is\_on\ =\ !led\_is\_on;}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ \ \ \ \ dret\ =\ \mbox{\hyperlink{delta_8c_ac8e66efa303d4fae63607bb75081891c}{delta\_check\_and\_apply}}(flash\_pt);}
+\DoxyCodeLine{00727\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ i;}
+\DoxyCodeLine{00728\ }
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Progress\ bar\ -\/-\/>\ taken\ from\ https://gist.github.com/napsternxg/302c4f859a27282e7ca5}}
+\DoxyCodeLine{00730\ }
+\DoxyCodeLine{00731\ \ \ \ \ \mbox{\hyperlink{lwm2m-client_8c_a307e1c6e7b5394ccbf06aa4b2de9e8ec}{DoSome}}();\ }
+\DoxyCodeLine{00732\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00733\ }
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dret)\ \{}
+\DoxyCodeLine{00735\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}\%s"{}},\ \mbox{\hyperlink{delta_8c_a16a81712ea142d7efad9356b4c47573f}{delta\_error\_as\_string}}(dret));}
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00738\ }
+\DoxyCodeLine{00739\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00740\ \ \ \ \ \ \ \ \ led\_is\_on\ =\ !led\_is\_on;}
+\DoxyCodeLine{00741\ }
+\DoxyCodeLine{00742\ }
+\DoxyCodeLine{00744\ }
+\DoxyCodeLine{00745\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00746\ \ \ \ \ \}}
+\DoxyCodeLine{00747\ }
+\DoxyCodeLine{00748\ }
+\DoxyCodeLine{00749\ }
+\DoxyCodeLine{00750\ \ \ \ \ k\_sem\_take(\&quit\_lock,\ K\_FOREVER);}
+\DoxyCodeLine{00751\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,774 @@
+\doxysection{lwm2m-\/client.c}
+\hypertarget{lwm2m-client_8c_source}{}\label{lwm2m-client_8c_source}\index{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//src/lwm2m-\/client.c@{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//src/lwm2m-\/client.c}}
+\mbox{\hyperlink{lwm2m-client_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00002}00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2017\ Linaro\ Limited}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00003}00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2017-\/2019\ Foundries.io}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00004}00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00005}00005\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00006}00006\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00008}\mbox{\hyperlink{lwm2m-client_8c_af410eea597f86573114f14171154f29e}{00008}}\ \textcolor{preprocessor}{\#define\ LOG\_MODULE\_NAME\ net\_lwm2m\_client\_app}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00009}\mbox{\hyperlink{lwm2m-client_8c_a0b87e0d3bf5853bcbb0b66a7c48fdc05}{00009}}\ \textcolor{preprocessor}{\#define\ LOG\_LEVEL\ LOG\_LEVEL\_DBG}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <logging/log.h>}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00012}\mbox{\hyperlink{lwm2m-client_8c_a68af80fd221df51a874389f1e99b2409}{00012}}\ \mbox{\hyperlink{lwm2m-client_8c_a68af80fd221df51a874389f1e99b2409}{LOG\_MODULE\_REGISTER}}(\mbox{\hyperlink{lwm2m-client_8c_af410eea597f86573114f14171154f29e}{LOG\_MODULE\_NAME}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <drivers/hwinfo.h>}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <zephyr.h>}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00016}00016\ \textcolor{preprocessor}{\#include\ <drivers/gpio.h>}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ <drivers/sensor.h>}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ <net/lwm2m.h>}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ <sys/reboot.h>}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00020}00020\ \textcolor{preprocessor}{\#include\ <device.h>}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00022}00022\ \textcolor{comment}{//\ \#include\ "{}flash.h"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00024}00024\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{delta_8h}{delta/delta.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00025}00025\ \textcolor{preprocessor}{\#include\ <drivers/gpio.h>}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00026}00026\ \textcolor{preprocessor}{\#include\ <sys/printk.h>}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00027}00027\ \textcolor{preprocessor}{\#include\ <sys/util.h>}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00032}\mbox{\hyperlink{lwm2m-client_8c_a6c47c73f6041203a8cf8bb24e5b2e8ed}{00032}}\ \textcolor{preprocessor}{\#define\ APP\_BANNER\ "{}Run\ LWM2M\ client"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00034}00034\ \textcolor{preprocessor}{\#if\ !defined(CONFIG\_NET\_CONFIG\_PEER\_IPV4\_ADDR)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00035}\mbox{\hyperlink{lwm2m-client_8c_a8375b354cc7fa4544cf5ce59924c8ae2}{00035}}\ \textcolor{preprocessor}{\#define\ CONFIG\_NET\_CONFIG\_PEER\_IPV4\_ADDR\ "{}"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00036}00036\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00038}00038\ \textcolor{preprocessor}{\#if\ !defined(CONFIG\_NET\_CONFIG\_PEER\_IPV6\_ADDR)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00039}\mbox{\hyperlink{lwm2m-client_8c_a9e94a988d4e46f204df4dbb651c39dca}{00039}}\ \textcolor{preprocessor}{\#define\ CONFIG\_NET\_CONFIG\_PEER\_IPV6\_ADDR\ "{}"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00040}00040\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00042}00042\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_NET\_IPV6)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00043}00043\ \textcolor{preprocessor}{\#define\ SERVER\_ADDR\ CONFIG\_NET\_CONFIG\_PEER\_IPV6\_ADDR}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00044}00044\ \textcolor{preprocessor}{\#elif\ defined(CONFIG\_NET\_IPV4)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00045}00045\ \textcolor{preprocessor}{\#define\ SERVER\_ADDR\ CONFIG\_NET\_CONFIG\_PEER\_IPV4\_ADDR}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00046}00046\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00047}00047\ \textcolor{preprocessor}{\#error\ LwM2M\ requires\ either\ IPV6\ or\ IPV4\ support}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00048}00048\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00051}\mbox{\hyperlink{lwm2m-client_8c_a266a456108689c3ec05f87a4b8c76979}{00051}}\ \textcolor{preprocessor}{\#define\ REBOOT\_DELAY\_SEC\ 1}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00052}\mbox{\hyperlink{lwm2m-client_8c_aea69ffbacdcdf16c21b8c9961df84448}{00052}}\ \textcolor{preprocessor}{\#define\ GRN\ \ \ "{}\(\backslash\)x1B[32m"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00054}\mbox{\hyperlink{lwm2m-client_8c_ae7676cdfa371dfdcf6fb0687737c29a6}{00054}}\ \textcolor{preprocessor}{\#define\ WAIT\_TIME\ K\_SECONDS(10)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00055}\mbox{\hyperlink{lwm2m-client_8c_aac223400fe4767d970ea758a4ab0c6be}{00055}}\ \textcolor{preprocessor}{\#define\ CONNECT\_TIME\ K\_SECONDS(10)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00057}\mbox{\hyperlink{lwm2m-client_8c_a3dad5fdb23da7f63cec1921edccfd696}{00057}}\ \textcolor{preprocessor}{\#define\ CLIENT\_MANUFACTURER\ "{}Zephyr"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00058}\mbox{\hyperlink{lwm2m-client_8c_ad89a0babb85a3a1c151c1e24b6893200}{00058}}\ \textcolor{preprocessor}{\#define\ CLIENT\_MODEL\_NUMBER\ "{}OMA-\/LWM2M\ Sample\ Client"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00059}\mbox{\hyperlink{lwm2m-client_8c_a1c2e709b69f2bbd871bdbbb175041fbc}{00059}}\ \textcolor{preprocessor}{\#define\ CLIENT\_SERIAL\_NUMBER\ "{}345000123"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00060}\mbox{\hyperlink{lwm2m-client_8c_a8ce14be746b2a10ea6ba353f8d47ac99}{00060}}\ \textcolor{preprocessor}{\#define\ CLIENT\_FIRMWARE\_VER\ "{}1.0"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00061}\mbox{\hyperlink{lwm2m-client_8c_a21f0ceb3c0b0fdde9af87758d5386cba}{00061}}\ \textcolor{preprocessor}{\#define\ CLIENT\_DEVICE\_TYPE\ "{}OMA-\/LWM2M\ Client"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00062}\mbox{\hyperlink{lwm2m-client_8c_a63680a451f0689f9e8916d4f688e9208}{00062}}\ \textcolor{preprocessor}{\#define\ CLIENT\_HW\_VER\ "{}1.0.1"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00064}\mbox{\hyperlink{lwm2m-client_8c_ad84e693a37f12618885a50f95bcc2368}{00064}}\ \textcolor{preprocessor}{\#define\ LIGHT\_NAME\ "{}Test\ light"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00065}\mbox{\hyperlink{lwm2m-client_8c_a3e221425db69a695a3ccb7bced1ad749}{00065}}\ \textcolor{preprocessor}{\#define\ TIMER\_NAME\ "{}Test\ timer"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00067}\mbox{\hyperlink{lwm2m-client_8c_ad263f322228e62f533f46b1a9505f5d1}{00067}}\ \textcolor{preprocessor}{\#define\ ENDPOINT\_LEN\ 32}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00069}00069\ \textcolor{preprocessor}{\#if\ DT\_NODE\_HAS\_STATUS(DT\_ALIAS(led0),\ okay)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00070}00070\ \textcolor{preprocessor}{\#define\ LED\_GPIO\_PORT\ DT\_GPIO\_LABEL(DT\_ALIAS(led0),\ gpios)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00071}00071\ \textcolor{preprocessor}{\#define\ LED\_GPIO\_PIN\ DT\_GPIO\_PIN(DT\_ALIAS(led0),\ gpios)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00072}00072\ \textcolor{preprocessor}{\#define\ LED\_GPIO\_FLAGS\ DT\_GPIO\_FLAGS(DT\_ALIAS(led0),\ gpios)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00073}00073\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00074}00074\ \textcolor{comment}{/*\ Not\ an\ error;\ the\ relevant\ IPSO\ object\ will\ simply\ not\ be\ created.\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00075}\mbox{\hyperlink{lwm2m-client_8c_a0e37635de72a322420108b45fed9573e}{00075}}\ \textcolor{preprocessor}{\#define\ LED\_GPIO\_PORT\ "{}"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00076}\mbox{\hyperlink{lwm2m-client_8c_aeaffaa5768d0aaceb2d963a109f702f5}{00076}}\ \textcolor{preprocessor}{\#define\ LED\_GPIO\_PIN\ 0}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00077}\mbox{\hyperlink{lwm2m-client_8c_a41cf179291397cc0246669265135472a}{00077}}\ \textcolor{preprocessor}{\#define\ LED\_GPIO\_FLAGS\ 0}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00078}00078\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00080}00080\ \textcolor{keyword}{static}\ uint8\_t\ bat\_idx\ =\ LWM2M\_DEVICE\_PWR\_SRC\_TYPE\_BAT\_INT;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00081}00081\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ bat\_mv\ =\ 3800;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00082}00082\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ bat\_ma\ =\ 125;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00083}00083\ \textcolor{keyword}{static}\ uint8\_t\ usb\_idx\ =\ LWM2M\_DEVICE\_PWR\_SRC\_TYPE\_USB;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00084}00084\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ usb\_mv\ =\ 5000;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00085}00085\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ usb\_ma\ =\ 900;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00086}00086\ \textcolor{keyword}{static}\ uint8\_t\ bat\_level\ =\ 95;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00087}00087\ \textcolor{keyword}{static}\ uint8\_t\ bat\_status\ =\ LWM2M\_DEVICE\_BATTERY\_STATUS\_CHARGING;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00088}00088\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ mem\_free\ =\ 15;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00089}00089\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ mem\_total\ =\ 25;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00091}00091\ \textcolor{comment}{//button}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00092}00092\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ btn\_flag;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00093}00093\ \textcolor{comment}{/*\ BUTTON\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00094}\mbox{\hyperlink{lwm2m-client_8c_aea6f782003374f75cd7ff90a9984658a}{00094}}\ \textcolor{preprocessor}{\#define\ SW0\_NODE\ DT\_ALIAS(sw0)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00096}00096\ \textcolor{preprocessor}{\#if\ DT\_NODE\_HAS\_STATUS(SW0\_NODE,\ okay)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00097}00097\ \textcolor{preprocessor}{\#define\ SW0\_GPIO\_LABEL\ DT\_GPIO\_LABEL(SW0\_NODE,\ gpios)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00098}00098\ \textcolor{preprocessor}{\#define\ SW0\_GPIO\_PIN\ DT\_GPIO\_PIN(SW0\_NODE,\ gpios)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00099}00099\ \textcolor{preprocessor}{\#define\ SW0\_GPIO\_FLAGS\ (GPIO\_INPUT\ |\ DT\_GPIO\_FLAGS(SW0\_NODE,\ gpios))}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00100}00100\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00101}00101\ \textcolor{preprocessor}{\#error\ "{}Unsupported\ board:\ sw0\ devicetree\ alias\ is\ not\ defined"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00102}\mbox{\hyperlink{lwm2m-client_8c_a8854fd36b98412fe777d85b2fc427e44}{00102}}\ \textcolor{preprocessor}{\#define\ SW0\_GPIO\_LABEL\ "{}"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00103}\mbox{\hyperlink{lwm2m-client_8c_af727a36a2c2d3e88a2702a4739432788}{00103}}\ \textcolor{preprocessor}{\#define\ SW0\_GPIO\_PIN\ 0}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00104}\mbox{\hyperlink{lwm2m-client_8c_afb233e09fceb00a16bfce708820bc3cc}{00104}}\ \textcolor{preprocessor}{\#define\ SW0\_GPIO\_FLAGS\ 0}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00105}00105\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00107}00107\ \textcolor{keyword}{static}\ \textcolor{keyword}{struct\ }gpio\_callback\ button\_cb\_data;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00108}00108\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ btn\_flag;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00111}00111\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }device\ *led\_dev;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00112}00112\ \textcolor{keyword}{static}\ uint32\_t\ led\_state;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00114}00114\ \textcolor{comment}{/*\ LED\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00115}\mbox{\hyperlink{lwm2m-client_8c_a840217aee9bd887463dad1b56defb051}{00115}}\ \textcolor{preprocessor}{\#define\ SLEEP\_TIME\_MS\ 10000\ }\textcolor{comment}{//\ BLINKING\ SPEED}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00117}\mbox{\hyperlink{lwm2m-client_8c_a661852bec8ab9683d43ad02881c2f2b5}{00117}}\ \textcolor{preprocessor}{\#define\ LED0\_NODE\ DT\_ALIAS(led0)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00118}00118\ \textcolor{preprocessor}{\#if\ DT\_NODE\_HAS\_STATUS(LED0\_NODE,\ okay)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00119}00119\ \textcolor{preprocessor}{\#define\ LED0\ DT\_GPIO\_LABEL(LED0\_NODE,\ gpios)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00120}00120\ \textcolor{preprocessor}{\#define\ PIN\ DT\_GPIO\_PIN(LED0\_NODE,\ gpios)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00121}00121\ \textcolor{preprocessor}{\#define\ FLAGS\ DT\_GPIO\_FLAGS(LED0\_NODE,\ gpios)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00122}00122\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00123}00123\ \textcolor{comment}{/*\ A\ build\ error\ here\ means\ your\ board\ isn't\ set\ up\ to\ blink\ an\ LED.\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00124}00124\ \textcolor{preprocessor}{\#error\ "{}Unsupported\ board:\ led0\ devicetree\ alias\ is\ not\ defined"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00125}\mbox{\hyperlink{lwm2m-client_8c_ae8d5b4e7e2d9d21caaa4744d385d7cc7}{00125}}\ \textcolor{preprocessor}{\#define\ LED0\ "{}"{}}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00126}\mbox{\hyperlink{lwm2m-client_8c_ae1a27401b7fb01ccb9a82dbddbb54eea}{00126}}\ \textcolor{preprocessor}{\#define\ PIN\ 0}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00127}\mbox{\hyperlink{lwm2m-client_8c_a6ccad09b4a2a06ae178418fdccf5940d}{00127}}\ \textcolor{preprocessor}{\#define\ FLAGS\ 0}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00128}00128\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00130}00130\ \textcolor{comment}{//\ Initiating\ button\ and\ led}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00131}00131\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ config\_devices(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ device*\ button,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ device*\ led);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00132}00132\ \textcolor{comment}{//\ Responds\ to\ button\ 1\ being\ pressed}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00133}00133\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{lwm2m-client_8c_ab4b2c1747e66383dfb0b5679887e1854}{button\_pressed}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ device*\ dev,\ \textcolor{keyword}{struct}\ gpio\_callback*\ cb,\ uint32\_t\ pins);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00137}00137\ \textcolor{comment}{//progress\ bar}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00139}\mbox{\hyperlink{lwm2m-client_8c_aa0318eeefff11dfae9fa384bccf308a0}{00139}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{lwm2m-client_8c_aa0318eeefff11dfae9fa384bccf308a0}{DoProgress}}(\ \textcolor{keywordtype}{char}\ label[],\ \textcolor{keywordtype}{float}\ step,\ \textcolor{keywordtype}{int}\ total\ )\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00140}00140\ \{\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00141}00141\ \ \ \ \ \textcolor{comment}{//progress\ width\ }}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00142}00142\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ pwidth\ =\ 72;\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00143}00143\ \ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00144}00144\ \ \ \ \ \textcolor{comment}{//minus\ label\ len\ }}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00145}00145\ \ \ \ \ \textcolor{keywordtype}{int}\ width\ =\ pwidth\ -\/\ strlen(\ label\ );\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00146}00146\ \ \ \ \ \textcolor{keywordtype}{float}\ pos\ =\ (\ step\ *\ width\ )\ /\ total\ ;\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00147}00147\ \ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00148}00148\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00149}00149\ \ \ \ \ \textcolor{keywordtype}{int}\ percent\ =\ (\ step\ *\ 100\ )\ /\ total;\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00150}00150\ \ \ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00151}00151\ \ \ \ \ \textcolor{comment}{//fill\ progress\ bar\ with\ =\ }}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00152}00152\ \ \ \ \ \textcolor{comment}{//printf("{}["{});\ }}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00153}00153\ \ \ \ \ \textcolor{keywordflow}{for}\ (\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ pos;\ i++\ )\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00154}00154\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%c"{}},\ \textcolor{charliteral}{'|'});\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00155}00155\ \ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00156}00156\ \ \ \ \ \textcolor{comment}{//fill\ progress\ bar\ with\ spaces\ }}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00157}00157\ \ \ \ \ \textcolor{comment}{//printf(\ "{}\%\ *c"{},\ width\ -\/\ pos\ +\ 1,\ ']'\ );\ }}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00158}00158\ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}\ \%3d\%\%\(\backslash\)r"{}},\ percent\ );\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00159}00159\ \ \}\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00160}00160\ \ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00161}\mbox{\hyperlink{lwm2m-client_8c_a307e1c6e7b5394ccbf06aa4b2de9e8ec}{00161}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{lwm2m-client_8c_a307e1c6e7b5394ccbf06aa4b2de9e8ec}{DoSome}}()\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00162}00162\ \{\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00163}00163\ \ \ \ \ \textcolor{keywordtype}{int}\ total\ =\ 1000;\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00164}00164\ \ \ \ \ \textcolor{keywordtype}{float}\ step\ =\ 0;\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00165}00165\ \ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00166}00166\ \ \ \ \ \textcolor{keywordflow}{while}\ (\ step\ <\ total\ )\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00167}00167\ \ \ \ \ \{\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00168}00168\ \ \ \ \ \ \ \ \ \textcolor{comment}{//do\ some\ action\ }}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00169}00169\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sleep(\ 50\ );\ }}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00170}00170\ \ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00171}00171\ \ \ \ \ \ \ \ \ step+=1;\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00172}00172\ \ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00173}00173\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{lwm2m-client_8c_aa0318eeefff11dfae9fa384bccf308a0}{DoProgress}}(\ \textcolor{stringliteral}{"{}Download:\ "{}},\ step,\ total\ );\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00174}00174\ \ \ \ \ \}\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00175}00175\ \ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00176}00176\ \ \ \ \ printf(\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ );\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00177}00177\ \ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00178}00178\ \}\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00181}00181\ \textcolor{keyword}{static}\ \textcolor{keyword}{struct\ }lwm2m\_ctx\ client;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00183}00183\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_LWM2M\_FIRMWARE\_UPDATE\_PULL\_SUPPORT)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00184}00184\ \textcolor{comment}{/*\ Array\ with\ supported\ PULL\ firmware\ update\ protocols\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00185}00185\ \textcolor{keyword}{static}\ uint8\_t\ supported\_protocol[1];}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00186}00186\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00188}00188\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_LWM2M\_DTLS\_SUPPORT)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00189}00189\ \textcolor{preprocessor}{\#define\ TLS\_TAG\ 1}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00191}00191\ \textcolor{comment}{/*\ "{}000102030405060708090a0b0c0d0e0f"{}\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00192}00192\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ client\_psk[]\ =\ \{\ 0x00,\ 0x01,\ 0x02,\ 0x03,\ 0x04,\ 0x05,\ 0x06,\ 0x07,}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x08,\ 0x09,\ 0x0a,\ 0x0b,\ 0x0c,\ 0x0d,\ 0x0e,\ 0x0f\ \};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00195}00195\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ client\_psk\_id[]\ =\ \textcolor{stringliteral}{"{}Client\_identity"{}};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00196}00196\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_LWM2M\_DTLS\_SUPPORT\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00197}00197\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00198}00198\ \textcolor{keyword}{static}\ \textcolor{keyword}{struct\ }k\_sem\ quit\_lock;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00200}00200\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_LWM2M\_FIRMWARE\_UPDATE\_OBJ\_SUPPORT)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00201}00201\ \textcolor{keyword}{static}\ uint8\_t\ firmware\_buf[64];}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00202}00202\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00203}00203\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00204}00204\ \textcolor{comment}{/*\ TODO:\ Move\ to\ a\ pre\ write\ hook\ that\ can\ handle\ ret\ codes\ once\ available\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00205}00205\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ led\_on\_off\_cb(uint16\_t\ obj\_inst\_id,\ uint16\_t\ res\_id,\ uint16\_t\ res\_inst\_id,\ uint8\_t\ *data,}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ data\_len,\ \textcolor{keywordtype}{bool}\ last\_block,\ \textcolor{keywordtype}{size\_t}\ total\_size)}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00207}00207\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00208}00208\ \ \ \ \ \textcolor{keywordtype}{int}\ ret\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00209}00209\ \ \ \ \ uint32\_t\ led\_val;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00211}00211\ \ \ \ \ led\_val\ =\ *(uint8\_t\ *)data;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00212}00212\ \ \ \ \ \textcolor{keywordflow}{if}\ (led\_val\ !=\ led\_state)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00213}00213\ \ \ \ \ \ \ \ \ ret\ =\ gpio\_pin\_set(led\_dev,\ \mbox{\hyperlink{lwm2m-client_8c_aeaffaa5768d0aaceb2d963a109f702f5}{LED\_GPIO\_PIN}},\ (\textcolor{keywordtype}{int})led\_val);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00214}00214\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ret)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00216}00216\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ We\ need\ an\ extra\ hook\ in\ LWM2M\ to\ better\ handle}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00217}00217\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ failures\ before\ writing\ the\ data\ value\ and\ not\ in}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00218}00218\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ post\_write\_cb,\ as\ there\ is\ not\ much\ that\ can\ be}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00219}00219\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ done\ here.}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00220}00220\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ LOG\_ERR(\textcolor{stringliteral}{"{}Fail\ to\ write\ to\ GPIO\ \%d"{}},\ \mbox{\hyperlink{lwm2m-client_8c_aeaffaa5768d0aaceb2d963a109f702f5}{LED\_GPIO\_PIN}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00223}00223\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00224}00224\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00225}00225\ \ \ \ \ \ \ \ \ led\_state\ =\ led\_val;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00226}00226\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ TODO:\ Move\ to\ be\ set\ by\ an\ internal\ post\ write\ function\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00227}00227\ \ \ \ \ \ \ \ \ lwm2m\_engine\_set\_s32(\textcolor{stringliteral}{"{}3311/0/5852"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00228}00228\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00229}00229\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00230}00230\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00231}00231\ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00232}00232\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00233}00233\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ init\_led\_device(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00234}00234\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00235}00235\ \ \ \ \ \textcolor{keywordtype}{int}\ ret;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00236}00236\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00237}00237\ \ \ \ \ led\_dev\ =\ device\_get\_binding(\mbox{\hyperlink{lwm2m-client_8c_a0e37635de72a322420108b45fed9573e}{LED\_GPIO\_PORT}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00238}00238\ \ \ \ \ \textcolor{keywordflow}{if}\ (!led\_dev)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00239}00239\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/ENODEV;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00240}00240\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00242}00242\ \ \ \ \ ret\ =\ gpio\_pin\_configure(led\_dev,\ \mbox{\hyperlink{lwm2m-client_8c_aeaffaa5768d0aaceb2d963a109f702f5}{LED\_GPIO\_PIN}},\ \mbox{\hyperlink{lwm2m-client_8c_a41cf179291397cc0246669265135472a}{LED\_GPIO\_FLAGS}}\ |\ GPIO\_OUTPUT\_INACTIVE);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00243}00243\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00244}00244\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00245}00245\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00247}00247\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00248}00248\ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00249}00249\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00250}00250\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ device\_reboot\_cb(uint16\_t\ obj\_inst\_id,\ uint8\_t\ *args,\ uint16\_t\ args\_len)}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00251}00251\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00252}00252\ \ \ \ \ LOG\_INF(\textcolor{stringliteral}{"{}DEVICE:\ REBOOT"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00253}00253\ \ \ \ \ \textcolor{comment}{/*\ Add\ an\ error\ for\ testing\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00254}00254\ \ \ \ \ lwm2m\_device\_add\_err(LWM2M\_DEVICE\_ERROR\_LOW\_POWER);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00255}00255\ \ \ \ \ \textcolor{comment}{/*\ Change\ the\ battery\ voltage\ for\ testing\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00256}00256\ \ \ \ \ lwm2m\_engine\_set\_s32(\textcolor{stringliteral}{"{}3/0/7/0"{}},\ (bat\_mv\ -\/\ 1));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00257}00257\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00258}00258\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00259}00259\ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00260}00260\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00261}00261\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ device\_factory\_default\_cb(uint16\_t\ obj\_inst\_id,\ uint8\_t\ *args,\ uint16\_t\ args\_len)}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00262}00262\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00263}00263\ \ \ \ \ LOG\_INF(\textcolor{stringliteral}{"{}DEVICE:\ FACTORY\ DEFAULT"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00264}00264\ \ \ \ \ \textcolor{comment}{/*\ Add\ an\ error\ for\ testing\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00265}00265\ \ \ \ \ lwm2m\_device\_add\_err(LWM2M\_DEVICE\_ERROR\_GPS\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00266}00266\ \ \ \ \ \textcolor{comment}{/*\ Change\ the\ USB\ current\ for\ testing\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00267}00267\ \ \ \ \ lwm2m\_engine\_set\_s32(\textcolor{stringliteral}{"{}3/0/8/1"{}},\ (usb\_ma\ -\/\ 1));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00268}00268\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00269}00269\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00270}00270\ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00272}00272\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_LWM2M\_FIRMWARE\_UPDATE\_PULL\_SUPPORT)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00273}00273\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ firmware\_update\_cb(uint16\_t\ obj\_inst\_id,\ uint8\_t\ *args,\ uint16\_t\ args\_len)}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00274}00274\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00275}00275\ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}UPDATE"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00276}00276\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00277}00277\ \ \ \ \ \textcolor{comment}{/*\ TODO:\ kick\ off\ update\ process\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00278}00278\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00279}00279\ \ \ \ \ \textcolor{comment}{/*\ If\ success,\ set\ the\ update\ result\ as\ RESULT\_SUCCESS.}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00280}00280\ \textcolor{comment}{\ \ \ \ \ *\ In\ reality,\ it\ should\ be\ set\ at\ function\ lwm2m\_setup()}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00281}00281\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00282}00282\ \ \ \ \ lwm2m\_engine\_set\_u8(\textcolor{stringliteral}{"{}5/0/3"{}},\ STATE\_IDLE);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00283}00283\ \ \ \ \ lwm2m\_engine\_set\_u8(\textcolor{stringliteral}{"{}5/0/5"{}},\ RESULT\_SUCCESS);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00284}00284\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00285}00285\ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00286}00286\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00287}00287\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00288}00288\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ *temperature\_get\_buf(uint16\_t\ obj\_inst\_id,\ uint16\_t\ res\_id,\ uint16\_t\ res\_inst\_id,}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ *data\_len)}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00290}00290\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00291}00291\ \ \ \ \ \textcolor{comment}{/*\ Last\ read\ temperature\ value,\ will\ use\ 25.5C\ if\ no\ sensor\ available\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00292}00292\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ v\ =\ 25.5;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00293}00293\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }device\ *dev\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00294}00294\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00295}00295\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_FXOS8700\_TEMP)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00296}00296\ \ \ \ \ dev\ =\ device\_get\_binding(DT\_LABEL(DT\_INST(0,\ nxp\_fxos8700)));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00297}00297\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00298}00298\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00299}00299\ \ \ \ \ \textcolor{keywordflow}{if}\ (dev\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00300}00300\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }sensor\_value\ val;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00301}00301\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00302}00302\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sensor\_sample\_fetch(dev))\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00303}00303\ \ \ \ \ \ \ \ \ \ \ \ \ LOG\_ERR(\textcolor{stringliteral}{"{}temperature\ data\ update\ failed"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00304}00304\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00305}00305\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00306}00306\ \ \ \ \ \ \ \ \ sensor\_channel\_get(dev,\ SENSOR\_CHAN\_DIE\_TEMP,\ \&val);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00307}00307\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00308}00308\ \ \ \ \ \ \ \ \ v\ =\ sensor\_value\_to\_double(\&val);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00309}00309\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00310}00310\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}LWM2M\ temperature\ set\ to\ \%f"{}},\ v);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00311}00311\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00312}00312\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00313}00313\ \ \ \ \ \textcolor{comment}{/*\ echo\ the\ value\ back\ through\ the\ engine\ to\ update\ min/max\ values\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00314}00314\ \ \ \ \ lwm2m\_engine\_set\_float(\textcolor{stringliteral}{"{}3303/0/5700"{}},\ \&v);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00315}00315\ \ \ \ \ *data\_len\ =\ \textcolor{keyword}{sizeof}(v);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00316}00316\ \ \ \ \ \textcolor{keywordflow}{return}\ \&v;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00317}00317\ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00318}00318\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00319}00319\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_LWM2M\_FIRMWARE\_UPDATE\_OBJ\_SUPPORT)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00320}00320\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ *firmware\_get\_buf(uint16\_t\ obj\_inst\_id,\ uint16\_t\ res\_id,\ uint16\_t\ res\_inst\_id,}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00321}00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ *data\_len)}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00322}00322\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00323}00323\ \ \ \ \ *data\_len\ =\ \textcolor{keyword}{sizeof}(firmware\_buf);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00324}00324\ \ \ \ \ \textcolor{keywordflow}{return}\ firmware\_buf;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00325}00325\ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00326}00326\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00327}00327\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ firmware\_block\_received\_cb(uint16\_t\ obj\_inst\_id,\ uint16\_t\ res\_id,\ uint16\_t\ res\_inst\_id,}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00328}00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *data,\ uint16\_t\ data\_len,\ \textcolor{keywordtype}{bool}\ last\_block,}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00329}00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ total\_size)}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00330}00330\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00331}00331\ \ \ \ \ LOG\_INF(\textcolor{stringliteral}{"{}FIRMWARE:\ BLOCK\ RECEIVED:\ len:\%u\ last\_block:\%d"{}},\ data\_len,\ last\_block);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00332}00332\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00333}00333\ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00334}00334\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00335}00335\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00336}00336\ \textcolor{comment}{/*\ An\ example\ data\ validation\ callback.\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00337}00337\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ timer\_on\_off\_validate\_cb(uint16\_t\ obj\_inst\_id,\ uint16\_t\ res\_id,\ uint16\_t\ res\_inst\_id,}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00338}00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *data,\ uint16\_t\ data\_len,\ \textcolor{keywordtype}{bool}\ last\_block,}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ total\_size)}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00340}00340\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00341}00341\ \ \ \ \ LOG\_INF(\textcolor{stringliteral}{"{}Validating\ On/Off\ data"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00342}00342\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00343}00343\ \ \ \ \ \textcolor{keywordflow}{if}\ (data\_len\ !=\ 1)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00344}00344\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00345}00345\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00346}00346\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00347}00347\ \ \ \ \ \textcolor{keywordflow}{if}\ (*data\ >\ 1)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00348}00348\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00349}00349\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00350}00350\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00351}00351\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00352}00352\ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00353}00353\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00354}00354\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ timer\_digital\_state\_cb(uint16\_t\ obj\_inst\_id,\ uint16\_t\ res\_id,\ uint16\_t\ res\_inst\_id,}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00355}00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *data,\ uint16\_t\ data\_len,\ \textcolor{keywordtype}{bool}\ last\_block,}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00356}00356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ total\_size)}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00357}00357\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00358}00358\ \ \ \ \ \textcolor{keywordtype}{bool}\ *digital\_state\ =\ (\textcolor{keywordtype}{bool}\ *)data;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00359}00359\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00360}00360\ \ \ \ \ \textcolor{keywordflow}{if}\ (*digital\_state)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00361}00361\ \ \ \ \ \ \ \ \ LOG\_INF(\textcolor{stringliteral}{"{}TIMER:\ ON"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00362}00362\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00363}00363\ \ \ \ \ \ \ \ \ LOG\_INF(\textcolor{stringliteral}{"{}TIMER:\ OFF"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00364}00364\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00365}00365\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00366}00366\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00367}00367\ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00368}00368\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00369}00369\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ lwm2m\_setup(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00370}00370\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00371}00371\ \ \ \ \ \textcolor{keywordtype}{int}\ ret;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00372}00372\ \ \ \ \ \textcolor{keywordtype}{char}\ *server\_url;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00373}00373\ \ \ \ \ uint16\_t\ server\_url\_len;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00374}00374\ \ \ \ \ uint8\_t\ server\_url\_flags;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00375}00375\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00376}00376\ \ \ \ \ \textcolor{comment}{/*\ setup\ SECURITY\ object\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00377}00377\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00378}00378\ \ \ \ \ \textcolor{comment}{/*\ Server\ URL\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00379}00379\ \ \ \ \ ret\ =\ lwm2m\_engine\_get\_res\_data(\textcolor{stringliteral}{"{}0/0/0"{}},\ (\textcolor{keywordtype}{void}\ **)\&server\_url,\ \&server\_url\_len,}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00380}00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&server\_url\_flags);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00381}00381\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ <\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00382}00382\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00383}00383\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00384}00384\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00385}00385\ \ \ \ \ snprintk(server\_url,\ server\_url\_len,\ \textcolor{stringliteral}{"{}coap\%s//\%s\%s\%s"{}},}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00386}00386\ \ \ \ \ \ \ \ \ \ IS\_ENABLED(CONFIG\_LWM2M\_DTLS\_SUPPORT)\ ?\ \textcolor{stringliteral}{"{}s:"{}}\ :\ \textcolor{stringliteral}{"{}:"{}},}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00387}00387\ \ \ \ \ \ \ \ \ \ strchr(SERVER\_ADDR,\ \textcolor{stringliteral}{':'})\ ?\ \textcolor{stringliteral}{"{}["{}}\ :\ \textcolor{stringliteral}{"{}"{}},\ SERVER\_ADDR,}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00388}00388\ \ \ \ \ \ \ \ \ \ strchr(SERVER\_ADDR,\ \textcolor{stringliteral}{':'})\ ?\ \textcolor{stringliteral}{"{}]"{}}\ :\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00389}00389\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00390}00390\ \ \ \ \ \textcolor{comment}{/*\ Security\ Mode\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00391}00391\ \ \ \ \ lwm2m\_engine\_set\_u8(\textcolor{stringliteral}{"{}0/0/2"{}},\ IS\_ENABLED(CONFIG\_LWM2M\_DTLS\_SUPPORT)\ ?\ 0\ :\ 3);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00392}00392\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_LWM2M\_DTLS\_SUPPORT)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00393}00393\ \ \ \ \ lwm2m\_engine\_set\_string(\textcolor{stringliteral}{"{}0/0/0"{}},\ \textcolor{stringliteral}{"{}coap://10.0.2.170:5683"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00394}00394\ \ \ \ \ lwm2m\_engine\_set\_string(\textcolor{stringliteral}{"{}0/0/3"{}},\ (\textcolor{keywordtype}{char}\ *)client\_psk\_id);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00395}00395\ \ \ \ \ lwm2m\_engine\_set\_opaque(\textcolor{stringliteral}{"{}0/0/5"{}},\ (\textcolor{keywordtype}{void}\ *)client\_psk,\ \textcolor{keyword}{sizeof}(client\_psk));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00396}00396\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_LWM2M\_DTLS\_SUPPORT\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00397}00397\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00398}00398\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_LWM2M\_RD\_CLIENT\_SUPPORT\_BOOTSTRAP)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00399}00399\ \ \ \ \ \textcolor{comment}{/*\ Mark\ 1st\ instance\ of\ security\ object\ as\ a\ bootstrap\ server\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00400}00400\ \ \ \ \ lwm2m\_engine\_set\_u8(\textcolor{stringliteral}{"{}0/0/1"{}},\ 1);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00401}00401\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00402}00402\ \ \ \ \ \textcolor{comment}{/*\ Create\ 2nd\ instance\ of\ security\ object\ needed\ for\ bootstrap\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00403}00403\ \ \ \ \ lwm2m\_engine\_create\_obj\_inst(\textcolor{stringliteral}{"{}0/1"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00404}00404\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00405}00405\ \ \ \ \ \textcolor{comment}{/*\ Match\ Security\ object\ instance\ with\ a\ Server\ object\ instance\ with}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00406}00406\ \textcolor{comment}{\ \ \ \ \ *\ Short\ Server\ ID.}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00407}00407\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00408}00408\ \ \ \ \ lwm2m\_engine\_set\_u16(\textcolor{stringliteral}{"{}0/0/10"{}},\ 101);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00409}00409\ \ \ \ \ lwm2m\_engine\_set\_u16(\textcolor{stringliteral}{"{}1/0/0"{}},\ 101);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00410}00410\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00411}00411\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00412}00412\ \ \ \ \ \textcolor{comment}{/*\ setup\ SERVER\ object\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00413}00413\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00414}00414\ \ \ \ \ \textcolor{comment}{/*\ setup\ DEVICE\ object\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00415}00415\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00416}00416\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3/0/0"{}},\ \mbox{\hyperlink{lwm2m-client_8c_a3dad5fdb23da7f63cec1921edccfd696}{CLIENT\_MANUFACTURER}},\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{lwm2m-client_8c_a3dad5fdb23da7f63cec1921edccfd696}{CLIENT\_MANUFACTURER}}),}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00417}00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LWM2M\_RES\_DATA\_FLAG\_RO);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00418}00418\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3/0/1"{}},\ \mbox{\hyperlink{lwm2m-client_8c_ad89a0babb85a3a1c151c1e24b6893200}{CLIENT\_MODEL\_NUMBER}},\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{lwm2m-client_8c_ad89a0babb85a3a1c151c1e24b6893200}{CLIENT\_MODEL\_NUMBER}}),}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00419}00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LWM2M\_RES\_DATA\_FLAG\_RO);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00420}00420\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3/0/2"{}},\ \mbox{\hyperlink{lwm2m-client_8c_a1c2e709b69f2bbd871bdbbb175041fbc}{CLIENT\_SERIAL\_NUMBER}},\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{lwm2m-client_8c_a1c2e709b69f2bbd871bdbbb175041fbc}{CLIENT\_SERIAL\_NUMBER}}),}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00421}00421\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LWM2M\_RES\_DATA\_FLAG\_RO);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00422}00422\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3/0/3"{}},\ \mbox{\hyperlink{lwm2m-client_8c_a8ce14be746b2a10ea6ba353f8d47ac99}{CLIENT\_FIRMWARE\_VER}},\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{lwm2m-client_8c_a8ce14be746b2a10ea6ba353f8d47ac99}{CLIENT\_FIRMWARE\_VER}}),}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00423}00423\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LWM2M\_RES\_DATA\_FLAG\_RO);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00424}00424\ \ \ \ \ lwm2m\_engine\_register\_exec\_callback(\textcolor{stringliteral}{"{}3/0/4"{}},\ device\_reboot\_cb);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00425}00425\ \ \ \ \ lwm2m\_engine\_register\_exec\_callback(\textcolor{stringliteral}{"{}3/0/5"{}},\ device\_factory\_default\_cb);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00426}00426\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3/0/9"{}},\ \&bat\_level,\ \textcolor{keyword}{sizeof}(bat\_level),\ 0);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00427}00427\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3/0/10"{}},\ \&mem\_free,\ \textcolor{keyword}{sizeof}(mem\_free),\ 0);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00428}00428\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3/0/17"{}},\ \mbox{\hyperlink{lwm2m-client_8c_a21f0ceb3c0b0fdde9af87758d5386cba}{CLIENT\_DEVICE\_TYPE}},\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{lwm2m-client_8c_a21f0ceb3c0b0fdde9af87758d5386cba}{CLIENT\_DEVICE\_TYPE}}),}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00429}00429\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LWM2M\_RES\_DATA\_FLAG\_RO);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00430}00430\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3/0/18"{}},\ \mbox{\hyperlink{lwm2m-client_8c_a63680a451f0689f9e8916d4f688e9208}{CLIENT\_HW\_VER}},\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{lwm2m-client_8c_a63680a451f0689f9e8916d4f688e9208}{CLIENT\_HW\_VER}}),}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00431}00431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LWM2M\_RES\_DATA\_FLAG\_RO);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00432}00432\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3/0/20"{}},\ \&bat\_status,\ \textcolor{keyword}{sizeof}(bat\_status),\ 0);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00433}00433\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3/0/21"{}},\ \&mem\_total,\ \textcolor{keyword}{sizeof}(mem\_total),\ 0);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00434}00434\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00435}00435\ \ \ \ \ \textcolor{comment}{/*\ add\ power\ source\ resource\ instances\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00436}00436\ \ \ \ \ lwm2m\_engine\_create\_res\_inst(\textcolor{stringliteral}{"{}3/0/6/0"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00437}00437\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3/0/6/0"{}},\ \&bat\_idx,\ \textcolor{keyword}{sizeof}(bat\_idx),\ 0);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00438}00438\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00439}00439\ \ \ \ \ lwm2m\_engine\_create\_res\_inst(\textcolor{stringliteral}{"{}3/0/7/0"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00440}00440\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3/0/7/0"{}},\ \&bat\_mv,\ \textcolor{keyword}{sizeof}(bat\_mv),\ 0);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00441}00441\ \ \ \ \ lwm2m\_engine\_create\_res\_inst(\textcolor{stringliteral}{"{}3/0/8/0"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00442}00442\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3/0/8/0"{}},\ \&bat\_ma,\ \textcolor{keyword}{sizeof}(bat\_ma),\ 0);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00443}00443\ \ \ \ \ lwm2m\_engine\_create\_res\_inst(\textcolor{stringliteral}{"{}3/0/6/1"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00444}00444\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3/0/6/1"{}},\ \&usb\_idx,\ \textcolor{keyword}{sizeof}(usb\_idx),\ 0);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00445}00445\ \ \ \ \ lwm2m\_engine\_create\_res\_inst(\textcolor{stringliteral}{"{}3/0/7/1"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00446}00446\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3/0/7/1"{}},\ \&usb\_mv,\ \textcolor{keyword}{sizeof}(usb\_mv),\ 0);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00447}00447\ \ \ \ \ lwm2m\_engine\_create\_res\_inst(\textcolor{stringliteral}{"{}3/0/8/1"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00448}00448\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3/0/8/1"{}},\ \&usb\_ma,\ \textcolor{keyword}{sizeof}(usb\_ma),\ 0);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00449}00449\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00450}00450\ \ \ \ \ \textcolor{comment}{/*\ setup\ FIRMWARE\ object\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00451}00451\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00452}00452\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_LWM2M\_FIRMWARE\_UPDATE\_OBJ\_SUPPORT)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00453}00453\ \ \ \ \ \textcolor{comment}{/*\ setup\ data\ buffer\ for\ block-\/wise\ transfer\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00454}00454\ \ \ \ \ lwm2m\_engine\_register\_pre\_write\_callback(\textcolor{stringliteral}{"{}5/0/0"{}},\ firmware\_get\_buf);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00455}00455\ \ \ \ \ lwm2m\_firmware\_set\_write\_cb(firmware\_block\_received\_cb);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00456}00456\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00457}00457\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_LWM2M\_FIRMWARE\_UPDATE\_PULL\_SUPPORT)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00458}00458\ \ \ \ \ lwm2m\_engine\_create\_res\_inst(\textcolor{stringliteral}{"{}5/0/8/0"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00459}00459\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}5/0/8/0"{}},\ \&supported\_protocol[0],\ \textcolor{keyword}{sizeof}(supported\_protocol[0]),}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00460}00460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00461}00461\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00462}00462\ \ \ \ \ lwm2m\_firmware\_set\_update\_cb(firmware\_update\_cb);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00463}00463\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00464}00464\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00465}00465\ \ \ \ \ \textcolor{comment}{/*\ setup\ TEMP\ SENSOR\ object\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00466}00466\ \ \ \ \ lwm2m\_engine\_create\_obj\_inst(\textcolor{stringliteral}{"{}3303/0"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00467}00467\ \ \ \ \ lwm2m\_engine\_register\_read\_callback(\textcolor{stringliteral}{"{}3303/0/5700"{}},\ temperature\_get\_buf);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00468}00468\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00469}00469\ \ \ \ \ \textcolor{comment}{/*\ IPSO:\ Light\ Control\ object\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00470}00470\ \ \ \ \ \textcolor{keywordflow}{if}\ (init\_led\_device()\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00471}00471\ \ \ \ \ \ \ \ \ lwm2m\_engine\_create\_obj\_inst(\textcolor{stringliteral}{"{}3311/0"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00472}00472\ \ \ \ \ \ \ \ \ lwm2m\_engine\_register\_post\_write\_callback(\textcolor{stringliteral}{"{}3311/0/5850"{}},\ led\_on\_off\_cb);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00473}00473\ \ \ \ \ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3311/0/5750"{}},\ \mbox{\hyperlink{lwm2m-client_8c_ad84e693a37f12618885a50f95bcc2368}{LIGHT\_NAME}},\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{lwm2m-client_8c_ad84e693a37f12618885a50f95bcc2368}{LIGHT\_NAME}}),}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00474}00474\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LWM2M\_RES\_DATA\_FLAG\_RO);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00475}00475\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00476}00476\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00477}00477\ \ \ \ \ \textcolor{comment}{/*\ IPSO:\ Timer\ object\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00478}00478\ \ \ \ \ lwm2m\_engine\_create\_obj\_inst(\textcolor{stringliteral}{"{}3340/0"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00479}00479\ \ \ \ \ lwm2m\_engine\_register\_validate\_callback(\textcolor{stringliteral}{"{}3340/0/5850"{}},\ timer\_on\_off\_validate\_cb);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00480}00480\ \ \ \ \ lwm2m\_engine\_register\_post\_write\_callback(\textcolor{stringliteral}{"{}3340/0/5543"{}},\ timer\_digital\_state\_cb);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00481}00481\ \ \ \ \ lwm2m\_engine\_set\_res\_data(\textcolor{stringliteral}{"{}3340/0/5750"{}},\ \mbox{\hyperlink{lwm2m-client_8c_a3e221425db69a695a3ccb7bced1ad749}{TIMER\_NAME}},\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{lwm2m-client_8c_a3e221425db69a695a3ccb7bced1ad749}{TIMER\_NAME}}),}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00482}00482\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LWM2M\_RES\_DATA\_FLAG\_RO);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00483}00483\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00484}00484\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00485}00485\ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00486}00486\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00487}00487\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ rd\_client\_event(\textcolor{keyword}{struct}\ lwm2m\_ctx\ *client,\ \textcolor{keyword}{enum}\ lwm2m\_rd\_client\_event\ client\_event)}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00488}00488\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00489}00489\ \ \ \ \ \textcolor{keywordflow}{switch}\ (client\_event)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00490}00490\ \ \ \ \ \textcolor{keywordflow}{case}\ LWM2M\_RD\_CLIENT\_EVENT\_NONE:}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00491}00491\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ do\ nothing\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00492}00492\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00493}00493\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00494}00494\ \ \ \ \ \textcolor{keywordflow}{case}\ LWM2M\_RD\_CLIENT\_EVENT\_BOOTSTRAP\_REG\_FAILURE:}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00495}00495\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}Bootstrap\ registration\ failure!"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00496}00496\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00497}00497\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00498}00498\ \ \ \ \ \textcolor{keywordflow}{case}\ LWM2M\_RD\_CLIENT\_EVENT\_BOOTSTRAP\_REG\_COMPLETE:}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00499}00499\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}Bootstrap\ registration\ complete"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00500}00500\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00501}00501\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00502}00502\ \ \ \ \ \textcolor{keywordflow}{case}\ LWM2M\_RD\_CLIENT\_EVENT\_BOOTSTRAP\_TRANSFER\_COMPLETE:}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00503}00503\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}Bootstrap\ transfer\ complete"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00504}00504\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00505}00505\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00506}00506\ \ \ \ \ \textcolor{keywordflow}{case}\ LWM2M\_RD\_CLIENT\_EVENT\_REGISTRATION\_FAILURE:}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00507}00507\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}Registration\ failure!"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00508}00508\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00509}00509\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00510}00510\ \ \ \ \ \textcolor{keywordflow}{case}\ LWM2M\_RD\_CLIENT\_EVENT\_REGISTRATION\_COMPLETE:}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00511}00511\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}Registration\ complete"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00512}00512\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00513}00513\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00514}00514\ \ \ \ \ \textcolor{keywordflow}{case}\ LWM2M\_RD\_CLIENT\_EVENT\_REG\_UPDATE\_FAILURE:}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00515}00515\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}Registration\ update\ failure!"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00516}00516\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00517}00517\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00518}00518\ \ \ \ \ \textcolor{keywordflow}{case}\ LWM2M\_RD\_CLIENT\_EVENT\_REG\_UPDATE\_COMPLETE:}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00519}00519\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}Registration\ update\ complete"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00520}00520\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00521}00521\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00522}00522\ \ \ \ \ \textcolor{keywordflow}{case}\ LWM2M\_RD\_CLIENT\_EVENT\_DEREGISTER\_FAILURE:}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00523}00523\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}Deregister\ failure!"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00524}00524\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00525}00525\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00526}00526\ \ \ \ \ \textcolor{keywordflow}{case}\ LWM2M\_RD\_CLIENT\_EVENT\_DISCONNECT:}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00527}00527\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}Disconnected"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00528}00528\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00529}00529\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00530}00530\ \ \ \ \ \textcolor{keywordflow}{case}\ LWM2M\_RD\_CLIENT\_EVENT\_QUEUE\_MODE\_RX\_OFF:}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00531}00531\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}Queue\ mode\ RX\ window\ closed"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00532}00532\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00533}00533\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00534}00534\ \ \ \ \ \textcolor{keywordflow}{case}\ LWM2M\_RD\_CLIENT\_EVENT\_NETWORK\_ERROR:}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00535}00535\ \ \ \ \ \ \ \ \ LOG\_ERR(\textcolor{stringliteral}{"{}LwM2M\ engine\ reported\ a\ network\ erorr."{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00536}00536\ \ \ \ \ \ \ \ \ lwm2m\_rd\_client\_stop(client,\ rd\_client\_event,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00537}00537\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00538}00538\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00539}00539\ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00540}00540\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00541}00541\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ observe\_cb(\textcolor{keyword}{enum}\ lwm2m\_observe\_event\ event,\ \textcolor{keyword}{struct}\ lwm2m\_obj\_path\ *path,\ \textcolor{keywordtype}{void}\ *user\_data)}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00542}00542\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00543}00543\ \ \ \ \ \textcolor{keywordtype}{char}\ buf[LWM2M\_MAX\_PATH\_STR\_LEN];}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00544}00544\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00545}00545\ \ \ \ \ \textcolor{keywordflow}{switch}\ (event)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00546}00546\ \ \ \ \ \textcolor{keywordflow}{case}\ LWM2M\_OBSERVE\_EVENT\_OBSERVER\_ADDED:}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00547}00547\ \ \ \ \ \ \ \ \ LOG\_INF(\textcolor{stringliteral}{"{}Observer\ added\ for\ \%s"{}},\ lwm2m\_path\_log\_strdup(buf,\ path));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00548}00548\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00549}00549\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00550}00550\ \ \ \ \ \textcolor{keywordflow}{case}\ LWM2M\_OBSERVE\_EVENT\_OBSERVER\_REMOVED:}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00551}00551\ \ \ \ \ \ \ \ \ LOG\_INF(\textcolor{stringliteral}{"{}Observer\ removed\ for\ \%s"{}},\ lwm2m\_path\_log\_strdup(buf,\ path));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00552}00552\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00553}00553\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00554}00554\ \ \ \ \ \textcolor{keywordflow}{case}\ LWM2M\_OBSERVE\_EVENT\_NOTIFY\_ACK:}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00555}00555\ \ \ \ \ \ \ \ \ LOG\_INF(\textcolor{stringliteral}{"{}Notify\ acknowledged\ for\ \%s"{}},\ lwm2m\_path\_log\_strdup(buf,\ path));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00556}00556\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00557}00557\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00558}00558\ \ \ \ \ \textcolor{keywordflow}{case}\ LWM2M\_OBSERVE\_EVENT\_NOTIFY\_TIMEOUT:}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00559}00559\ \ \ \ \ \ \ \ \ LOG\_INF(\textcolor{stringliteral}{"{}Notify\ timeout\ for\ \%s,\ trying\ registration\ update"{}},}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00560}00560\ \ \ \ \ \ \ \ \ \ \ \ \ lwm2m\_path\_log\_strdup(buf,\ path));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00561}00561\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00562}00562\ \ \ \ \ \ \ \ \ lwm2m\_rd\_client\_update();}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00563}00563\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00564}00564\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00565}00565\ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00566}00566\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00567}\mbox{\hyperlink{lwm2m-client_8c_a6288eba0f8e8ad3ab1544ad731eb7667}{00567}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{lwm2m-client_8c_a6288eba0f8e8ad3ab1544ad731eb7667}{main}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00568}00568\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00569}00569\ \ \ \ \ uint32\_t\ flags\ =\ IS\_ENABLED(CONFIG\_LWM2M\_RD\_CLIENT\_SUPPORT\_BOOTSTRAP)\ ?}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00570}00570\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LWM2M\_RD\_CLIENT\_FLAG\_BOOTSTRAP\ :}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00571}00571\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00572}00572\ \ \ \ \ \textcolor{keywordtype}{int}\ ret;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00573}00573\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00574}00574\ \ \ \ \ LOG\_INF(\mbox{\hyperlink{lwm2m-client_8c_a6c47c73f6041203a8cf8bb24e5b2e8ed}{APP\_BANNER}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00575}00575\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00576}00576\ \ \ \ \ k\_sem\_init(\&quit\_lock,\ 0,\ K\_SEM\_MAX\_LIMIT);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00577}00577\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00578}00578\ \ \ \ \ ret\ =\ lwm2m\_setup();}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00579}00579\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ <\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00580}00580\ \ \ \ \ \ \ \ \ LOG\_ERR(\textcolor{stringliteral}{"{}Cannot\ setup\ LWM2M\ fields\ (\%d)"{}},\ ret);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00581}00581\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00582}00582\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00583}00583\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00584}00584\ \ \ \ \ (void)memset(\&client,\ 0x0,\ \textcolor{keyword}{sizeof}(client));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00585}00585\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_LWM2M\_DTLS\_SUPPORT)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00586}00586\ \ \ \ \ client.tls\_tag\ =\ TLS\_TAG;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00587}00587\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00588}00588\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00589}00589\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_HWINFO)}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00590}00590\ \ \ \ \ uint8\_t\ dev\_id[16];}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00591}00591\ \ \ \ \ \textcolor{keywordtype}{char}\ dev\_str[33];}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00592}00592\ \ \ \ \ ssize\_t\ length;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00593}00593\ \ \ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00594}00594\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00595}00595\ \ \ \ \ (void)memset(dev\_id,\ 0x0,\ \textcolor{keyword}{sizeof}(dev\_id));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00596}00596\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00597}00597\ \ \ \ \ \textcolor{comment}{/*\ Obtain\ the\ device\ id\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00598}00598\ \ \ \ \ length\ =\ hwinfo\_get\_device\_id(dev\_id,\ \textcolor{keyword}{sizeof}(dev\_id));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00599}00599\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00600}00600\ \ \ \ \ \textcolor{comment}{/*\ If\ this\ fails\ for\ some\ reason,\ use\ all\ zeros\ instead\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00601}00601\ \ \ \ \ \textcolor{keywordflow}{if}\ (length\ <=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00602}00602\ \ \ \ \ \ \ \ \ length\ =\ \textcolor{keyword}{sizeof}(dev\_id);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00603}00603\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00604}00604\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00605}00605\ \ \ \ \ \textcolor{comment}{/*\ Render\ the\ obtained\ serial\ number\ in\ hexadecimal\ representation\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00606}00606\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ length;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00607}00607\ \ \ \ \ \ \ \ \ sprintf(\&dev\_str[i\ *\ 2],\ \textcolor{stringliteral}{"{}\%02x"{}},\ dev\_id[i]);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00608}00608\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00609}00609\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00610}00610\ \ \ \ \ lwm2m\_rd\_client\_start(\&client,\ dev\_str,\ flags,\ rd\_client\_event,\ observe\_cb);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00611}00611\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00612}00612\ \ \ \ \ \textcolor{comment}{/*\ client.sec\_obj\_inst\ is\ 0\ as\ a\ starting\ point\ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00613}00613\ \ \ \ \ lwm2m\_rd\_client\_start(\&client,\ CONFIG\_BOARD,\ flags,\ rd\_client\_event,\ observe\_cb);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00614}00614\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00615}00615\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00618}00618\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }device*\ dev\ =\ device\_get\_binding(DT\_LABEL(DT\_INST(0,\ st\_vl53l0x)));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00619}00619\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00621}00621\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }device\ *led,\ *button;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00622}00622\ \ \ \ \ \textcolor{keywordtype}{bool}\ led\_is\_on\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00623}00623\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00624}00624\ \ \ \ \ led\ =\ device\_get\_binding(\mbox{\hyperlink{lwm2m-client_8c_ae8d5b4e7e2d9d21caaa4744d385d7cc7}{LED0}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00625}00625\ \ \ \ \ button\ =\ device\_get\_binding(\mbox{\hyperlink{lwm2m-client_8c_a8854fd36b98412fe777d85b2fc427e44}{SW0\_GPIO\_LABEL}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00627}00627\ \ \ \ \ \textcolor{comment}{//\ struct\ for\ reading\ the\ sensor\ values\ (universal\ library\ in\ zephyr,\ I\ think?).}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00628}00628\ \ \ \ \ \textcolor{keyword}{struct\ }sensor\_value\ dist,\ prox;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00629}00629\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00630}00630\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00631}00631\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structflash__mem}{flash\_mem}}*\ flash\_pt;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00632}00632\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00633}00633\ \ \ \ \ flash\_pt\ =\ k\_malloc(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structflash__mem}{flash\_mem}}));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00634}00634\ \ \ \ \ flash\_pt-\/>\mbox{\hyperlink{structflash__mem_aa1f78abf61a59cbd09d602ab4485e7d1}{device}}\ =\ device\_get\_binding(DT\_CHOSEN\_ZEPHYR\_FLASH\_CONTROLLER\_LABEL);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00635}00635\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00636}00636\ \ \ \ \ \textcolor{comment}{//\ strings\ are\ used\ to\ save\ the\ data,\ because\ Golioth\ uses\ CoAP\ Protocol\ and\ can\ send\ only\ Plain\ Text.}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00637}00637\ \ \ \ \ \textcolor{keywordtype}{char}\ str\_distance[64];}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00638}00638\ \ \ \ \ \textcolor{keywordtype}{char}\ str\_proximity[32];}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00639}00639\ \ \ \ \ \textcolor{keywordtype}{int}\ err;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00640}00640\ \ \ \ \ \textcolor{keywordtype}{int}\ dret;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00641}00641\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00643}00643\ \ \ \ \ \textcolor{keywordflow}{if}\ (!led\ ||\ !button\ ||\ !flash\_pt-\/>\mbox{\hyperlink{structflash__mem_aa1f78abf61a59cbd09d602ab4485e7d1}{device}})\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00644}00644\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00645}00645\ \ \ \ \ \textcolor{keywordflow}{if}\ (config\_devices(button,\ led))\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00647}00647\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00649}00649\ \ \ \ \ \textcolor{keywordflow}{if}\ (!boot\_is\_img\_confirmed())\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00650}00650\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00651}00651\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ There\ is\ no\ shared\ context\ between\ previous\ update\ request}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00652}00652\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ and\ current\ boot,\ so\ treat\ current\ image\ 'confirmed'\ flag\ as}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00653}00653\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ an\ indication\ whether\ previous\ update\ process\ was\ successful}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00654}00654\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ or\ not.}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00655}00655\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00656}00656\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00657}00657\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}|\ \ \ \ \ \ Current\ Firware\ Version:\ (\%s)\ \ \ \ \ \ \ \ \ \ \ \ \ |"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00658}00658\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00659}00659\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00660}00660\ \ \ \ \ \ \ \ \ err\ =\ boot\_write\_img\_confirmed();}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00661}00661\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (err)\ \{\ LOG\_ERR(\textcolor{stringliteral}{"{}Failed\ to\ confirm\ image:\ \%d"{}},\ err);\ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00662}00662\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00663}00663\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00664}00664\ \ \ \ \ \textcolor{keywordflow}{while}\ (1)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00665}00665\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00666}00666\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00667}00667\ \ \ \ \ \ \ \ \ ret\ =\ sensor\_sample\_fetch(dev);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00668}00668\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ret)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00669}00669\ \ \ \ \ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}sensor\_sample\_fetch\ failed\ ret\ \%d\(\backslash\)n"{}},\ ret);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00670}00670\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00671}00671\ \ \ \ \ \ \ \ \ \ \ \ \ k\_sleep(K\_SECONDS(1));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00672}00672\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00673}00673\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00674}00674\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00675}00675\ \ \ \ \ \ \ \ \ str\_distance[\textcolor{keyword}{sizeof}(sensor\_value\_to\_double(\&dist))\ -\/\ 1]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00676}00676\ \ \ \ \ \ \ \ \ str\_proximity[\textcolor{keyword}{sizeof}(prox)]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00677}00677\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00678}00678\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Proximity}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00679}00679\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00680}00680\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Variable\ ret\ saves\ the\ state\ of\ the\ data\ taken\ from\ the\ sensor.}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00681}00681\ \ \ \ \ \ \ \ \ ret\ =\ sensor\_channel\_get(dev,\ SENSOR\_CHAN\_PROX,\ \&prox);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00682}00682\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Prints\ in\ UART\ the\ received\ data.}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00683}00683\ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}=========================================================================================================================\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00684}00684\ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}\(\backslash\)n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00685}00685\ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}\(\backslash\)n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DELTA\ 1.0.4\ ST\_VL53L0X\ Data:\ \(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00686}00686\ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}},\ prox);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00687}00687\ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ Proximity\ is\ \%d\ \ \ \ \ \ \ |\(\backslash\)n"{}},\ prox);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00688}00688\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00689}00689\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Distance}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00690}00690\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00691}00691\ \ \ \ \ \ \ \ \ ret\ =\ sensor\_channel\_get(dev,\ SENSOR\_CHAN\_DISTANCE,\ \&dist);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00692}00692\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ Distance\ \ is\ \%.3fm\ \ |\(\backslash\)n"{}},\ sensor\_value\_to\_double(\&dist));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00693}00693\ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n\(\backslash\)n\(\backslash\)n"{}},\ prox);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00694}00694\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00695}00695\ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}=========================================================================================================================\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00696}00696\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00697}00697\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ snprintk\ \&\&\ snprintf(same\ usage\ in\ Zephyr,\ I\ think?)\ are\ necessary\ to\ send\ log\ to\ LightDB\ Stream.bx}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00698}00698\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00699}00699\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ USAGE:}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00700}00700\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00701}00701\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Composes\ a\ string\ with\ the\ same\ text\ that\ would\ be\ printed\ if\ format\ was\ used\ on\ printf,\ but\ instead\ of\ being\ printed,}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00702}00702\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ content\ is\ stored\ as\ a\ C\ string\ in\ the\ buffer\ pointed\ by\ s\ (taking\ n\ as\ the\ maximum\ buffer\ capacity\ to\ fill).}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00703}00703\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00704}00704\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00705}00705\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00706}00706\ \ \ \ \ \ \ \ \ snprintf(str\_proximity,\ \textcolor{keyword}{sizeof}(str\_proximity),\ \textcolor{stringliteral}{"{}\%d"{}},\ prox);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00707}00707\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00708}00708\ \ \ \ \ \ \ \ \ str\_proximity[\textcolor{keyword}{sizeof}(str\_proximity)\ -\/\ 1]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00709}00709\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00710}00710\ \ \ \ \ \ \ \ \ snprintf(str\_distance,\ \textcolor{keyword}{sizeof}(str\_distance),}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00711}00711\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00712}00712\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\%.3fm"{}},\ sensor\_value\_to\_double(\&dist));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00713}00713\ \ \ \ \ \ \ \ \ str\_distance[\textcolor{keyword}{sizeof}(str\_distance)\ -\/\ 1]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00714}00714\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00715}00715\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Message\ the\ is\ shown\ in\ UART\ if\ Golioth\ Client\ is\ correctly\ sending\ data.}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00716}00716\ \ \ \ \ \ \ \ \ LOG\_DBG(\textcolor{stringliteral}{"{}Sending\ Distance\ \%sm\(\backslash\)\ \ /|\ \ Proximity\ \%s\(\backslash\)n"{}},\ log\_strdup(str\_distance),\ log\_strdup(str\_proximity));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00717}00717\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ printk("{}================================================================================================\(\backslash\)n"{});}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00718}00718\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00719}00719\ \ \ \ \ \ \ \ \ k\_sleep(K\_MSEC(3000));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00720}00720\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00721}00721\ \ \ \ \ \ \ \ \ gpio\_pin\_set(led,\ \mbox{\hyperlink{lwm2m-client_8c_ae1a27401b7fb01ccb9a82dbddbb54eea}{PIN}},\ (\textcolor{keywordtype}{int})led\_is\_on);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00722}00722\ \ \ \ \ \ \ \ \ k\_msleep(\mbox{\hyperlink{lwm2m-client_8c_a840217aee9bd887463dad1b56defb051}{SLEEP\_TIME\_MS}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00723}00723\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00724}00724\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (btn\_flag)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00725}00725\ \ \ \ \ \ \ \ \ \ \ \ \ led\_is\_on\ =\ !led\_is\_on;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00726}00726\ \ \ \ \ \ \ \ \ \ \ \ \ dret\ =\ \mbox{\hyperlink{delta_8c_ac8e66efa303d4fae63607bb75081891c}{delta\_check\_and\_apply}}(flash\_pt);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00727}00727\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ i;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00728}00728\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00729}00729\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Progress\ bar\ -\/-\/>\ taken\ from\ https://gist.github.com/napsternxg/302c4f859a27282e7ca5}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00730}00730\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00731}00731\ \ \ \ \ \mbox{\hyperlink{lwm2m-client_8c_a307e1c6e7b5394ccbf06aa4b2de9e8ec}{DoSome}}();\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00732}00732\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00733}00733\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00734}00734\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dret)\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00735}00735\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ printk(\textcolor{stringliteral}{"{}\%s"{}},\ \mbox{\hyperlink{delta_8c_a16a81712ea142d7efad9356b4c47573f}{delta\_error\_as\_string}}(dret));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00736}00736\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00737}00737\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00738}00738\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00739}00739\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00740}00740\ \ \ \ \ \ \ \ \ led\_is\_on\ =\ !led\_is\_on;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00741}00741\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00742}00742\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00744}00744\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00745}00745\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00746}00746\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00747}00747\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00748}00748\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00749}00749\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00750}00750\ \ \ \ \ k\_sem\_take(\&quit\_lock,\ K\_FOREVER);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00751}00751\ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00752}00752\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00753}00753\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00755}00755\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00756}00756\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ config\_devices(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structflash__mem_aa1f78abf61a59cbd09d602ab4485e7d1}{device}}*\ button,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structflash__mem_aa1f78abf61a59cbd09d602ab4485e7d1}{device}}*\ led)}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00757}00757\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00758}00758\ \ \ \ \ \textcolor{keywordtype}{int}\ dret;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00759}00759\ \ \ \ \ dret\ =\ gpio\_pin\_configure(led,\ \mbox{\hyperlink{lwm2m-client_8c_ae1a27401b7fb01ccb9a82dbddbb54eea}{PIN}},\ GPIO\_OUTPUT\_ACTIVE\ |\ \mbox{\hyperlink{lwm2m-client_8c_a6ccad09b4a2a06ae178418fdccf5940d}{FLAGS}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00760}00760\ \ \ \ \ dret\ |=\ gpio\_pin\_configure(button,\ \mbox{\hyperlink{lwm2m-client_8c_af727a36a2c2d3e88a2702a4739432788}{SW0\_GPIO\_PIN}},\ \mbox{\hyperlink{lwm2m-client_8c_afb233e09fceb00a16bfce708820bc3cc}{SW0\_GPIO\_FLAGS}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00761}00761\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00762}00762\ \ \ \ \ \textcolor{keywordflow}{if}\ (dret)\ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00763}00763\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00764}00764\ \ \ \ \ \textcolor{keywordflow}{if}\ (gpio\_pin\_interrupt\_configure(button,\ \mbox{\hyperlink{lwm2m-client_8c_af727a36a2c2d3e88a2702a4739432788}{SW0\_GPIO\_PIN}},\ GPIO\_INT\_EDGE\_TO\_ACTIVE))\ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00765}00765\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00766}00766\ \ \ \ \ gpio\_init\_callback(\&button\_cb\_data,\ \mbox{\hyperlink{lwm2m-client_8c_ab4b2c1747e66383dfb0b5679887e1854}{button\_pressed}},\ BIT(\mbox{\hyperlink{lwm2m-client_8c_af727a36a2c2d3e88a2702a4739432788}{SW0\_GPIO\_PIN}}));}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00767}00767\ \ \ \ \ gpio\_add\_callback(button,\ \&button\_cb\_data);}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00768}00768\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00769}00769\ \ \ \ \ btn\_flag\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00770}00770\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00771}00771\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00772}00772\ \}}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00773}00773\ }
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00774}\mbox{\hyperlink{lwm2m-client_8c_ab4b2c1747e66383dfb0b5679887e1854}{00774}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{lwm2m-client_8c_ab4b2c1747e66383dfb0b5679887e1854}{button\_pressed}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structflash__mem_aa1f78abf61a59cbd09d602ab4485e7d1}{device}}*\ dev,\ \textcolor{keyword}{struct}\ gpio\_callback*\ cb,\ uint32\_t\ pins)}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00775}00775\ \{}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00776}00776\ \ \ \ \ printk(\textcolor{stringliteral}{"{}Checking\ for\ Delta\ Update\ \(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00777}00777\ \ \ \ \ btn\_flag\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{lwm2m-client_8c_source_l00778}00778\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,99 @@
+\doxysection{detools\+\_\+apply\+\_\+patch\+\_\+patch\+\_\+reader\+\_\+crle\+\_\+t Struct Reference}
+\hypertarget{structdetools__apply__patch__patch__reader__crle__t}{}\label{structdetools__apply__patch__patch__reader__crle__t}\index{detools\_apply\_patch\_patch\_reader\_crle\_t@{detools\_apply\_patch\_patch\_reader\_crle\_t}}
+
+
+{\ttfamily \#include $<$detools.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{detools_8h_a99e4787f6340b31108b5da963cf72515}{detools\+\_\+crle\+\_\+state\+\_\+t}} \mbox{\hyperlink{structdetools__apply__patch__patch__reader__crle__t_a4b75ccb1deab99187053ebf34a3b2c15}{state}}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>struct \{\\
+\>\>size\_t \mbox{\hyperlink{structdetools__apply__patch__patch__reader__crle__t_a30941a11ca812ee9f85f3b4dc949a83d}{number\_of\_bytes\_left}}\\
+\>\>struct \mbox{\hyperlink{structdetools__unpack__usize__t}{detools\_unpack\_usize\_t}} \mbox{\hyperlink{structdetools__apply__patch__patch__reader__crle__t_a485b5448cb169eb2c8d72e41751e94db}{size}}\\
+\>\} \mbox{\hyperlink{structdetools__apply__patch__patch__reader__crle__t_a6a3d7a8f72f059d0c2250cc4a1324d52}{scattered}}\\
+\>struct \{\\
+\>\>uint8\_t \mbox{\hyperlink{structdetools__apply__patch__patch__reader__crle__t_a638e4503e0ae6ce655b7ad2e17e8f0ad}{value}}\\
+\>\>size\_t \mbox{\hyperlink{structdetools__apply__patch__patch__reader__crle__t_a30941a11ca812ee9f85f3b4dc949a83d}{number\_of\_bytes\_left}}\\
+\>\>struct \mbox{\hyperlink{structdetools__unpack__usize__t}{detools\_unpack\_usize\_t}} \mbox{\hyperlink{structdetools__apply__patch__patch__reader__crle__t_a485b5448cb169eb2c8d72e41751e94db}{size}}\\
+\>\} \mbox{\hyperlink{structdetools__apply__patch__patch__reader__crle__t_acd26d76d748cf44e2a5a89f03a5f528b}{repeated}}\\
+\} \mbox{\hyperlink{structdetools__apply__patch__patch__reader__crle__t_aa3ad0f3257bd7e6c9d77ca8294cf8e4c}{kind}}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{detools_8h_source_l00218}{218}} of file \mbox{\hyperlink{detools_8h_source}{detools.\+h}}.
+
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{structdetools__apply__patch__patch__reader__crle__t_aa3ad0f3257bd7e6c9d77ca8294cf8e4c}\label{structdetools__apply__patch__patch__reader__crle__t_aa3ad0f3257bd7e6c9d77ca8294cf8e4c} 
+\index{detools\_apply\_patch\_patch\_reader\_crle\_t@{detools\_apply\_patch\_patch\_reader\_crle\_t}!kind@{kind}}
+\index{kind@{kind}!detools\_apply\_patch\_patch\_reader\_crle\_t@{detools\_apply\_patch\_patch\_reader\_crle\_t}}
+\doxysubsubsection{\texorpdfstring{[union]}{[union]}}
+{\footnotesize\ttfamily union  \{ ... \}  kind}
+
+\Hypertarget{structdetools__apply__patch__patch__reader__crle__t_a30941a11ca812ee9f85f3b4dc949a83d}\label{structdetools__apply__patch__patch__reader__crle__t_a30941a11ca812ee9f85f3b4dc949a83d} 
+\index{detools\_apply\_patch\_patch\_reader\_crle\_t@{detools\_apply\_patch\_patch\_reader\_crle\_t}!number\_of\_bytes\_left@{number\_of\_bytes\_left}}
+\index{number\_of\_bytes\_left@{number\_of\_bytes\_left}!detools\_apply\_patch\_patch\_reader\_crle\_t@{detools\_apply\_patch\_patch\_reader\_crle\_t}}
+\doxysubsubsection{\texorpdfstring{number\_of\_bytes\_left}{number\_of\_bytes\_left}}
+{\footnotesize\ttfamily size\+\_\+t number\+\_\+of\+\_\+bytes\+\_\+left}
+
+
+
+Definition at line \mbox{\hyperlink{detools_8h_source_l00222}{222}} of file \mbox{\hyperlink{detools_8h_source}{detools.\+h}}.
+
+\Hypertarget{structdetools__apply__patch__patch__reader__crle__t_acd26d76d748cf44e2a5a89f03a5f528b}\label{structdetools__apply__patch__patch__reader__crle__t_acd26d76d748cf44e2a5a89f03a5f528b} 
+\index{detools\_apply\_patch\_patch\_reader\_crle\_t@{detools\_apply\_patch\_patch\_reader\_crle\_t}!repeated@{repeated}}
+\index{repeated@{repeated}!detools\_apply\_patch\_patch\_reader\_crle\_t@{detools\_apply\_patch\_patch\_reader\_crle\_t}}
+\doxysubsubsection{\texorpdfstring{[struct]}{[struct]}}
+{\footnotesize\ttfamily struct  \{ ... \}  repeated}
+
+\Hypertarget{structdetools__apply__patch__patch__reader__crle__t_a6a3d7a8f72f059d0c2250cc4a1324d52}\label{structdetools__apply__patch__patch__reader__crle__t_a6a3d7a8f72f059d0c2250cc4a1324d52} 
+\index{detools\_apply\_patch\_patch\_reader\_crle\_t@{detools\_apply\_patch\_patch\_reader\_crle\_t}!scattered@{scattered}}
+\index{scattered@{scattered}!detools\_apply\_patch\_patch\_reader\_crle\_t@{detools\_apply\_patch\_patch\_reader\_crle\_t}}
+\doxysubsubsection{\texorpdfstring{[struct]}{[struct]}}
+{\footnotesize\ttfamily struct  \{ ... \}  scattered}
+
+\Hypertarget{structdetools__apply__patch__patch__reader__crle__t_a485b5448cb169eb2c8d72e41751e94db}\label{structdetools__apply__patch__patch__reader__crle__t_a485b5448cb169eb2c8d72e41751e94db} 
+\index{detools\_apply\_patch\_patch\_reader\_crle\_t@{detools\_apply\_patch\_patch\_reader\_crle\_t}!size@{size}}
+\index{size@{size}!detools\_apply\_patch\_patch\_reader\_crle\_t@{detools\_apply\_patch\_patch\_reader\_crle\_t}}
+\doxysubsubsection{\texorpdfstring{size}{size}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structdetools__unpack__usize__t}{detools\+\_\+unpack\+\_\+usize\+\_\+t}} size}
+
+
+
+Definition at line \mbox{\hyperlink{detools_8h_source_l00223}{223}} of file \mbox{\hyperlink{detools_8h_source}{detools.\+h}}.
+
+\Hypertarget{structdetools__apply__patch__patch__reader__crle__t_a4b75ccb1deab99187053ebf34a3b2c15}\label{structdetools__apply__patch__patch__reader__crle__t_a4b75ccb1deab99187053ebf34a3b2c15} 
+\index{detools\_apply\_patch\_patch\_reader\_crle\_t@{detools\_apply\_patch\_patch\_reader\_crle\_t}!state@{state}}
+\index{state@{state}!detools\_apply\_patch\_patch\_reader\_crle\_t@{detools\_apply\_patch\_patch\_reader\_crle\_t}}
+\doxysubsubsection{\texorpdfstring{state}{state}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{detools_8h_a99e4787f6340b31108b5da963cf72515}{detools\+\_\+crle\+\_\+state\+\_\+t}} state}
+
+
+
+Definition at line \mbox{\hyperlink{detools_8h_source_l00219}{219}} of file \mbox{\hyperlink{detools_8h_source}{detools.\+h}}.
+
+\Hypertarget{structdetools__apply__patch__patch__reader__crle__t_a638e4503e0ae6ce655b7ad2e17e8f0ad}\label{structdetools__apply__patch__patch__reader__crle__t_a638e4503e0ae6ce655b7ad2e17e8f0ad} 
+\index{detools\_apply\_patch\_patch\_reader\_crle\_t@{detools\_apply\_patch\_patch\_reader\_crle\_t}!value@{value}}
+\index{value@{value}!detools\_apply\_patch\_patch\_reader\_crle\_t@{detools\_apply\_patch\_patch\_reader\_crle\_t}}
+\doxysubsubsection{\texorpdfstring{value}{value}}
+{\footnotesize\ttfamily uint8\+\_\+t value}
+
+
+
+Definition at line \mbox{\hyperlink{detools_8h_source_l00226}{226}} of file \mbox{\hyperlink{detools_8h_source}{detools.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/harrkout/github/\+Leshan-\/\+OMA-\/\+Lightweight-\/\+M2\+M-\/server-\/for-\/\+Zephyr-\//src/detools/\mbox{\hyperlink{detools_8h}{detools.\+h}}\end{DoxyCompactItemize}

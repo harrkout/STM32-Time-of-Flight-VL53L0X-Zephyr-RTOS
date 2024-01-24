@@ -1,0 +1,171 @@
+\doxysection{rsa.\+py}
+\hypertarget{keys_2rsa_8py_source}{}\label{keys_2rsa_8py_source}\index{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/imgtool/keys/rsa.py@{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/imgtool/keys/rsa.py}}
+\mbox{\hyperlink{keys_2rsa_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00001}\mbox{\hyperlink{namespaceimgtool_1_1keys_1_1rsa}{00001}}\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00002}00002\ \textcolor{stringliteral}{RSA\ Key\ management}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00003}00003\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00005}00005\ \textcolor{comment}{\#\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00007}00007\ \textcolor{keyword}{from}\ cryptography.hazmat.backends\ \textcolor{keyword}{import}\ default\_backend}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00008}00008\ \textcolor{keyword}{from}\ cryptography.hazmat.primitives\ \textcolor{keyword}{import}\ serialization}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00009}00009\ \textcolor{keyword}{from}\ cryptography.hazmat.primitives.asymmetric\ \textcolor{keyword}{import}\ rsa}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00010}00010\ \textcolor{keyword}{from}\ cryptography.hazmat.primitives.asymmetric.padding\ \textcolor{keyword}{import}\ PSS,\ MGF1}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00011}00011\ \textcolor{keyword}{from}\ cryptography.hazmat.primitives.hashes\ \textcolor{keyword}{import}\ SHA256}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00013}00013\ \textcolor{keyword}{from}\ .general\ \textcolor{keyword}{import}\ KeyClass}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00016}00016\ \textcolor{comment}{\#\ Sizes\ that\ bootutil\ will\ recognize}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00017}\mbox{\hyperlink{namespaceimgtool_1_1keys_1_1rsa_a83ace5e9c460e22fad7ea0b6abf4c26d}{00017}}\ RSA\_KEY\_SIZES\ =\ [2048,\ 3072]}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00020}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAUsageError}{00020}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAUsageError}{RSAUsageError}}(Exception):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00021}00021\ \ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00024}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic}{00024}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic}{RSAPublic}}(\mbox{\hyperlink{classimgtool_1_1keys_1_1general_1_1KeyClass}{KeyClass}}):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00025}00025\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}The\ public\ key\ can\ only\ do\ a\ few\ operations"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00026}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a3b1a5307863aa2b5f58c5ba7f93b26ef}{00026}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a3b1a5307863aa2b5f58c5ba7f93b26ef}{\_\_init\_\_}}(self,\ key):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00027}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ab0d96f9d852c2058c2546a1338e87544}{00027}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ab0d96f9d852c2058c2546a1338e87544}{key}}\ =\ key}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00029}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a215877a1fc24d47624f34429a0c3eaa6}{00029}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a215877a1fc24d47624f34429a0c3eaa6}{key\_size}}(self):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ab0d96f9d852c2058c2546a1338e87544}{key}}.key\_size}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00032}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a679b02993530b144467de0a7397be2a5}{00032}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a679b02993530b144467de0a7397be2a5}{shortname}}(self):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}rsa"{}}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00035}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_adfa696342f3f85dae9fbf80b682f9dd8}{00035}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_adfa696342f3f85dae9fbf80b682f9dd8}{\_unsupported}}(self,\ name):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ \mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAUsageError}{RSAUsageError}}(\textcolor{stringliteral}{"{}Operation\ \{\}\ requires\ private\ key"{}}.format(name))}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00038}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ad44b9b51ba5244f41760ec7442292242}{00038}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ad44b9b51ba5244f41760ec7442292242}{\_get\_public}}(self):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ab0d96f9d852c2058c2546a1338e87544}{key}}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00041}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a9885df5cc7eddd1a3bca59e7ce7a6e5b}{00041}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a9885df5cc7eddd1a3bca59e7ce7a6e5b}{get\_public\_bytes}}(self):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ key\ embedded\ into\ MCUboot\ is\ in\ PKCS1\ format.}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ad44b9b51ba5244f41760ec7442292242}{\_get\_public}}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ad44b9b51ba5244f41760ec7442292242}{\_get\_public}}().public\_bytes(}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encoding=serialization.Encoding.DER,}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ format=serialization.PublicFormat.PKCS1)}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00047}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a0d7279938bc7fc6403753ce6fb82533f}{00047}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a0d7279938bc7fc6403753ce6fb82533f}{get\_private\_bytes}}(self,\ minimal):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_adfa696342f3f85dae9fbf80b682f9dd8}{\_unsupported}}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_adfa696342f3f85dae9fbf80b682f9dd8}{\_unsupported}}(\textcolor{stringliteral}{'get\_private\_bytes'})}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00050}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a0d4ec5a8b76f84fdb1d8213fdb6a2c78}{00050}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a0d4ec5a8b76f84fdb1d8213fdb6a2c78}{export\_private}}(self,\ path,\ passwd=None):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_adfa696342f3f85dae9fbf80b682f9dd8}{\_unsupported}}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_adfa696342f3f85dae9fbf80b682f9dd8}{\_unsupported}}(\textcolor{stringliteral}{'export\_private'})}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00053}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ab58c8ea143a002c4d4788e7406f77143}{00053}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ab58c8ea143a002c4d4788e7406f77143}{export\_public}}(self,\ path):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Write\ the\ public\ key\ to\ the\ given\ file."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ pem\ =\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ad44b9b51ba5244f41760ec7442292242}{\_get\_public}}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ad44b9b51ba5244f41760ec7442292242}{\_get\_public}}().public\_bytes(}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encoding=serialization.Encoding.PEM,}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ format=serialization.PublicFormat.SubjectPublicKeyInfo)}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ open(path,\ \textcolor{stringliteral}{'wb'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ f.write(pem)}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00061}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a84b417b306f304e00f2018232a3e46bd}{00061}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a84b417b306f304e00f2018232a3e46bd}{sig\_type}}(self):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}PKCS1\_PSS\_RSA\{\}\_SHA256"{}}.format(self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a215877a1fc24d47624f34429a0c3eaa6}{key\_size}}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a215877a1fc24d47624f34429a0c3eaa6}{key\_size}}())}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00064}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a741661b3e7446415336cad614b39f40c}{00064}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a741661b3e7446415336cad614b39f40c}{sig\_tlv}}(self):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\textcolor{stringliteral}{"{}RSA\{\}"{}}.format(self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a215877a1fc24d47624f34429a0c3eaa6}{key\_size}}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a215877a1fc24d47624f34429a0c3eaa6}{key\_size}}())}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00067}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a582808921e325e62f559a81a4d2d811b}{00067}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a582808921e325e62f559a81a4d2d811b}{sig\_len}}(self):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a215877a1fc24d47624f34429a0c3eaa6}{key\_size}}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_a215877a1fc24d47624f34429a0c3eaa6}{key\_size}}()\ /\ 8}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00070}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_aa697b47e78a2dee86de9c506a7f6a4cc}{00070}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_aa697b47e78a2dee86de9c506a7f6a4cc}{verify}}(self,\ signature,\ payload):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ k\ =\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ab0d96f9d852c2058c2546a1338e87544}{key}}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ab0d96f9d852c2058c2546a1338e87544}{key}},\ rsa.RSAPrivateKey):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ k\ =\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ab0d96f9d852c2058c2546a1338e87544}{key}}.public\_key()}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ k.verify(signature=signature,\ data=payload,}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ padding=PSS(mgf=MGF1(SHA256()),\ salt\_length=32),}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ algorithm=SHA256())}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00079}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA}{00079}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA}{RSA}}(\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic}{RSAPublic}}):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00080}00080\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00081}00081\ \textcolor{stringliteral}{\ \ \ \ Wrapper\ around\ an\ RSA\ key,\ with\ imgtool\ support.}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00082}00082\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00084}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_a3b1a5307863aa2b5f58c5ba7f93b26ef}{00084}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_a3b1a5307863aa2b5f58c5ba7f93b26ef}{\_\_init\_\_}}(self,\ key):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}The\ key\ should\ be\ a\ private\ key\ from\ cryptography"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00086}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_ab0d96f9d852c2058c2546a1338e87544}{00086}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ab0d96f9d852c2058c2546a1338e87544}{key}}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_ab0d96f9d852c2058c2546a1338e87544}{key}}\ =\ key}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00088}00088\ \ \ \ \ \textcolor{preprocessor}{@staticmethod}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00089}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_ab5f4282b9968f9f5ef5303ce99e5a8ce}{00089}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_ab5f4282b9968f9f5ef5303ce99e5a8ce}{generate}}(key\_size=2048):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ key\_size\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ RSA\_KEY\_SIZES:}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ \mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAUsageError}{RSAUsageError}}(\textcolor{stringliteral}{"{}Key\ size\ \{\}\ is\ not\ supported\ by\ MCUboot"{}}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .format(key\_size))}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ pk\ =\ rsa.generate\_private\_key(}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ public\_exponent=65537,}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ key\_size=key\_size,}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ backend=default\_backend())}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA}{RSA}}(pk)}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00099}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_ad44b9b51ba5244f41760ec7442292242}{00099}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_ad44b9b51ba5244f41760ec7442292242}{\_get\_public}}(self):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ab0d96f9d852c2058c2546a1338e87544}{key}}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_ab0d96f9d852c2058c2546a1338e87544}{key}}.public\_key()}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00102}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_a8a8681eef336d5ed5bbe8d458287ba96}{00102}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_a8a8681eef336d5ed5bbe8d458287ba96}{\_build\_minimal\_rsa\_privkey}}(self,\ der):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'''}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00104}00104\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Builds\ a\ new\ DER\ that\ only\ includes\ N/E/D/P/Q\ RSA\ parameters;}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00105}00105\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ standard\ DER\ private\ bytes\ provided\ by\ OpenSSL\ also\ includes}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00106}00106\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ CRT\ params\ (DP/DQ/QP)\ which\ can\ be\ removed.}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00107}00107\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ '''}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ OFFSET\_N\ =\ 7\ \ \textcolor{comment}{\#\ N\ is\ always\ located\ at\ this\ offset}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ b\ =\ bytearray(der)}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ off\ =\ OFFSET\_N}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ b[off\ +\ 1]\ !=\ 0x82:}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ \mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAUsageError}{RSAUsageError}}(\textcolor{stringliteral}{"{}Error\ parsing\ N\ while\ minimizing"{}})}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ len\_N\ =\ (b[off\ +\ 2]\ <<\ 8)\ +\ b[off\ +\ 3]\ +\ 4}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ off\ +=\ len\_N}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ b[off\ +\ 1]\ !=\ 0x03:}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ \mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAUsageError}{RSAUsageError}}(\textcolor{stringliteral}{"{}Error\ parsing\ E\ while\ minimizing"{}})}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ len\_E\ =\ b[off\ +\ 2]\ +\ 4}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ off\ +=\ len\_E}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ b[off\ +\ 1]\ !=\ 0x82:}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ \mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAUsageError}{RSAUsageError}}(\textcolor{stringliteral}{"{}Error\ parsing\ D\ while\ minimizing"{}})}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ len\_D\ =\ (b[off\ +\ 2]\ <<\ 8)\ +\ b[off\ +\ 3]\ +\ 4}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ off\ +=\ len\_D}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ b[off\ +\ 1]\ !=\ 0x81:}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ \mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAUsageError}{RSAUsageError}}(\textcolor{stringliteral}{"{}Error\ parsing\ P\ while\ minimizing"{}})}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ len\_P\ =\ b[off\ +\ 2]\ +\ 3}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ off\ +=\ len\_P}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ b[off\ +\ 1]\ !=\ 0x81:}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ \mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAUsageError}{RSAUsageError}}(\textcolor{stringliteral}{"{}Error\ parsing\ Q\ while\ minimizing"{}})}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ len\_Q\ =\ b[off\ +\ 2]\ +\ 3}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ off\ +=\ len\_Q}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ adjust\ DER\ size\ for\ removed\ elements}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ b[2]\ =\ (off\ -\/\ 4)\ >>\ 8}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ b[3]\ =\ (off\ -\/\ 4)\ \&\ 0xff}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ b[:off]}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00136}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_a0d7279938bc7fc6403753ce6fb82533f}{00136}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_a0d7279938bc7fc6403753ce6fb82533f}{get\_private\_bytes}}(self,\ minimal):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ priv\ =\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ab0d96f9d852c2058c2546a1338e87544}{key}}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_ab0d96f9d852c2058c2546a1338e87544}{key}}.private\_bytes(}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encoding=serialization.Encoding.DER,}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ format=serialization.PrivateFormat.TraditionalOpenSSL,}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encryption\_algorithm=serialization.NoEncryption())}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ minimal:}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ priv\ =\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_a8a8681eef336d5ed5bbe8d458287ba96}{\_build\_minimal\_rsa\_privkey}}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_a8a8681eef336d5ed5bbe8d458287ba96}{\_build\_minimal\_rsa\_privkey}}(priv)}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ priv}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00145}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_a0d4ec5a8b76f84fdb1d8213fdb6a2c78}{00145}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_a0d4ec5a8b76f84fdb1d8213fdb6a2c78}{export\_private}}(self,\ path,\ passwd=None):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Write\ the\ private\ key\ to\ the\ given\ file,\ protecting\ it\ with\ the}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00147}00147\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ optional\ password."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ passwd\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ enc\ =\ serialization.NoEncryption()}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ enc\ =\ serialization.BestAvailableEncryption(passwd)}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00152}00152\ \ \ \ \ \ \ \ \ pem\ =\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ab0d96f9d852c2058c2546a1338e87544}{key}}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_ab0d96f9d852c2058c2546a1338e87544}{key}}.private\_bytes(}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encoding=serialization.Encoding.PEM,}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ format=serialization.PrivateFormat.PKCS8,}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encryption\_algorithm=enc)}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ open(path,\ \textcolor{stringliteral}{'wb'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ f.write(pem)}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00159}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_a24b586de7f74a80c50504a8d07c49657}{00159}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_a24b586de7f74a80c50504a8d07c49657}{sign}}(self,\ payload):}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ verification\ code\ only\ allows\ the\ salt\ length\ to\ be\ the}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ same\ as\ the\ hash\ length,\ 32.}}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00162}00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSAPublic_ab0d96f9d852c2058c2546a1338e87544}{key}}\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_ab0d96f9d852c2058c2546a1338e87544}{key}}.\mbox{\hyperlink{classimgtool_1_1keys_1_1rsa_1_1RSA_a24b586de7f74a80c50504a8d07c49657}{sign}}(}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data=payload,}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ padding=PSS(mgf=MGF1(SHA256()),\ salt\_length=32),}
+\DoxyCodeLine{\Hypertarget{keys_2rsa_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ algorithm=SHA256())}
+
+\end{DoxyCode}

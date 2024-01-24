@@ -1,0 +1,113 @@
+\doxysection{x25519.\+py}
+\hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source}{}\label{1_87_82_2imgtool_2keys_2x25519_8py_source}\index{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/imgtool\_1.7.2/imgtool/keys/x25519.py@{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/imgtool\_1.7.2/imgtool/keys/x25519.py}}
+\mbox{\hyperlink{1_87_82_2imgtool_2keys_2x25519_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00001}00001\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00002}00002\ \textcolor{stringliteral}{X25519\ key\ management}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00003}00003\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00005}00005\ \textcolor{keyword}{from}\ cryptography.hazmat.backends\ \textcolor{keyword}{import}\ default\_backend}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00006}00006\ \textcolor{keyword}{from}\ cryptography.hazmat.primitives\ \textcolor{keyword}{import}\ serialization}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00007}00007\ \textcolor{keyword}{from}\ cryptography.hazmat.primitives.asymmetric\ \textcolor{keyword}{import}\ x25519}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00009}00009\ \textcolor{keyword}{from}\ .general\ \textcolor{keyword}{import}\ KeyClass}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00012}00012\ \textcolor{keyword}{class\ }X25519UsageError(Exception):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00013}00013\ \ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00016}00016\ \textcolor{keyword}{class\ }X25519Public(KeyClass):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00017}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_a3b1a5307863aa2b5f58c5ba7f93b26ef}{00017}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_a3b1a5307863aa2b5f58c5ba7f93b26ef}{\_\_init\_\_}}(self,\ key):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00018}00018\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ab0d96f9d852c2058c2546a1338e87544}{key}}\ =\ key}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00020}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_a679b02993530b144467de0a7397be2a5}{00020}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_a679b02993530b144467de0a7397be2a5}{shortname}}(self):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}x25519"{}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00023}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_adfa696342f3f85dae9fbf80b682f9dd8}{00023}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_adfa696342f3f85dae9fbf80b682f9dd8}{\_unsupported}}(self,\ name):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ \mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519UsageError}{X25519UsageError}}(\textcolor{stringliteral}{"{}Operation\ \{\}\ requires\ private\ key"{}}.format(name))}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00026}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ad44b9b51ba5244f41760ec7442292242}{00026}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ad44b9b51ba5244f41760ec7442292242}{\_get\_public}}(self):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ab0d96f9d852c2058c2546a1338e87544}{key}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00029}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_a9885df5cc7eddd1a3bca59e7ce7a6e5b}{00029}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_a9885df5cc7eddd1a3bca59e7ce7a6e5b}{get\_public\_bytes}}(self):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ The\ key\ is\ embedded\ into\ MBUboot\ in\ "{}SubjectPublicKeyInfo"{}\ format}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ad44b9b51ba5244f41760ec7442292242}{\_get\_public}}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ad44b9b51ba5244f41760ec7442292242}{\_get\_public}}().public\_bytes(}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encoding=serialization.Encoding.DER,}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ format=serialization.PublicFormat.SubjectPublicKeyInfo)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00035}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_a0d7279938bc7fc6403753ce6fb82533f}{00035}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_a0d7279938bc7fc6403753ce6fb82533f}{get\_private\_bytes}}(self,\ minimal):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_adfa696342f3f85dae9fbf80b682f9dd8}{\_unsupported}}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_adfa696342f3f85dae9fbf80b682f9dd8}{\_unsupported}}(\textcolor{stringliteral}{'get\_private\_bytes'})}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00038}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_a0d4ec5a8b76f84fdb1d8213fdb6a2c78}{00038}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_a0d4ec5a8b76f84fdb1d8213fdb6a2c78}{export\_private}}(self,\ path,\ passwd=None):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_adfa696342f3f85dae9fbf80b682f9dd8}{\_unsupported}}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_adfa696342f3f85dae9fbf80b682f9dd8}{\_unsupported}}(\textcolor{stringliteral}{'export\_private'})}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00041}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ab58c8ea143a002c4d4788e7406f77143}{00041}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ab58c8ea143a002c4d4788e7406f77143}{export\_public}}(self,\ path):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Write\ the\ public\ key\ to\ the\ given\ file."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ pem\ =\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ad44b9b51ba5244f41760ec7442292242}{\_get\_public}}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ad44b9b51ba5244f41760ec7442292242}{\_get\_public}}().public\_bytes(}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encoding=serialization.Encoding.PEM,}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ format=serialization.PublicFormat.SubjectPublicKeyInfo)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ open(path,\ \textcolor{stringliteral}{'wb'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ f.write(pem)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00049}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_a84b417b306f304e00f2018232a3e46bd}{00049}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_a84b417b306f304e00f2018232a3e46bd}{sig\_type}}(self):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}X25519"{}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00052}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_a741661b3e7446415336cad614b39f40c}{00052}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_a741661b3e7446415336cad614b39f40c}{sig\_tlv}}(self):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}X25519"{}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00055}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_a582808921e325e62f559a81a4d2d811b}{00055}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_a582808921e325e62f559a81a4d2d811b}{sig\_len}}(self):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 32}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00059}00059\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519}{X25519}}(\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public}{X25519Public}}):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00060}00060\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00061}00061\ \textcolor{stringliteral}{\ \ \ \ Wrapper\ around\ an\ X25519\ private\ key.}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00062}00062\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00064}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_a3b1a5307863aa2b5f58c5ba7f93b26ef}{00064}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_a3b1a5307863aa2b5f58c5ba7f93b26ef}{\_\_init\_\_}}(self,\ key):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}key\ should\ be\ an\ instance\ of\ EllipticCurvePrivateKey"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ab0d96f9d852c2058c2546a1338e87544}{key}}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_ab0d96f9d852c2058c2546a1338e87544}{key}}\ =\ key}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00068}00068\ \ \ \ \ \textcolor{preprocessor}{@staticmethod}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00069}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_a913873cf89f388d70a28de0b77d68884}{00069}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_a913873cf89f388d70a28de0b77d68884}{generate}}():}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ pk\ =\ x25519.X25519PrivateKey.generate()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519}{X25519}}(pk)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00073}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_ad44b9b51ba5244f41760ec7442292242}{00073}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_ad44b9b51ba5244f41760ec7442292242}{\_get\_public}}(self):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ab0d96f9d852c2058c2546a1338e87544}{key}}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_ab0d96f9d852c2058c2546a1338e87544}{key}}.public\_key()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00076}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_a0d7279938bc7fc6403753ce6fb82533f}{00076}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_a0d7279938bc7fc6403753ce6fb82533f}{get\_private\_bytes}}(self,\ minimal):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ab0d96f9d852c2058c2546a1338e87544}{key}}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_ab0d96f9d852c2058c2546a1338e87544}{key}}.private\_bytes(}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ encoding=serialization.Encoding.DER,}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ format=serialization.PrivateFormat.PKCS8,}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ encryption\_algorithm=serialization.NoEncryption())}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00082}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_a0d4ec5a8b76f84fdb1d8213fdb6a2c78}{00082}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_a0d4ec5a8b76f84fdb1d8213fdb6a2c78}{export\_private}}(self,\ path,\ passwd=None):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00084}00084\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Write\ the\ private\ key\ to\ the\ given\ file,\ protecting\ it\ with\ the}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00085}00085\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ optional\ password.}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00086}00086\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ passwd\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ enc\ =\ serialization.NoEncryption()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ enc\ =\ serialization.BestAvailableEncryption(passwd)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ pem\ =\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ab0d96f9d852c2058c2546a1338e87544}{key}}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_ab0d96f9d852c2058c2546a1338e87544}{key}}.private\_bytes(}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encoding=serialization.Encoding.PEM,}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ format=serialization.PrivateFormat.PKCS8,}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encryption\_algorithm=enc)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ open(path,\ \textcolor{stringliteral}{'wb'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ f.write(pem)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00098}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_ac2e314dd2fa3f87f7105df19cb023ede}{00098}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_ac2e314dd2fa3f87f7105df19cb023ede}{sign\_digest}}(self,\ digest):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Return\ the\ actual\ signature"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ab0d96f9d852c2058c2546a1338e87544}{key}}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_ab0d96f9d852c2058c2546a1338e87544}{key}}.sign(data=digest)}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00102}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_a06436b29a0d19b1f6b15245974a12a0e}{00102}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_a06436b29a0d19b1f6b15245974a12a0e}{verify\_digest}}(self,\ signature,\ digest):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Verify\ that\ signature\ is\ valid\ for\ given\ digest"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ k\ =\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ab0d96f9d852c2058c2546a1338e87544}{key}}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_ab0d96f9d852c2058c2546a1338e87544}{key}}}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(self.\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ab0d96f9d852c2058c2546a1338e87544}{key}}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_ab0d96f9d852c2058c2546a1338e87544}{key}},\ x25519.X25519PrivateKey):}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ k\ =\ self.\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519Public_ab0d96f9d852c2058c2546a1338e87544}{key}}\mbox{\hyperlink{classimgtool_1_1keys_1_1x25519_1_1X25519_ab0d96f9d852c2058c2546a1338e87544}{key}}.public\_key()}
+\DoxyCodeLine{\Hypertarget{1_87_82_2imgtool_2keys_2x25519_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ k.verify(signature=signature,\ data=digest)}
+
+\end{DoxyCode}

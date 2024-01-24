@@ -1,0 +1,154 @@
+\doxysection{assemble.\+py}
+\hypertarget{assemble_8py_source}{}\label{assemble_8py_source}\index{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/assemble.py@{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/assemble.py}}
+\mbox{\hyperlink{assemble_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00001}\mbox{\hyperlink{namespaceassemble}{00001}}\ \textcolor{comment}{\#!\ /usr/bin/env\ python3}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00003}00003\ \textcolor{comment}{\#\ Copyright\ 2017\ Linaro\ Limited}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00004}00004\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00005}00005\ \textcolor{comment}{\#\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00007}00007\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00008}00008\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00009}00009\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00010}00010\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00011}00011\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00012}00012\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00013}00013\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00014}00014\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00015}00015\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00016}00016\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00017}00017\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00019}00019\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00020}00020\ \textcolor{stringliteral}{Assemble\ multiple\ images\ into\ a\ single\ image\ that\ can\ be\ flashed\ on\ the\ device.}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00021}00021\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00023}00023\ \textcolor{keyword}{import}\ argparse}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00024}00024\ \textcolor{keyword}{import}\ errno}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00025}00025\ \textcolor{keyword}{import}\ io}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00026}00026\ \textcolor{keyword}{import}\ re}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00027}00027\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00028}00028\ \textcolor{keyword}{import}\ os.path}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00029}00029\ \textcolor{keyword}{import}\ pickle}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00030}00030\ \textcolor{keyword}{import}\ sys}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00032}\mbox{\hyperlink{namespaceassemble_aa936a2fe87f1c5617cabc15eb24e39aa}{00032}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceassemble_aa936a2fe87f1c5617cabc15eb24e39aa}{same\_keys}}(a,\ b):}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00033}00033\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Determine\ if\ the\ dicts\ a\ and\ b\ have\ the\ same\ keys\ in\ them"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00034}00034\ \ \ \ \ \textcolor{keywordflow}{for}\ ak\ \textcolor{keywordflow}{in}\ a.keys():}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ak\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ b:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{for}\ bk\ \textcolor{keywordflow}{in}\ b.keys():}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ bk\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ a:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00040}00040\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00042}\mbox{\hyperlink{namespaceassemble_af289670e250b19806a45fb2cb94f233e}{00042}}\ offset\_re\ =\ re.compile(\textcolor{stringliteral}{r"{}\string^\#define\ DT\_FLASH\_AREA\_([0-\/9A-\/Z\_]+)\_OFFSET(\_0)?\(\backslash\)s+(0x[0-\/9a-\/fA-\/F]+|[0-\/9]+)\$"{}})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00043}\mbox{\hyperlink{namespaceassemble_a13d7ce74f896baf0c65793c8bb96fd09}{00043}}\ size\_re\ \ \ =\ re.compile(\textcolor{stringliteral}{r"{}\string^\#define\ DT\_FLASH\_AREA\_([0-\/9A-\/Z\_]+)\_SIZE(\_0)?\(\backslash\)s+(0x[0-\/9a-\/fA-\/F]+|[0-\/9]+)\$"{}})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00045}\mbox{\hyperlink{classassemble_1_1Assembly}{00045}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classassemble_1_1Assembly}{Assembly}}():}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00046}\mbox{\hyperlink{classassemble_1_1Assembly_ac165056ed3dc62d6127da7bc6d6b027e}{00046}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classassemble_1_1Assembly_ac165056ed3dc62d6127da7bc6d6b027e}{\_\_init\_\_}}(self,\ output,\ bootdir,\ edt):}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classassemble_1_1Assembly_adec7e877f190dcec11c83db693799737}{find\_slots}}\mbox{\hyperlink{classassemble_1_1Assembly_adec7e877f190dcec11c83db693799737}{find\_slots}}(edt)}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ os.unlink(output)}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ OSError\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ e.errno\ !=\ errno.ENOENT:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00053}\mbox{\hyperlink{classassemble_1_1Assembly_ad288825273ed7192429ab0474fb2d4a0}{00053}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classassemble_1_1Assembly_ad288825273ed7192429ab0474fb2d4a0}{output}}\ =\ output}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00055}\mbox{\hyperlink{classassemble_1_1Assembly_adec7e877f190dcec11c83db693799737}{00055}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classassemble_1_1Assembly_adec7e877f190dcec11c83db693799737}{find\_slots}}(self,\ edt):}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ offsets\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ sizes\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ part\_nodes\ =\ edt.compat2nodes[\textcolor{stringliteral}{"{}fixed-\/partitions"{}}]}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ node\ \textcolor{keywordflow}{in}\ part\_nodes:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ child\ \textcolor{keywordflow}{in}\ node.children.values():}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}label"{}}\ \textcolor{keywordflow}{in}\ child.props:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ label\ =\ child.props[\textcolor{stringliteral}{"{}label"{}}].val}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offsets[label]\ =\ child.regs[0].addr}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizes[label]\ =\ child.regs[0].size}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ \mbox{\hyperlink{namespaceassemble_aa936a2fe87f1c5617cabc15eb24e39aa}{same\_keys}}(offsets,\ sizes):}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Inconsistent\ data\ in\ devicetree.h"{}})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ We\ care\ about\ the\ mcuboot,\ image-\/0,\ and\ image-\/1\ partitions.}}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'mcuboot'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ offsets:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Board\ partition\ table\ does\ not\ have\ mcuboot\ partition"{}})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'image-\/0'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ offsets:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Board\ partition\ table\ does\ not\ have\ image-\/0\ partition"{}})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'image-\/1'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ offsets:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Board\ partition\ table\ does\ not\ have\ image-\/1\ partition"{}})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00080}\mbox{\hyperlink{classassemble_1_1Assembly_aba3805bd573676d9962792683b40ac6b}{00080}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classassemble_1_1Assembly_aba3805bd573676d9962792683b40ac6b}{offsets}}\ =\ offsets}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00081}\mbox{\hyperlink{classassemble_1_1Assembly_a59954f9ddc7bd5849baf28f0b04501b3}{00081}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classassemble_1_1Assembly_a59954f9ddc7bd5849baf28f0b04501b3}{sizes}}\ =\ sizes}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00083}\mbox{\hyperlink{classassemble_1_1Assembly_a035a335f45f45f820cea38ad6952bb6b}{00083}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classassemble_1_1Assembly_a035a335f45f45f820cea38ad6952bb6b}{add\_image}}(self,\ source,\ partition):}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ open(self.\mbox{\hyperlink{classassemble_1_1Assembly_ad288825273ed7192429ab0474fb2d4a0}{output}},\ \textcolor{stringliteral}{'ab'})\ \textcolor{keyword}{as}\ ofd:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ pos\ =\ ofd.tell()}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}partition\ \{\},\ pos=\{\},\ offset=\{\}"{}}.format(partition,\ pos,\ self.\mbox{\hyperlink{classassemble_1_1Assembly_aba3805bd573676d9962792683b40ac6b}{offsets}}[partition]))}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ pos\ >\ self.\mbox{\hyperlink{classassemble_1_1Assembly_aba3805bd573676d9962792683b40ac6b}{offsets}}[partition]:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Partitions\ not\ in\ order,\ unsupported"{}})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ pos\ <\ self.\mbox{\hyperlink{classassemble_1_1Assembly_aba3805bd573676d9962792683b40ac6b}{offsets}}[partition]:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buf\ =\ b\textcolor{stringliteral}{'\(\backslash\)xFF'}\ *\ (self.\mbox{\hyperlink{classassemble_1_1Assembly_aba3805bd573676d9962792683b40ac6b}{offsets}}[partition]\ -\/\ pos)}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ofd.write(buf)}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ open(source,\ \textcolor{stringliteral}{'rb'})\ \textcolor{keyword}{as}\ rfd:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ibuf\ =\ rfd.read()}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(ibuf)\ >\ self.\mbox{\hyperlink{classassemble_1_1Assembly_a59954f9ddc7bd5849baf28f0b04501b3}{sizes}}[partition]:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Image\ \{\}\ is\ too\ large\ for\ partition"{}}.format(source))}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ ofd.write(ibuf)}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00098}\mbox{\hyperlink{namespaceassemble_a0af4d5c10b0ba90112584d18341a6d37}{00098}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceassemble_a0af4d5c10b0ba90112584d18341a6d37}{find\_board\_name}}(bootdir):}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00099}00099\ \ \ \ \ dot\_config\ =\ os.path.join(bootdir,\ \textcolor{stringliteral}{"{}zephyr"{}},\ \textcolor{stringliteral}{"{}.config"{}})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00100}00100\ \ \ \ \ \textcolor{keyword}{with}\ open(dot\_config,\ \textcolor{stringliteral}{"{}r"{}})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ line\ \textcolor{keywordflow}{in}\ f:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ line.startswith(\textcolor{stringliteral}{"{}CONFIG\_BOARD="{}}):}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ line.split(\textcolor{stringliteral}{"{}="{}},\ 1)[1].strip(\textcolor{stringliteral}{'"{}'})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00104}00104\ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(\textcolor{stringliteral}{"{}Expected\ CONFIG\_BOARD\ line\ in\ \{\}"{}}.format(dot\_config))}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00106}\mbox{\hyperlink{namespaceassemble_a51af30a60f9f02777c6396b8247e356f}{00106}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceassemble_a51af30a60f9f02777c6396b8247e356f}{main}}():}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00107}00107\ \ \ \ \ parser\ =\ argparse.ArgumentParser()}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00109}00109\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/b'},\ \textcolor{stringliteral}{'-\/-\/bootdir'},\ required=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Directory\ of\ built\ bootloader'})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00111}00111\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/p'},\ \textcolor{stringliteral}{'-\/-\/primary'},\ required=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Signed\ image\ file\ for\ primary\ image'})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00113}00113\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/s'},\ \textcolor{stringliteral}{'-\/-\/secondary'},}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Signed\ image\ file\ for\ secondary\ image'})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00115}00115\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/o'},\ \textcolor{stringliteral}{'-\/-\/output'},\ required=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Filename\ to\ write\ full\ image\ to'})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00117}00117\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/z'},\ \textcolor{stringliteral}{'-\/-\/zephyr-\/base'},}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'Zephyr\ base\ containing\ the\ Zephyr\ repository'})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00120}00120\ \ \ \ \ args\ =\ parser.parse\_args()}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00122}00122\ \ \ \ \ zephyr\_base\ =\ args.zephyr\_base}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00123}00123\ \ \ \ \ \textcolor{keywordflow}{if}\ zephyr\_base\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ zephyr\_base\ =\ os.environ[\textcolor{stringliteral}{'ZEPHYR\_BASE'}]}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ KeyError:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'Need\ to\ either\ have\ ZEPHYR\_BASE\ in\ environment\ or\ pass\ in\ -\/z'})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ sys.exit(1)}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00130}00130\ \ \ \ \ sys.path.insert(0,\ os.path.join(zephyr\_base,\ \textcolor{stringliteral}{"{}scripts"{}},\ \textcolor{stringliteral}{"{}dts"{}},\ \textcolor{stringliteral}{"{}python-\/devicetree"{}},\ \textcolor{stringliteral}{"{}src"{}}))}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00131}00131\ \ \ \ \ \textcolor{keyword}{import}\ devicetree.edtlib}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00133}00133\ \ \ \ \ board\ =\ \mbox{\hyperlink{namespaceassemble_a0af4d5c10b0ba90112584d18341a6d37}{find\_board\_name}}(args.bootdir)}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00135}00135\ \ \ \ \ edt\_pickle\ =\ os.path.join(args.bootdir,\ \textcolor{stringliteral}{"{}zephyr"{}},\ \textcolor{stringliteral}{"{}edt.pickle"{}})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00136}00136\ \ \ \ \ \textcolor{keyword}{with}\ open(edt\_pickle,\ \textcolor{stringliteral}{'rb'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ edt\ =\ pickle.load(f)}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ isinstance(edt,\ devicetree.edtlib.EDT)}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00140}00140\ \ \ \ \ output\ =\ \mbox{\hyperlink{classassemble_1_1Assembly}{Assembly}}(args.output,\ args.bootdir,\ edt)}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00142}00142\ \ \ \ \ output.add\_image(os.path.join(args.bootdir,\ \textcolor{stringliteral}{'zephyr'},\ \textcolor{stringliteral}{'zephyr.bin'}),\ \textcolor{stringliteral}{'mcuboot'})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00143}00143\ \ \ \ \ output.add\_image(args.primary,\ \textcolor{stringliteral}{"{}image-\/0"{}})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00144}00144\ \ \ \ \ \textcolor{keywordflow}{if}\ args.secondary\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ output.add\_image(args.secondary,\ \textcolor{stringliteral}{"{}image-\/1"{}})}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00147}00147\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{assemble_8py_source_l00148}00148\ \ \ \ \ main()}
+
+\end{DoxyCode}

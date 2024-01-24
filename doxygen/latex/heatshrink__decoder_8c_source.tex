@@ -1,0 +1,374 @@
+\doxysection{heatshrink\+\_\+decoder.\+c}
+\hypertarget{heatshrink__decoder_8c_source}{}\label{heatshrink__decoder_8c_source}\index{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//src/heatshrink/heatshrink\_decoder.c@{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//src/heatshrink/heatshrink\_decoder.c}}
+\mbox{\hyperlink{heatshrink__decoder_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{heatshrink__decoder_8h}{heatshrink\_decoder.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00005}00005\ \textcolor{comment}{/*\ States\ for\ the\ polling\ state\ machine.\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00006}\mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cc}{00006}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00007}\mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493ccadbcd2f80476e973cd4ea0f5f7767e242}{00007}}\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493ccadbcd2f80476e973cd4ea0f5f7767e242}{HSDS\_TAG\_BIT}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ tag\ bit\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00008}\mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca63b15dbacdc5d7b9d0841980620f470c}{00008}}\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca63b15dbacdc5d7b9d0841980620f470c}{HSDS\_YIELD\_LITERAL}},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ready\ to\ yield\ literal\ byte\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00009}\mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca5eff05d0f6159da52ac540b48f9f9671}{00009}}\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca5eff05d0f6159da52ac540b48f9f9671}{HSDS\_BACKREF\_INDEX\_MSB}},\ \ \ \ \ \textcolor{comment}{/*\ most\ significant\ byte\ of\ index\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00010}\mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca40355fcc2f506253c8f7e1786f59d225}{00010}}\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca40355fcc2f506253c8f7e1786f59d225}{HSDS\_BACKREF\_INDEX\_LSB}},\ \ \ \ \ \textcolor{comment}{/*\ least\ significant\ byte\ of\ index\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00011}\mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca023ca0cc2106d2374e5cab5a63a67bbb}{00011}}\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca023ca0cc2106d2374e5cab5a63a67bbb}{HSDS\_BACKREF\_COUNT\_MSB}},\ \ \ \ \ \textcolor{comment}{/*\ most\ significant\ byte\ of\ count\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00012}\mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca12cbaebe48f454688440cc51efefb500}{00012}}\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca12cbaebe48f454688440cc51efefb500}{HSDS\_BACKREF\_COUNT\_LSB}},\ \ \ \ \ \textcolor{comment}{/*\ least\ significant\ byte\ of\ count\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00013}\mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca4ce396d0b6d9c969249aa9df840d9eaf}{00013}}\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca4ce396d0b6d9c969249aa9df840d9eaf}{HSDS\_YIELD\_BACKREF}},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ready\ to\ yield\ back-\/reference\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00014}00014\ \}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cc}{HSD\_state}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00016}00016\ \textcolor{preprocessor}{\#if\ HEATSHRINK\_DEBUGGING\_LOGS}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ <ctype.h>}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00020}00020\ \textcolor{preprocessor}{\#define\ LOG(...)\ fprintf(stderr,\ \_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00021}00021\ \textcolor{preprocessor}{\#define\ ASSERT(X)\ assert(X)}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00022}00022\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *state\_names[]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00023}00023\ \ \ \ \ \textcolor{stringliteral}{"{}tag\_bit"{}},}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00024}00024\ \ \ \ \ \textcolor{stringliteral}{"{}yield\_literal"{}},}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00025}00025\ \ \ \ \ \textcolor{stringliteral}{"{}backref\_index\_msb"{}},}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00026}00026\ \ \ \ \ \textcolor{stringliteral}{"{}backref\_index\_lsb"{}},}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00027}00027\ \ \ \ \ \textcolor{stringliteral}{"{}backref\_count\_msb"{}},}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00028}00028\ \ \ \ \ \textcolor{stringliteral}{"{}backref\_count\_lsb"{}},}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00029}00029\ \ \ \ \ \textcolor{stringliteral}{"{}yield\_backref"{}},}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00030}00030\ \};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00031}00031\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00032}\mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{00032}}\ \textcolor{preprocessor}{\#define\ LOG(...)\ }\textcolor{comment}{/*\ no-\/op\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00033}\mbox{\hyperlink{heatshrink__decoder_8c_ad014a2a071494bbabc34b48eeebadbf3}{00033}}\ \textcolor{preprocessor}{\#define\ ASSERT(X)\ }\textcolor{comment}{/*\ no-\/op\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00034}00034\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00036}\mbox{\hyperlink{structoutput__info}{00036}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00037}\mbox{\hyperlink{structoutput__info_a2c5f4ef732286b78e31ec8d1cb238215}{00037}}\ \ \ \ \ uint8\_t\ *\mbox{\hyperlink{structoutput__info_a2c5f4ef732286b78e31ec8d1cb238215}{buf}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ output\ buffer\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00038}\mbox{\hyperlink{structoutput__info_ae6563dde7454192031694b48405393d7}{00038}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structoutput__info_ae6563dde7454192031694b48405393d7}{buf\_size}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ buffer\ size\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00039}\mbox{\hyperlink{structoutput__info_acd32e0968fb2c45b8ab18c1480c03d3e}{00039}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ *\mbox{\hyperlink{structoutput__info_acd32e0968fb2c45b8ab18c1480c03d3e}{output\_size}};\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ bytes\ pushed\ to\ buffer,\ so\ far\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00040}00040\ \}\ \mbox{\hyperlink{structoutput__info}{output\_info}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00042}\mbox{\hyperlink{heatshrink__decoder_8c_a32978f006f6d66afa1e8198dc0d3bf6e}{00042}}\ \textcolor{preprocessor}{\#define\ NO\_BITS\ ((uint16\_t)-\/1)}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00044}00044\ \textcolor{comment}{/*\ Forward\ references.\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00045}00045\ \textcolor{keyword}{static}\ uint16\_t\ get\_bits(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd,\ uint8\_t\ count);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00046}00046\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ push\_byte(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd,\ \mbox{\hyperlink{structoutput__info}{output\_info}}\ *oi,\ uint8\_t\ \textcolor{keywordtype}{byte});}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00048}00048\ \textcolor{preprocessor}{\#if\ HEATSHRINK\_DYNAMIC\_ALLOC}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00049}00049\ \mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *heatshrink\_decoder\_alloc(uint16\_t\ input\_buffer\_size,}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ window\_sz2,}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ lookahead\_sz2)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00052}00052\ \ \ \ \ \textcolor{keywordflow}{if}\ ((window\_sz2\ <\ \mbox{\hyperlink{heatshrink__common_8h_a18431965fd325c3c4c6a52d7ed463c1a}{HEATSHRINK\_MIN\_WINDOW\_BITS}})\ ||}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00053}00053\ \ \ \ \ \ \ \ \ (window\_sz2\ >\ \mbox{\hyperlink{heatshrink__common_8h_a6f7669a0085538e1e2bef1dde10a4ec8}{HEATSHRINK\_MAX\_WINDOW\_BITS}})\ ||}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00054}00054\ \ \ \ \ \ \ \ \ (input\_buffer\_size\ ==\ 0)\ ||}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00055}00055\ \ \ \ \ \ \ \ \ (lookahead\_sz2\ <\ \mbox{\hyperlink{heatshrink__common_8h_ad710607d0e22421278df662d63439a9a}{HEATSHRINK\_MIN\_LOOKAHEAD\_BITS}})\ ||}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00056}00056\ \ \ \ \ \ \ \ \ (lookahead\_sz2\ >=\ window\_sz2))\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00058}00058\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00059}00059\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ buffers\_sz\ =\ (1\ <<\ window\_sz2)\ +\ input\_buffer\_size;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00060}00060\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ sz\ =\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}})\ +\ buffers\_sz;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00061}00061\ \ \ \ \ \mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd\ =\ HEATSHRINK\_MALLOC(sz);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00062}00062\ \ \ \ \ \textcolor{keywordflow}{if}\ (hsd\ ==\ NULL)\ \{\ \textcolor{keywordflow}{return}\ NULL;\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00063}00063\ \ \ \ \ hsd-\/>input\_buffer\_size\ =\ input\_buffer\_size;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00064}00064\ \ \ \ \ hsd-\/>window\_sz2\ =\ window\_sz2;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00065}00065\ \ \ \ \ hsd-\/>lookahead\_sz2\ =\ lookahead\_sz2;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00066}00066\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a66f048d07fb882fce420541f3efe67d1}{heatshrink\_decoder\_reset}}(hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00067}00067\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{LOG}}(\textcolor{stringliteral}{"{}-\/-\/\ allocated\ decoder\ with\ buffer\ size\ of\ \%zu\ (\%zu\ +\ \%u\ +\ \%u)\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00068}00068\ \ \ \ \ \ \ \ \ sz,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}),\ (1\ <<\ window\_sz2),\ input\_buffer\_size);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00069}00069\ \ \ \ \ \textcolor{keywordflow}{return}\ hsd;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00070}00070\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00072}00072\ \textcolor{keywordtype}{void}\ heatshrink\_decoder\_free(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00073}00073\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ buffers\_sz\ =\ (1\ <<\ hsd-\/>window\_sz2)\ +\ hsd-\/>input\_buffer\_size;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00074}00074\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ sz\ =\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}})\ +\ buffers\_sz;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00075}00075\ \ \ \ \ HEATSHRINK\_FREE(hsd,\ sz);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00076}00076\ \ \ \ \ (void)sz;\ \ \ \textcolor{comment}{/*\ may\ not\ be\ used\ by\ free\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00077}00077\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00078}00078\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00080}\mbox{\hyperlink{heatshrink__decoder_8c_a66f048d07fb882fce420541f3efe67d1}{00080}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{heatshrink__decoder_8c_a66f048d07fb882fce420541f3efe67d1}{heatshrink\_decoder\_reset}}(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00081}00081\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ buf\_sz\ =\ 1\ <<\ \mbox{\hyperlink{heatshrink__decoder_8h_a632b12c05ff21980d815d6c2141b9047}{HEATSHRINK\_DECODER\_WINDOW\_BITS}}(hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00082}00082\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ input\_sz\ =\ \mbox{\hyperlink{heatshrink__decoder_8h_afe99397936d8e49763c78ce30edac021}{HEATSHRINK\_DECODER\_INPUT\_BUFFER\_SIZE}}(hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00083}00083\ \ \ \ \ memset(hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a8335d5675808c1ef56ff5a442511624f}{buffers}},\ 0,\ buf\_sz\ +\ input\_sz);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00084}00084\ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a0b57aa10271a66f3dc936bba1d2f3830}{state}}\ =\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493ccadbcd2f80476e973cd4ea0f5f7767e242}{HSDS\_TAG\_BIT}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00085}00085\ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a6524630aeb3b7cf00b99031b59102f7a}{input\_size}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00086}00086\ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a36ce6cdc96dce790b947f5dee76ac21d}{input\_index}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00087}00087\ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_afa7b67d76c91de3551f4561b7d974331}{bit\_index}}\ =\ 0x00;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00088}00088\ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a65b988e1163cc65c6d3e5562fbc36a98}{current\_byte}}\ =\ 0x00;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00089}00089\ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_ab993b1ac0b6900c4acfbf3ae8fac28e9}{output\_count}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00090}00090\ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a894cb1dd2c8dab6ee5d8e165370fa0a7}{output\_index}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00091}00091\ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_ad62724fd9a0775c35d5a1005e64691a8}{head\_index}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00092}00092\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00094}00094\ \textcolor{comment}{/*\ Copy\ SIZE\ bytes\ into\ the\ decoder's\ input\ buffer,\ if\ it\ will\ fit.\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00095}\mbox{\hyperlink{heatshrink__decoder_8c_a7c918c86f737484d646de78f0b5116e2}{00095}}\ \mbox{\hyperlink{heatshrink__decoder_8h_a2033fd60c913bbd5493f38529f4c5eeb}{HSD\_sink\_res}}\ \mbox{\hyperlink{heatshrink__decoder_8c_a7c918c86f737484d646de78f0b5116e2}{heatshrink\_decoder\_sink}}(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd,}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00096}00096\ \ \ \ \ \ \ \ \ uint8\_t\ *in\_buf,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{size\_t}\ *input\_size)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00097}00097\ \ \ \ \ \textcolor{keywordflow}{if}\ ((hsd\ ==\ NULL)\ ||\ (in\_buf\ ==\ NULL)\ ||\ (input\_size\ ==\ NULL))\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8h_a2033fd60c913bbd5493f38529f4c5eeba4896bd2b7b48033627ab1d7530d1843a}{HSDR\_SINK\_ERROR\_NULL}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00099}00099\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00101}00101\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ rem\ =\ \mbox{\hyperlink{heatshrink__decoder_8h_afe99397936d8e49763c78ce30edac021}{HEATSHRINK\_DECODER\_INPUT\_BUFFER\_SIZE}}(hsd)\ -\/\ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a6524630aeb3b7cf00b99031b59102f7a}{input\_size}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00102}00102\ \ \ \ \ \textcolor{keywordflow}{if}\ (rem\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00103}00103\ \ \ \ \ \ \ \ \ *input\_size\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8h_a2033fd60c913bbd5493f38529f4c5eebae68dbf5ea2ab0f19bf73c289c99fa375}{HSDR\_SINK\_FULL}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00105}00105\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00107}00107\ \ \ \ \ size\ =\ rem\ <\ size\ ?\ rem\ :\ size;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00108}00108\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{LOG}}(\textcolor{stringliteral}{"{}-\/-\/\ sinking\ \%zd\ bytes\(\backslash\)n"{}},\ size);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00109}00109\ \ \ \ \ \textcolor{comment}{/*\ copy\ into\ input\ buffer\ (at\ head\ of\ buffers)\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00110}00110\ \ \ \ \ memcpy(\&hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a8335d5675808c1ef56ff5a442511624f}{buffers}}[hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a6524630aeb3b7cf00b99031b59102f7a}{input\_size}}],\ in\_buf,\ size);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00111}00111\ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a6524630aeb3b7cf00b99031b59102f7a}{input\_size}}\ +=\ size;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00112}00112\ \ \ \ \ *input\_size\ =\ size;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00113}00113\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8h_a2033fd60c913bbd5493f38529f4c5eeba589952f8375ea03d19d4c89033656b22}{HSDR\_SINK\_OK}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00114}00114\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00117}00117\ \textcolor{comment}{/*****************}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00118}00118\ \textcolor{comment}{\ *\ Decompression\ *}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00119}00119\ \textcolor{comment}{\ *****************/}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00121}\mbox{\hyperlink{heatshrink__decoder_8c_a5fe0e091a86c60480335dd5ef5c12421}{00121}}\ \textcolor{preprocessor}{\#define\ BACKREF\_COUNT\_BITS(HSD)\ (HEATSHRINK\_DECODER\_LOOKAHEAD\_BITS(HSD))}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00122}\mbox{\hyperlink{heatshrink__decoder_8c_a2785b9bc1830313346920a368ed8ecfa}{00122}}\ \textcolor{preprocessor}{\#define\ BACKREF\_INDEX\_BITS(HSD)\ (HEATSHRINK\_DECODER\_WINDOW\_BITS(HSD))}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00124}00124\ \textcolor{comment}{//\ States}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00125}00125\ \textcolor{keyword}{static}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cc}{HSD\_state}}\ st\_tag\_bit(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00126}00126\ \textcolor{keyword}{static}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cc}{HSD\_state}}\ st\_yield\_literal(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd,}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00127}00127\ \ \ \ \ \mbox{\hyperlink{structoutput__info}{output\_info}}\ *oi);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00128}00128\ \textcolor{keyword}{static}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cc}{HSD\_state}}\ st\_backref\_index\_msb(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00129}00129\ \textcolor{keyword}{static}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cc}{HSD\_state}}\ st\_backref\_index\_lsb(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00130}00130\ \textcolor{keyword}{static}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cc}{HSD\_state}}\ st\_backref\_count\_msb(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00131}00131\ \textcolor{keyword}{static}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cc}{HSD\_state}}\ st\_backref\_count\_lsb(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00132}00132\ \textcolor{keyword}{static}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cc}{HSD\_state}}\ st\_yield\_backref(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd,}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00133}00133\ \ \ \ \ \mbox{\hyperlink{structoutput__info}{output\_info}}\ *oi);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00135}\mbox{\hyperlink{heatshrink__decoder_8c_a38406b03b9df8b993c6a3fa144675627}{00135}}\ \mbox{\hyperlink{heatshrink__decoder_8h_abd574439da270fe6682c4011a8e4a27a}{HSD\_poll\_res}}\ \mbox{\hyperlink{heatshrink__decoder_8c_a38406b03b9df8b993c6a3fa144675627}{heatshrink\_decoder\_poll}}(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd,}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00136}00136\ \ \ \ \ \ \ \ \ uint8\_t\ *out\_buf,\ \textcolor{keywordtype}{size\_t}\ out\_buf\_size,\ \textcolor{keywordtype}{size\_t}\ *output\_size)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00137}00137\ \ \ \ \ \textcolor{keywordflow}{if}\ ((hsd\ ==\ NULL)\ ||\ (out\_buf\ ==\ NULL)\ ||\ (output\_size\ ==\ NULL))\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00138}00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8h_abd574439da270fe6682c4011a8e4a27aad6aaf70030927b97298dc51f3c462edd}{HSDR\_POLL\_ERROR\_NULL}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00139}00139\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00140}00140\ \ \ \ \ *output\_size\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00142}00142\ \ \ \ \ \mbox{\hyperlink{structoutput__info}{output\_info}}\ oi;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00143}00143\ \ \ \ \ oi.\mbox{\hyperlink{structoutput__info_a2c5f4ef732286b78e31ec8d1cb238215}{buf}}\ =\ out\_buf;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00144}00144\ \ \ \ \ oi.\mbox{\hyperlink{structoutput__info_ae6563dde7454192031694b48405393d7}{buf\_size}}\ =\ out\_buf\_size;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00145}00145\ \ \ \ \ oi.\mbox{\hyperlink{structoutput__info_acd32e0968fb2c45b8ab18c1480c03d3e}{output\_size}}\ =\ output\_size;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00147}00147\ \ \ \ \ \textcolor{keywordflow}{while}\ (1)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00148}00148\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{LOG}}(\textcolor{stringliteral}{"{}-\/-\/\ poll,\ state\ is\ \%d\ (\%s),\ input\_size\ \%d\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a0b57aa10271a66f3dc936bba1d2f3830}{state}},\ state\_names[hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a0b57aa10271a66f3dc936bba1d2f3830}{state}}],\ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a6524630aeb3b7cf00b99031b59102f7a}{input\_size}});}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00150}00150\ \ \ \ \ \ \ \ \ uint8\_t\ in\_state\ =\ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a0b57aa10271a66f3dc936bba1d2f3830}{state}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00151}00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (in\_state)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00152}00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493ccadbcd2f80476e973cd4ea0f5f7767e242}{HSDS\_TAG\_BIT}}:}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a0b57aa10271a66f3dc936bba1d2f3830}{state}}\ =\ st\_tag\_bit(hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00155}00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca63b15dbacdc5d7b9d0841980620f470c}{HSDS\_YIELD\_LITERAL}}:}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a0b57aa10271a66f3dc936bba1d2f3830}{state}}\ =\ st\_yield\_literal(hsd,\ \&oi);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00158}00158\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca5eff05d0f6159da52ac540b48f9f9671}{HSDS\_BACKREF\_INDEX\_MSB}}:}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a0b57aa10271a66f3dc936bba1d2f3830}{state}}\ =\ st\_backref\_index\_msb(hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00161}00161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca40355fcc2f506253c8f7e1786f59d225}{HSDS\_BACKREF\_INDEX\_LSB}}:}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a0b57aa10271a66f3dc936bba1d2f3830}{state}}\ =\ st\_backref\_index\_lsb(hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00164}00164\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca023ca0cc2106d2374e5cab5a63a67bbb}{HSDS\_BACKREF\_COUNT\_MSB}}:}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a0b57aa10271a66f3dc936bba1d2f3830}{state}}\ =\ st\_backref\_count\_msb(hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00167}00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca12cbaebe48f454688440cc51efefb500}{HSDS\_BACKREF\_COUNT\_LSB}}:}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a0b57aa10271a66f3dc936bba1d2f3830}{state}}\ =\ st\_backref\_count\_lsb(hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00170}00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca4ce396d0b6d9c969249aa9df840d9eaf}{HSDS\_YIELD\_BACKREF}}:}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a0b57aa10271a66f3dc936bba1d2f3830}{state}}\ =\ st\_yield\_backref(hsd,\ \&oi);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00173}00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8h_abd574439da270fe6682c4011a8e4a27aaeb2610f1216851a5464d5ae1201d2191}{HSDR\_POLL\_ERROR\_UNKNOWN}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00175}00175\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00176}00176\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00177}00177\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ the\ current\ state\ cannot\ advance,\ check\ if\ input\ or\ output}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00178}00178\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ buffer\ are\ exhausted.\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00179}00179\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a0b57aa10271a66f3dc936bba1d2f3830}{state}}\ ==\ in\_state)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (*output\_size\ ==\ out\_buf\_size)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8h_abd574439da270fe6682c4011a8e4a27aa1f2aa0e4daf0877e05c6ce1dc70de044}{HSDR\_POLL\_MORE}};\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8h_abd574439da270fe6682c4011a8e4a27aa8c6c36540f31619cd4693e3c9f00d931}{HSDR\_POLL\_EMPTY}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00182}00182\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00183}00183\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00184}00184\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00186}00186\ \textcolor{keyword}{static}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cc}{HSD\_state}}\ st\_tag\_bit(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00187}00187\ \ \ \ \ uint32\_t\ bits\ =\ get\_bits(hsd,\ 1);\ \ \textcolor{comment}{//\ get\ tag\ bit}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00188}00188\ \ \ \ \ \textcolor{keywordflow}{if}\ (bits\ ==\ \mbox{\hyperlink{heatshrink__decoder_8c_a32978f006f6d66afa1e8198dc0d3bf6e}{NO\_BITS}})\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00189}00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493ccadbcd2f80476e973cd4ea0f5f7767e242}{HSDS\_TAG\_BIT}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00190}00190\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (bits)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00191}00191\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca63b15dbacdc5d7b9d0841980620f470c}{HSDS\_YIELD\_LITERAL}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00192}00192\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{heatshrink__decoder_8h_a632b12c05ff21980d815d6c2141b9047}{HEATSHRINK\_DECODER\_WINDOW\_BITS}}(hsd)\ >\ 8)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00193}00193\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca5eff05d0f6159da52ac540b48f9f9671}{HSDS\_BACKREF\_INDEX\_MSB}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00194}00194\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00195}00195\ \ \ \ \ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a894cb1dd2c8dab6ee5d8e165370fa0a7}{output\_index}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00196}00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca40355fcc2f506253c8f7e1786f59d225}{HSDS\_BACKREF\_INDEX\_LSB}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00197}00197\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00198}00198\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00200}00200\ \textcolor{keyword}{static}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cc}{HSD\_state}}\ st\_yield\_literal(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd,}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00201}00201\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structoutput__info}{output\_info}}\ *oi)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00202}00202\ \ \ \ \ \textcolor{comment}{/*\ Emit\ a\ repeated\ section\ from\ the\ window\ buffer,\ and\ add\ it\ (again)}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00203}00203\ \textcolor{comment}{\ \ \ \ \ *\ to\ the\ window\ buffer.\ (Note\ that\ the\ repetition\ can\ include}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00204}00204\ \textcolor{comment}{\ \ \ \ \ *\ itself.)*/}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00205}00205\ \ \ \ \ \textcolor{keywordflow}{if}\ (*oi-\/>\mbox{\hyperlink{structoutput__info_acd32e0968fb2c45b8ab18c1480c03d3e}{output\_size}}\ <\ oi-\/>\mbox{\hyperlink{structoutput__info_ae6563dde7454192031694b48405393d7}{buf\_size}})\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00206}00206\ \ \ \ \ \ \ \ \ uint16\_t\ \textcolor{keywordtype}{byte}\ =\ get\_bits(hsd,\ 8);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00207}00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{byte}\ ==\ \mbox{\hyperlink{heatshrink__decoder_8c_a32978f006f6d66afa1e8198dc0d3bf6e}{NO\_BITS}})\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca63b15dbacdc5d7b9d0841980620f470c}{HSDS\_YIELD\_LITERAL}};\ \}\ \textcolor{comment}{/*\ out\ of\ input\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00208}00208\ \ \ \ \ \ \ \ \ uint8\_t\ *buf\ =\ \&hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a8335d5675808c1ef56ff5a442511624f}{buffers}}[\mbox{\hyperlink{heatshrink__decoder_8h_afe99397936d8e49763c78ce30edac021}{HEATSHRINK\_DECODER\_INPUT\_BUFFER\_SIZE}}(hsd)];}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00209}00209\ \ \ \ \ \ \ \ \ uint16\_t\ mask\ =\ (1\ <<\ \mbox{\hyperlink{heatshrink__decoder_8h_a632b12c05ff21980d815d6c2141b9047}{HEATSHRINK\_DECODER\_WINDOW\_BITS}}(hsd))\ \ -\/\ 1;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00210}00210\ \ \ \ \ \ \ \ \ uint8\_t\ c\ =\ \textcolor{keywordtype}{byte}\ \&\ 0xFF;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00211}00211\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{LOG}}(\textcolor{stringliteral}{"{}-\/-\/\ emitting\ literal\ byte\ 0x\%02x\ ('\%c')\(\backslash\)n"{}},\ c,\ isprint(c)\ ?\ c\ :\ \textcolor{stringliteral}{'.'});}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00212}00212\ \ \ \ \ \ \ \ \ buf[hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_ad62724fd9a0775c35d5a1005e64691a8}{head\_index}}++\ \&\ mask]\ =\ c;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00213}00213\ \ \ \ \ \ \ \ \ push\_byte(hsd,\ oi,\ c);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00214}00214\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493ccadbcd2f80476e973cd4ea0f5f7767e242}{HSDS\_TAG\_BIT}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00215}00215\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00216}00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca63b15dbacdc5d7b9d0841980620f470c}{HSDS\_YIELD\_LITERAL}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00217}00217\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00218}00218\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00220}00220\ \textcolor{keyword}{static}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cc}{HSD\_state}}\ st\_backref\_index\_msb(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00221}00221\ \ \ \ \ uint8\_t\ bit\_ct\ =\ \mbox{\hyperlink{heatshrink__decoder_8c_a2785b9bc1830313346920a368ed8ecfa}{BACKREF\_INDEX\_BITS}}(hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00222}00222\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_ad014a2a071494bbabc34b48eeebadbf3}{ASSERT}}(bit\_ct\ >\ 8);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00223}00223\ \ \ \ \ uint16\_t\ bits\ =\ get\_bits(hsd,\ bit\_ct\ -\/\ 8);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00224}00224\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{LOG}}(\textcolor{stringliteral}{"{}-\/-\/\ backref\ index\ (msb),\ got\ 0x\%04x\ (+1)\(\backslash\)n"{}},\ bits);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00225}00225\ \ \ \ \ \textcolor{keywordflow}{if}\ (bits\ ==\ \mbox{\hyperlink{heatshrink__decoder_8c_a32978f006f6d66afa1e8198dc0d3bf6e}{NO\_BITS}})\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca5eff05d0f6159da52ac540b48f9f9671}{HSDS\_BACKREF\_INDEX\_MSB}};\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00226}00226\ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a894cb1dd2c8dab6ee5d8e165370fa0a7}{output\_index}}\ =\ bits\ <<\ 8;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00227}00227\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca40355fcc2f506253c8f7e1786f59d225}{HSDS\_BACKREF\_INDEX\_LSB}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00228}00228\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00229}00229\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00230}00230\ \textcolor{keyword}{static}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cc}{HSD\_state}}\ st\_backref\_index\_lsb(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00231}00231\ \ \ \ \ uint8\_t\ bit\_ct\ =\ \mbox{\hyperlink{heatshrink__decoder_8c_a2785b9bc1830313346920a368ed8ecfa}{BACKREF\_INDEX\_BITS}}(hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00232}00232\ \ \ \ \ uint16\_t\ bits\ =\ get\_bits(hsd,\ bit\_ct\ <\ 8\ ?\ bit\_ct\ :\ 8);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00233}00233\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{LOG}}(\textcolor{stringliteral}{"{}-\/-\/\ backref\ index\ (lsb),\ got\ 0x\%04x\ (+1)\(\backslash\)n"{}},\ bits);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00234}00234\ \ \ \ \ \textcolor{keywordflow}{if}\ (bits\ ==\ \mbox{\hyperlink{heatshrink__decoder_8c_a32978f006f6d66afa1e8198dc0d3bf6e}{NO\_BITS}})\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca40355fcc2f506253c8f7e1786f59d225}{HSDS\_BACKREF\_INDEX\_LSB}};\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00235}00235\ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a894cb1dd2c8dab6ee5d8e165370fa0a7}{output\_index}}\ |=\ bits;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00236}00236\ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a894cb1dd2c8dab6ee5d8e165370fa0a7}{output\_index}}++;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00237}00237\ \ \ \ \ uint8\_t\ br\_bit\_ct\ =\ \mbox{\hyperlink{heatshrink__decoder_8c_a5fe0e091a86c60480335dd5ef5c12421}{BACKREF\_COUNT\_BITS}}(hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00238}00238\ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_ab993b1ac0b6900c4acfbf3ae8fac28e9}{output\_count}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00239}00239\ \ \ \ \ \textcolor{keywordflow}{return}\ (br\_bit\_ct\ >\ 8)\ ?\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca023ca0cc2106d2374e5cab5a63a67bbb}{HSDS\_BACKREF\_COUNT\_MSB}}\ :\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca12cbaebe48f454688440cc51efefb500}{HSDS\_BACKREF\_COUNT\_LSB}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00240}00240\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00242}00242\ \textcolor{keyword}{static}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cc}{HSD\_state}}\ st\_backref\_count\_msb(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00243}00243\ \ \ \ \ uint8\_t\ br\_bit\_ct\ =\ \mbox{\hyperlink{heatshrink__decoder_8c_a5fe0e091a86c60480335dd5ef5c12421}{BACKREF\_COUNT\_BITS}}(hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00244}00244\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_ad014a2a071494bbabc34b48eeebadbf3}{ASSERT}}(br\_bit\_ct\ >\ 8);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00245}00245\ \ \ \ \ uint16\_t\ bits\ =\ get\_bits(hsd,\ br\_bit\_ct\ -\/\ 8);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00246}00246\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{LOG}}(\textcolor{stringliteral}{"{}-\/-\/\ backref\ count\ (msb),\ got\ 0x\%04x\ (+1)\(\backslash\)n"{}},\ bits);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00247}00247\ \ \ \ \ \textcolor{keywordflow}{if}\ (bits\ ==\ \mbox{\hyperlink{heatshrink__decoder_8c_a32978f006f6d66afa1e8198dc0d3bf6e}{NO\_BITS}})\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca023ca0cc2106d2374e5cab5a63a67bbb}{HSDS\_BACKREF\_COUNT\_MSB}};\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00248}00248\ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_ab993b1ac0b6900c4acfbf3ae8fac28e9}{output\_count}}\ =\ bits\ <<\ 8;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00249}00249\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca12cbaebe48f454688440cc51efefb500}{HSDS\_BACKREF\_COUNT\_LSB}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00250}00250\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00251}00251\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00252}00252\ \textcolor{keyword}{static}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cc}{HSD\_state}}\ st\_backref\_count\_lsb(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00253}00253\ \ \ \ \ uint8\_t\ br\_bit\_ct\ =\ \mbox{\hyperlink{heatshrink__decoder_8c_a5fe0e091a86c60480335dd5ef5c12421}{BACKREF\_COUNT\_BITS}}(hsd);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00254}00254\ \ \ \ \ uint16\_t\ bits\ =\ get\_bits(hsd,\ br\_bit\_ct\ <\ 8\ ?\ br\_bit\_ct\ :\ 8);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00255}00255\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{LOG}}(\textcolor{stringliteral}{"{}-\/-\/\ backref\ count\ (lsb),\ got\ 0x\%04x\ (+1)\(\backslash\)n"{}},\ bits);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00256}00256\ \ \ \ \ \textcolor{keywordflow}{if}\ (bits\ ==\ \mbox{\hyperlink{heatshrink__decoder_8c_a32978f006f6d66afa1e8198dc0d3bf6e}{NO\_BITS}})\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca12cbaebe48f454688440cc51efefb500}{HSDS\_BACKREF\_COUNT\_LSB}};\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00257}00257\ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_ab993b1ac0b6900c4acfbf3ae8fac28e9}{output\_count}}\ |=\ bits;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00258}00258\ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_ab993b1ac0b6900c4acfbf3ae8fac28e9}{output\_count}}++;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00259}00259\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca4ce396d0b6d9c969249aa9df840d9eaf}{HSDS\_YIELD\_BACKREF}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00260}00260\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00261}00261\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00262}00262\ \textcolor{keyword}{static}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cc}{HSD\_state}}\ st\_yield\_backref(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd,}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00263}00263\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structoutput__info}{output\_info}}\ *oi)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00264}00264\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ count\ =\ oi-\/>\mbox{\hyperlink{structoutput__info_ae6563dde7454192031694b48405393d7}{buf\_size}}\ -\/\ *oi-\/>\mbox{\hyperlink{structoutput__info_acd32e0968fb2c45b8ab18c1480c03d3e}{output\_size}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00265}00265\ \ \ \ \ \textcolor{keywordflow}{if}\ (count\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00266}00266\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ i\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00267}00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_ab993b1ac0b6900c4acfbf3ae8fac28e9}{output\_count}}\ <\ count)\ count\ =\ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_ab993b1ac0b6900c4acfbf3ae8fac28e9}{output\_count}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00268}00268\ \ \ \ \ \ \ \ \ uint8\_t\ *buf\ =\ \&hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a8335d5675808c1ef56ff5a442511624f}{buffers}}[\mbox{\hyperlink{heatshrink__decoder_8h_afe99397936d8e49763c78ce30edac021}{HEATSHRINK\_DECODER\_INPUT\_BUFFER\_SIZE}}(hsd)];}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00269}00269\ \ \ \ \ \ \ \ \ uint16\_t\ mask\ =\ (1\ <<\ \mbox{\hyperlink{heatshrink__decoder_8h_a632b12c05ff21980d815d6c2141b9047}{HEATSHRINK\_DECODER\_WINDOW\_BITS}}(hsd))\ -\/\ 1;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00270}00270\ \ \ \ \ \ \ \ \ uint16\_t\ neg\_offset\ =\ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a894cb1dd2c8dab6ee5d8e165370fa0a7}{output\_index}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00271}00271\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{LOG}}(\textcolor{stringliteral}{"{}-\/-\/\ emitting\ \%zu\ bytes\ from\ -\/\%u\ bytes\ back\(\backslash\)n"{}},\ count,\ neg\_offset);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00272}00272\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_ad014a2a071494bbabc34b48eeebadbf3}{ASSERT}}(neg\_offset\ <=\ mask\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00273}00273\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_ad014a2a071494bbabc34b48eeebadbf3}{ASSERT}}(count\ <=\ (\textcolor{keywordtype}{size\_t})(1\ <<\ \mbox{\hyperlink{heatshrink__decoder_8c_a5fe0e091a86c60480335dd5ef5c12421}{BACKREF\_COUNT\_BITS}}(hsd)));}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00274}00274\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00275}00275\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (i=0;\ i<count;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ c\ =\ buf[(hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_ad62724fd9a0775c35d5a1005e64691a8}{head\_index}}\ -\/\ neg\_offset)\ \&\ mask];}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00277}00277\ \ \ \ \ \ \ \ \ \ \ \ \ push\_byte(hsd,\ oi,\ c);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00278}00278\ \ \ \ \ \ \ \ \ \ \ \ \ buf[hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_ad62724fd9a0775c35d5a1005e64691a8}{head\_index}}\ \&\ mask]\ =\ c;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_ad62724fd9a0775c35d5a1005e64691a8}{head\_index}}++;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{LOG}}(\textcolor{stringliteral}{"{}\ \ -\/-\/\ ++\ 0x\%02x\(\backslash\)n"{}},\ c);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00281}00281\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00282}00282\ \ \ \ \ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_ab993b1ac0b6900c4acfbf3ae8fac28e9}{output\_count}}\ -\/=\ count;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00283}00283\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_ab993b1ac0b6900c4acfbf3ae8fac28e9}{output\_count}}\ ==\ 0)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493ccadbcd2f80476e973cd4ea0f5f7767e242}{HSDS\_TAG\_BIT}};\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00284}00284\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00285}00285\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca4ce396d0b6d9c969249aa9df840d9eaf}{HSDS\_YIELD\_BACKREF}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00286}00286\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00287}00287\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00288}00288\ \textcolor{comment}{/*\ Get\ the\ next\ COUNT\ bits\ from\ the\ input\ buffer,\ saving\ incremental\ progress.}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00289}00289\ \textcolor{comment}{\ *\ Returns\ NO\_BITS\ on\ end\ of\ input,\ or\ if\ more\ than\ 15\ bits\ are\ requested.\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00290}00290\ \textcolor{keyword}{static}\ uint16\_t\ get\_bits(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd,\ uint8\_t\ count)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00291}00291\ \ \ \ \ uint16\_t\ accumulator\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00292}00292\ \ \ \ \ \textcolor{keywordtype}{int}\ i\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00293}00293\ \ \ \ \ \textcolor{keywordflow}{if}\ (count\ >\ 15)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a32978f006f6d66afa1e8198dc0d3bf6e}{NO\_BITS}};\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00294}00294\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{LOG}}(\textcolor{stringliteral}{"{}-\/-\/\ popping\ \%u\ bit(s)\(\backslash\)n"{}},\ count);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00295}00295\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00296}00296\ \ \ \ \ \textcolor{comment}{/*\ If\ we\ aren't\ able\ to\ get\ COUNT\ bits,\ suspend\ immediately,\ because\ we}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00297}00297\ \textcolor{comment}{\ \ \ \ \ *\ don't\ track\ how\ many\ bits\ of\ COUNT\ we've\ accumulated\ before\ suspend.\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00298}00298\ \ \ \ \ \textcolor{keywordflow}{if}\ (hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a6524630aeb3b7cf00b99031b59102f7a}{input\_size}}\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00299}00299\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_afa7b67d76c91de3551f4561b7d974331}{bit\_index}}\ <\ (1\ <<\ (count\ -\/\ 1)))\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a32978f006f6d66afa1e8198dc0d3bf6e}{NO\_BITS}};\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00300}00300\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00301}00301\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00302}00302\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ count;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00303}00303\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_afa7b67d76c91de3551f4561b7d974331}{bit\_index}}\ ==\ 0x00)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00304}00304\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a6524630aeb3b7cf00b99031b59102f7a}{input\_size}}\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00305}00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{LOG}}(\textcolor{stringliteral}{"{}\ \ -\/-\/\ out\ of\ bits,\ suspending\ w/\ accumulator\ of\ \%u\ (0x\%02x)\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00306}00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ accumulator,\ accumulator);}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00307}00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8c_a32978f006f6d66afa1e8198dc0d3bf6e}{NO\_BITS}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a65b988e1163cc65c6d3e5562fbc36a98}{current\_byte}}\ =\ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a8335d5675808c1ef56ff5a442511624f}{buffers}}[hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a36ce6cdc96dce790b947f5dee76ac21d}{input\_index}}++];}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00310}00310\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{LOG}}(\textcolor{stringliteral}{"{}\ \ -\/-\/\ pulled\ byte\ 0x\%02x\(\backslash\)n"{}},\ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a65b988e1163cc65c6d3e5562fbc36a98}{current\_byte}});}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00311}00311\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a36ce6cdc96dce790b947f5dee76ac21d}{input\_index}}\ ==\ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a6524630aeb3b7cf00b99031b59102f7a}{input\_size}})\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00312}00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a36ce6cdc96dce790b947f5dee76ac21d}{input\_index}}\ =\ 0;\ \textcolor{comment}{/*\ input\ is\ exhausted\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00313}00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a6524630aeb3b7cf00b99031b59102f7a}{input\_size}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00314}00314\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00315}00315\ \ \ \ \ \ \ \ \ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_afa7b67d76c91de3551f4561b7d974331}{bit\_index}}\ =\ 0x80;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00316}00316\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00317}00317\ \ \ \ \ \ \ \ \ accumulator\ <<=\ 1;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00318}00318\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a65b988e1163cc65c6d3e5562fbc36a98}{current\_byte}}\ \&\ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_afa7b67d76c91de3551f4561b7d974331}{bit\_index}})\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00319}00319\ \ \ \ \ \ \ \ \ \ \ \ \ accumulator\ |=\ 0x01;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00320}00320\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (0)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00321}00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{LOG}}(\textcolor{stringliteral}{"{}\ \ -\/-\/\ got\ 1,\ accumulator\ 0x\%04x,\ bit\_index\ 0x\%02x\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00322}00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ accumulator,\ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_afa7b67d76c91de3551f4561b7d974331}{bit\_index}});}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00323}00323\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00324}00324\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00325}00325\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (0)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00326}00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{LOG}}(\textcolor{stringliteral}{"{}\ \ -\/-\/\ got\ 0,\ accumulator\ 0x\%04x,\ bit\_index\ 0x\%02x\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00327}00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ accumulator,\ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_afa7b67d76c91de3551f4561b7d974331}{bit\_index}});}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00328}00328\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00329}00329\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00330}00330\ \ \ \ \ \ \ \ \ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_afa7b67d76c91de3551f4561b7d974331}{bit\_index}}\ >>=\ 1;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00331}00331\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00332}00332\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00333}00333\ \ \ \ \ \textcolor{keywordflow}{if}\ (count\ >\ 1)\ \{\ \mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{LOG}}(\textcolor{stringliteral}{"{}\ \ -\/-\/\ accumulated\ \%08x\(\backslash\)n"{}},\ accumulator);\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00334}00334\ \ \ \ \ \textcolor{keywordflow}{return}\ accumulator;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00335}00335\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00336}00336\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00337}\mbox{\hyperlink{heatshrink__decoder_8c_aac3da3fb98517f7f6121711b0c995616}{00337}}\ \mbox{\hyperlink{heatshrink__decoder_8h_a053a01631612e6c96c669e0431f996ce}{HSD\_finish\_res}}\ \mbox{\hyperlink{heatshrink__decoder_8c_aac3da3fb98517f7f6121711b0c995616}{heatshrink\_decoder\_finish}}(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd)\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00338}00338\ \ \ \ \ \textcolor{keywordflow}{if}\ (hsd\ ==\ NULL)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8h_a053a01631612e6c96c669e0431f996cea452a4c121fdea30a5d3432063e9ebf20}{HSDR\_FINISH\_ERROR\_NULL}};\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00339}00339\ \ \ \ \ \textcolor{keywordflow}{switch}\ (hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a0b57aa10271a66f3dc936bba1d2f3830}{state}})\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00340}00340\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493ccadbcd2f80476e973cd4ea0f5f7767e242}{HSDS\_TAG\_BIT}}:}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00341}00341\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a6524630aeb3b7cf00b99031b59102f7a}{input\_size}}\ ==\ 0\ ?\ \mbox{\hyperlink{heatshrink__decoder_8h_a053a01631612e6c96c669e0431f996cea092a572b5836b314cc20dee824869cae}{HSDR\_FINISH\_DONE}}\ :\ \mbox{\hyperlink{heatshrink__decoder_8h_a053a01631612e6c96c669e0431f996cea4f329b4632e284f817a4d5017c843955}{HSDR\_FINISH\_MORE}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00342}00342\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00343}00343\ \ \ \ \ \textcolor{comment}{/*\ If\ we\ want\ to\ finish\ with\ no\ input,\ but\ are\ in\ these\ states,\ it's}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00344}00344\ \textcolor{comment}{\ \ \ \ \ *\ because\ the\ 0-\/bit\ padding\ to\ the\ last\ byte\ looks\ like\ a\ backref}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00345}00345\ \textcolor{comment}{\ \ \ \ \ *\ marker\ bit\ followed\ by\ all\ 0s\ for\ index\ and\ count\ bits.\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00346}00346\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca40355fcc2f506253c8f7e1786f59d225}{HSDS\_BACKREF\_INDEX\_LSB}}:}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00347}00347\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca5eff05d0f6159da52ac540b48f9f9671}{HSDS\_BACKREF\_INDEX\_MSB}}:}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00348}00348\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca12cbaebe48f454688440cc51efefb500}{HSDS\_BACKREF\_COUNT\_LSB}}:}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00349}00349\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca023ca0cc2106d2374e5cab5a63a67bbb}{HSDS\_BACKREF\_COUNT\_MSB}}:}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00350}00350\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a6524630aeb3b7cf00b99031b59102f7a}{input\_size}}\ ==\ 0\ ?\ \mbox{\hyperlink{heatshrink__decoder_8h_a053a01631612e6c96c669e0431f996cea092a572b5836b314cc20dee824869cae}{HSDR\_FINISH\_DONE}}\ :\ \mbox{\hyperlink{heatshrink__decoder_8h_a053a01631612e6c96c669e0431f996cea4f329b4632e284f817a4d5017c843955}{HSDR\_FINISH\_MORE}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00351}00351\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00352}00352\ \ \ \ \ \textcolor{comment}{/*\ If\ the\ output\ stream\ is\ padded\ with\ 0xFFs\ (possibly\ due\ to\ being\ in}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00353}00353\ \textcolor{comment}{\ \ \ \ \ *\ flash\ memory),\ also\ explicitly\ check\ the\ input\ size\ rather\ than}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00354}00354\ \textcolor{comment}{\ \ \ \ \ *\ uselessly\ returning\ MORE\ but\ yielding\ 0\ bytes\ when\ polling.\ */}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00355}00355\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{heatshrink__decoder_8c_a9a56e5d0055ef03ff5eb49fbe8e493cca63b15dbacdc5d7b9d0841980620f470c}{HSDS\_YIELD\_LITERAL}}:}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00356}00356\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hsd-\/>\mbox{\hyperlink{structheatshrink__decoder_a6524630aeb3b7cf00b99031b59102f7a}{input\_size}}\ ==\ 0\ ?\ \mbox{\hyperlink{heatshrink__decoder_8h_a053a01631612e6c96c669e0431f996cea092a572b5836b314cc20dee824869cae}{HSDR\_FINISH\_DONE}}\ :\ \mbox{\hyperlink{heatshrink__decoder_8h_a053a01631612e6c96c669e0431f996cea4f329b4632e284f817a4d5017c843955}{HSDR\_FINISH\_MORE}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00357}00357\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00358}00358\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00359}00359\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{heatshrink__decoder_8h_a053a01631612e6c96c669e0431f996cea4f329b4632e284f817a4d5017c843955}{HSDR\_FINISH\_MORE}};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00360}00360\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00361}00361\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00362}00362\ }
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00363}00363\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ push\_byte(\mbox{\hyperlink{structheatshrink__decoder}{heatshrink\_decoder}}\ *hsd,\ \mbox{\hyperlink{structoutput__info}{output\_info}}\ *oi,\ uint8\_t\ \textcolor{keywordtype}{byte})\ \{}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00364}00364\ \ \ \ \ \mbox{\hyperlink{heatshrink__decoder_8c_a3577749fb48d57a158b8ac1a0b3ab57e}{LOG}}(\textcolor{stringliteral}{"{}\ -\/-\/\ pushing\ byte:\ 0x\%02x\ ('\%c')\(\backslash\)n"{}},\ \textcolor{keywordtype}{byte},\ isprint(\textcolor{keywordtype}{byte})\ ?\ \textcolor{keywordtype}{byte}\ :\ \textcolor{stringliteral}{'.'});}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00365}00365\ \ \ \ \ oi-\/>\mbox{\hyperlink{structoutput__info_a2c5f4ef732286b78e31ec8d1cb238215}{buf}}[(*oi-\/>\mbox{\hyperlink{structoutput__info_acd32e0968fb2c45b8ab18c1480c03d3e}{output\_size}})++]\ =\ \textcolor{keywordtype}{byte};}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00366}00366\ \ \ \ \ (void)hsd;}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00367}00367\ \}}
+\DoxyCodeLine{\Hypertarget{heatshrink__decoder_8c_source_l00368}00368\ }
+
+\end{DoxyCode}

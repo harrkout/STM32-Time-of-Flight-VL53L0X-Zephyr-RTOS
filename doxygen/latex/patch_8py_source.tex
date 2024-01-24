@@ -1,0 +1,52 @@
+\doxysection{patch.\+py}
+\hypertarget{patch_8py_source}{}\label{patch_8py_source}\index{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/west\_commands/patch.py@{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/west\_commands/patch.py}}
+\mbox{\hyperlink{patch_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00001}\mbox{\hyperlink{namespacepatch}{00001}}\ \textcolor{keyword}{import}\ argparse}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00002}00002\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00003}00003\ \textcolor{keyword}{from}\ pathlib\ \textcolor{keyword}{import}\ Path}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00004}00004\ \textcolor{keyword}{import}\ subprocess}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00006}00006\ \textcolor{keyword}{from}\ west\ \textcolor{keyword}{import}\ log}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00007}00007\ \textcolor{keyword}{from}\ west.commands\ \textcolor{keyword}{import}\ WestCommand,\ CommandError}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00008}00008\ \textcolor{keyword}{from}\ west.manifest\ \textcolor{keyword}{import}\ MANIFEST\_PROJECT\_INDEX}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00009}00009\ \textcolor{keyword}{from}\ west.app.project\ \textcolor{keyword}{import}\ \_ProjectCommand}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00011}\mbox{\hyperlink{classpatch_1_1Patch}{00011}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classpatch_1_1Patch}{Patch}}(\_ProjectCommand):}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00012}\mbox{\hyperlink{classpatch_1_1Patch_abdd362d5f799ad16b5d6700efe590290}{00012}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classpatch_1_1Patch_abdd362d5f799ad16b5d6700efe590290}{\_\_init\_\_}}(self):}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00013}00013\ \ \ \ \ \ \ \ \ super().\mbox{\hyperlink{classpatch_1_1Patch_abdd362d5f799ad16b5d6700efe590290}{\_\_init\_\_}}(}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'patch'},}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'patch\ west\ subprojects'},}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Runs\ "{}git\ am\ patches/<project>/"{}\ on\ each\ of\ the\ specified\ projects.'})}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00018}\mbox{\hyperlink{classpatch_1_1Patch_ae92d604146267587094d18325be4d8f6}{00018}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classpatch_1_1Patch_ae92d604146267587094d18325be4d8f6}{do\_add\_parser}}(self,\ parser\_adder):}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00019}00019\ \ \ \ \ \ \ \ \ parser\ =\ self.\_parser(parser\_adder)}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00020}00020\ \ \ \ \ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/a'},\ \textcolor{stringliteral}{'-\/-\/apply'},\ action=\textcolor{stringliteral}{'store\_true'},}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'use\ "{}git\ apply"{}\ instead\ of\ "{}git\ am"{}'})}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00022}00022\ \ \ \ \ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'projects'},\ metavar=\textcolor{stringliteral}{'PROJECT'},\ nargs=\textcolor{stringliteral}{'*'},}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{'''projects\ (by\ name\ or\ path)\ to\ operate\ on;}}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00024}00024\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ defaults\ to\ active\ cloned\ projects'''})}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ parser}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00027}\mbox{\hyperlink{classpatch_1_1Patch_af3e0aa7ba947213a64e24de9e9e8d3eb}{00027}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classpatch_1_1Patch_af3e0aa7ba947213a64e24de9e9e8d3eb}{do\_run}}(self,\ args,\ ignored):}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00028}00028\ \ \ \ \ \ \ \ \ manifest\_project\_path\ =\ Path(self.manifest.projects[MANIFEST\_PROJECT\_INDEX].abspath)}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00029}00029\ \ \ \ \ \ \ \ \ am\ =\ \textcolor{stringliteral}{'apply'}\ \textcolor{keywordflow}{if}\ args.apply\ \textcolor{keywordflow}{else}\ \textcolor{stringliteral}{'am\ -\/-\/keep-\/cr'}}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00030}00030\ \ \ \ \ \ \ \ \ failed\ =\ []}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ project\ \textcolor{keywordflow}{in}\ self.\_cloned\_projects(args):}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ patches\_path\ =\ manifest\_project\_path\ /\ \textcolor{stringliteral}{'patches'}\ /\ project.name}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ patches\_path.exists():}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ log.banner(f\textcolor{stringliteral}{'patching\ \{project.name\_and\_path\}):'})}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ patches\ =\ filter(Path.is\_file,\ patches\_path.glob(\textcolor{stringliteral}{'*.patch'}))}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ patch\ \textcolor{keywordflow}{in}\ sorted(patches):}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ log.inf(f\textcolor{stringliteral}{'git\ \{am\}\ \{patch.name\}'})}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ project.git(am.split()\ +\ [str(patch)])}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ subprocess.CalledProcessError:}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ failed.append(project)}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{patch_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ self.\_handle\_failed(args,\ failed)}
+
+\end{DoxyCode}

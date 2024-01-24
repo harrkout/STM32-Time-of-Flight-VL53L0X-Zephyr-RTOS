@@ -1,0 +1,53 @@
+\doxysection{boot\+\_\+record.\+py}
+\hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source}{}\label{imgtool__1_87_82_2imgtool_2boot__record_8py_source}\index{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/imgtool\_1.7.2/imgtool/boot\_record.py@{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/imgtool\_1.7.2/imgtool/boot\_record.py}}
+\mbox{\hyperlink{imgtool__1_87_82_2imgtool_2boot__record_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00001}00001\ \textcolor{comment}{\#\ Copyright\ (c)\ 2019,\ Arm\ Limited.}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00002}00002\ \textcolor{comment}{\#\ Copyright\ (c)\ 2020,\ Linaro\ Limited}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00003}00003\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00004}00004\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00005}00005\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00006}00006\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00007}00007\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00008}00008\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00009}00009\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00010}00010\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00011}00011\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00012}00012\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00013}00013\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00014}00014\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00016}00016\ \textcolor{keyword}{from}\ enum\ \textcolor{keyword}{import}\ Enum}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00017}00017\ \textcolor{keyword}{import}\ cbor}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00020}00020\ \textcolor{keyword}{class\ }SwComponent(int,\ Enum):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00021}00021\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00022}00022\ \textcolor{stringliteral}{\ \ \ \ Software\ component\ property\ IDs\ specified\ by}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00023}00023\ \textcolor{stringliteral}{\ \ \ \ Arm's\ PSA\ Attestation\ API\ 1.0\ document.}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00024}00024\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00025}00025\ \ \ \ \ TYPE\ =\ 1}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00026}00026\ \ \ \ \ MEASUREMENT\_VALUE\ =\ 2}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00027}00027\ \ \ \ \ VERSION\ =\ 4}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00028}00028\ \ \ \ \ SIGNER\_ID\ =\ 5}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00029}00029\ \ \ \ \ MEASUREMENT\_DESCRIPTION\ =\ 6}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00032}00032\ \textcolor{keyword}{def\ }create\_sw\_component\_data(sw\_type,\ sw\_version,\ sw\_measurement\_description,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sw\_measurement\_value,\ sw\_signer\_id):}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00035}00035\ \ \ \ \ \textcolor{comment}{\#\ List\ of\ software\ component\ properties\ (Key\ ID\ +\ value)}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00036}00036\ \ \ \ \ properties\ =\ \{}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00037}00037\ \ \ \ \ \ \ \ \ SwComponent.TYPE:\ sw\_type,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ SwComponent.VERSION:\ sw\_version,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ SwComponent.SIGNER\_ID:\ sw\_signer\_id,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ SwComponent.MEASUREMENT\_DESCRIPTION:\ sw\_measurement\_description,}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00041}00041\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00043}00043\ \ \ \ \ \textcolor{comment}{\#\ Note:\ The\ measurement\ value\ must\ be\ the\ last\ item\ of\ the\ property}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00044}00044\ \ \ \ \ \textcolor{comment}{\#\ \ \ \ \ \ \ list\ because\ later\ it\ will\ be\ modified\ by\ the\ bootloader.}}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00045}00045\ \ \ \ \ properties[SwComponent.MEASUREMENT\_VALUE]\ =\ sw\_measurement\_value}
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{imgtool__1_87_82_2imgtool_2boot__record_8py_source_l00047}00047\ \ \ \ \ \textcolor{keywordflow}{return}\ cbor.dumps(properties)}
+
+\end{DoxyCode}

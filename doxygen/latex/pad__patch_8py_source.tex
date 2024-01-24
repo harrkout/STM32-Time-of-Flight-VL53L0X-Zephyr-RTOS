@@ -1,0 +1,30 @@
+\doxysection{pad\+\_\+patch.\+py}
+\hypertarget{pad__patch_8py_source}{}\label{pad__patch_8py_source}\index{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/pad\_patch.py@{/home/harrkout/github/Leshan-\/OMA-\/Lightweight-\/M2M-\/server-\/for-\/Zephyr-\//scripts/pad\_patch.py}}
+\mbox{\hyperlink{pad__patch_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00001}\mbox{\hyperlink{namespacepad__patch}{00001}}\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00002}00002\ \textcolor{keyword}{import}\ sys}
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00004}\mbox{\hyperlink{namespacepad__patch_afbca9dd74d9fe0e383a1255b7ad935eb}{00004}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacepad__patch_afbca9dd74d9fe0e383a1255b7ad935eb}{padded\_hex}}(s,p):}
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00005}00005\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{'0x'}\ +\ s[2:].zfill(p)}
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00007}\mbox{\hyperlink{namespacepad__patch_a458b255be8e4b02d797888e691486a32}{00007}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacepad__patch_a458b255be8e4b02d797888e691486a32}{start}}(path,max\_size,input\_header\_size):}
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00008}00008\ \ \ \ \ header\_size\ =\ max(input\_header\_size,8)}
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00009}00009\ \ \ \ \ size=os.stat(path).st\_size\ }
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00010}00010\ \ \ \ \ f=open(path,\textcolor{stringliteral}{'r+b'})}
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00011}00011\ \ \ \ \ contents\ =\ f.read()}
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00012}00012\ \ \ \ \ f.seek(0)}
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00013}00013\ \ \ \ \ f.write(\textcolor{stringliteral}{'NEWP'}.encode())\ }
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00014}00014\ \ \ \ \ f.write(size.to\_bytes(header\_size-\/4,byteorder=\textcolor{stringliteral}{'little'}))}
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00015}00015\ \ \ \ \ f.write(contents)}
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00017}00017\ \ \ \ \ print(\textcolor{stringliteral}{"{}Patch\ size:\ "{}}\ +\ hex(size)\ +\ \textcolor{stringliteral}{"{}\ +\ "{}}\ +\ hex(header\_size)\ +\ \textcolor{stringliteral}{"{}\ (header)"{}})}
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00019}00019\ \ \ \ \ if((max\_size-\/header\_size)<size):}
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00020}00020\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}WARNING:\ Patch\ too\ large\ for\ patch\ partition!"{}})}
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00022}00022\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{"{}\_\_main\_\_"{}}:}
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00023}00023\ \ \ \ \ \mbox{\hyperlink{namespacepad__patch_a458b255be8e4b02d797888e691486a32}{start}}(sys.argv[1],int(sys.argv[2],0),int(sys.argv[3],0))}
+\DoxyCodeLine{\Hypertarget{pad__patch_8py_source_l00024}00024\ }
+
+\end{DoxyCode}

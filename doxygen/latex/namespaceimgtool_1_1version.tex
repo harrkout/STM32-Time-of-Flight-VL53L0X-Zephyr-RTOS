@@ -1,0 +1,93 @@
+\doxysection{imgtool.\+version Namespace Reference}
+\hypertarget{namespaceimgtool_1_1version}{}\label{namespaceimgtool_1_1version}\index{imgtool.version@{imgtool.version}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceimgtool_1_1version_a2a39ba5ac0816078bde13413c1175c93}{decode\+\_\+version}} (text)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceimgtool_1_1version_a365b6b8c8835a4fe3fe2b5f7548a890d}{Semi\+Sem\+Version}}
+\item 
+\mbox{\hyperlink{namespaceimgtool_1_1version_aea9cbb993a9928d6e994737d9531bf19}{version\+\_\+re}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Semi Semantic Versioning
+
+Implements a subset of semantic versioning that is supportable by the image
+header.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceimgtool_1_1version_a2a39ba5ac0816078bde13413c1175c93}\label{namespaceimgtool_1_1version_a2a39ba5ac0816078bde13413c1175c93} 
+\index{imgtool.version@{imgtool.version}!decode\_version@{decode\_version}}
+\index{decode\_version@{decode\_version}!imgtool.version@{imgtool.version}}
+\doxysubsubsection{\texorpdfstring{decode\_version()}{decode\_version()}}
+{\footnotesize\ttfamily decode\+\_\+version (\begin{DoxyParamCaption}\item[{}]{text }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Decode the version string, which should be of the form maj.min.rev+build
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{imgtool_2version_8py_source_l00034}{34}} of file \mbox{\hyperlink{imgtool_2version_8py_source}{version.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00034\ \textcolor{keyword}{def\ }decode\_version(text):}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Decode\ the\ version\ string,\ which\ should\ be\ of\ the\ form\ maj.min.rev+build}}
+\DoxyCodeLine{00036\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00037\ \ \ \ \ m\ =\ version\_re.match(text)}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{if}\ m:}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ result\ =\ SemiSemVersion(}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int(m.group(1))\ \textcolor{keywordflow}{if}\ m.group(1)\ \textcolor{keywordflow}{else}\ 0,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int(m.group(3))\ \textcolor{keywordflow}{if}\ m.group(3)\ \textcolor{keywordflow}{else}\ 0,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int(m.group(5))\ \textcolor{keywordflow}{if}\ m.group(5)\ \textcolor{keywordflow}{else}\ 0,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int(m.group(7))\ \textcolor{keywordflow}{if}\ m.group(7)\ \textcolor{keywordflow}{else}\ 0)}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ msg\ =\ \textcolor{stringliteral}{"{}Invalid\ version\ number,\ should\ be\ maj.min.rev+build\ with\ later\ "{}}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ msg\ +=\ \textcolor{stringliteral}{"{}parts\ optional"{}}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(msg)}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceimgtool_1_1version_a365b6b8c8835a4fe3fe2b5f7548a890d}\label{namespaceimgtool_1_1version_a365b6b8c8835a4fe3fe2b5f7548a890d} 
+\index{imgtool.version@{imgtool.version}!SemiSemVersion@{SemiSemVersion}}
+\index{SemiSemVersion@{SemiSemVersion}!imgtool.version@{imgtool.version}}
+\doxysubsubsection{\texorpdfstring{SemiSemVersion}{SemiSemVersion}}
+{\footnotesize\ttfamily Semi\+Sem\+Version}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ namedtuple(\textcolor{stringliteral}{'SemiSemVersion'},\ [\textcolor{stringliteral}{'major'},\ \textcolor{stringliteral}{'minor'},\ \textcolor{stringliteral}{'revision'},}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'build'}])}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{imgtool_2version_8py_source_l00027}{27}} of file \mbox{\hyperlink{imgtool_2version_8py_source}{version.\+py}}.
+
+\Hypertarget{namespaceimgtool_1_1version_aea9cbb993a9928d6e994737d9531bf19}\label{namespaceimgtool_1_1version_aea9cbb993a9928d6e994737d9531bf19} 
+\index{imgtool.version@{imgtool.version}!version\_re@{version\_re}}
+\index{version\_re@{version\_re}!imgtool.version@{imgtool.version}}
+\doxysubsubsection{\texorpdfstring{version\_re}{version\_re}}
+{\footnotesize\ttfamily version\+\_\+re}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ re.compile(}
+\DoxyCodeLine{00002\ \ \ \ \ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{imgtool_2version_8py_source_l00030}{30}} of file \mbox{\hyperlink{imgtool_2version_8py_source}{version.\+py}}.
+
